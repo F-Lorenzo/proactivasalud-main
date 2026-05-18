@@ -21,7 +21,7 @@ const ACTIVITY_STRIP = [
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden bg-surface pt-16">
+    <section className="relative min-h-screen flex flex-col overflow-hidden bg-surface pt-16 lg:pt-24">
       {/* Right-panel background tint */}
       <div
         aria-hidden="true"

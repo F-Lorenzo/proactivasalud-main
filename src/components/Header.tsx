@@ -21,7 +21,7 @@ export function Header() {
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-32 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 lg:h-24 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center group">
           <Image
@@ -29,7 +29,7 @@ export function Header() {
             alt="Proactiva Salud"
             width={160}
             height={48}
-            className="h-28 w-auto object-contain"
+            className="h-10 lg:h-16 w-auto object-contain"
             priority
           />
         </Link>
