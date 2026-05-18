@@ -25,7 +25,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center group">
           <Image
-            src="/Logo_proactiva_salud_nuevo.png"
+            src="/ProActiva-NUEVA.png"
             alt="Proactiva Salud"
             width={160}
             height={48}

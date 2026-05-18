@@ -14,7 +14,7 @@ export function Footer() {
           <div>
             <div className="mb-4">
               <Image
-                src="/Logo_proactiva_salud_nuevo.png"
+                src="/ProActiva-NUEVA.png"
                 alt="Proactiva Salud"
                 width={160}
                 height={48}
