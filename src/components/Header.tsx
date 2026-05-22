@@ -6,9 +6,12 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
+const B2C = 'https://proactivasalud-b2-c.vercel.app/'
+const B2B = 'https://proactivasalud-b2-b.vercel.app/'
+
 const NAV = [
-  { label: 'Personas 50+',  href: '#personas' },
-  { label: 'Empresas',      href: '#empresas' },
+  { label: 'Personas 50+',  href: B2C },
+  { label: 'Empresas',      href: B2B },
   { label: 'Programas',     href: '#programas' },
   { label: 'Recursos',      href: '#recursos' },
   { label: 'Nosotros',      href: '#nosotros' },

@@ -65,7 +65,9 @@ export function DualSection() {
                 ))}
               </ul>
               <motion.a
-                href="#personas"
+                href="https://proactivasalud-b2-c.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 className="mt-8 self-start inline-flex items-center gap-2 bg-brand text-white px-7 py-3.5 rounded-full font-semibold text-[14px] hover:bg-brand-dark transition-colors group"
@@ -116,7 +118,9 @@ export function DualSection() {
                 ))}
               </ul>
               <motion.a
-                href="#demo"
+                href="https://proactivasalud-b2-b.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 className="mt-8 self-start inline-flex items-center gap-2 bg-navy text-white px-7 py-3.5 rounded-full font-semibold text-[14px] hover:bg-navy/85 transition-colors group"

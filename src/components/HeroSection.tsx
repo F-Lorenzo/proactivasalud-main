@@ -79,7 +79,9 @@ export function HeroSection() {
               className="flex flex-col sm:flex-row gap-4"
             >
               <motion.a
-                href="#personas"
+                href="https://proactivasalud-b2-c.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 bg-brand text-white px-8 py-4 rounded-full font-semibold text-[15px] hover:bg-brand-dark transition-colors shadow-sm group"
@@ -88,7 +90,9 @@ export function HeroSection() {
                 <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
               </motion.a>
               <motion.a
-                href="#empresas"
+                href="https://proactivasalud-b2-b.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 border-2 border-navy/18 text-navy px-8 py-4 rounded-full font-semibold text-[15px] hover:border-brand hover:text-brand transition-colors"
