@@ -1,25 +1,27 @@
-import { Header } from '@/components/Header'
-import { Hero } from '@/components/Hero'
-import { EmotionalHook } from '@/components/EmotionalHook'
-import { Pillars } from '@/components/Pillars'
-import { HealthStats } from '@/components/HealthStats'
-import { Plans } from '@/components/Plans'
-import { Testimonials } from '@/components/Testimonials'
-import { CTASection } from '@/components/CTASection'
-import { Footer } from '@/components/Footer'
+import { Header }            from '@/components/Header'
+import { HeroSection }        from '@/components/HeroSection'
+import { FeatureStrip }       from '@/components/FeatureStrip'
+import { DualSection }        from '@/components/DualSection'
+import { MetricsStrip }       from '@/components/MetricsStrip'
+import { PillarsSection }     from '@/components/PillarsSection'
+import { TestimonialSection } from '@/components/TestimonialSection'
+import { CtaSection }         from '@/components/CTASection'
+import { FooterFeatures }     from '@/components/FooterFeatures'
+import { Footer }             from '@/components/Footer'
 
 export default function Home() {
   return (
     <>
       <Header />
       <main id="main">
-        <Hero />
-        <EmotionalHook />
-        <Pillars />
-        <HealthStats />
-        <Plans />
-        <Testimonials />
-        <CTASection />
+        <HeroSection />
+        <FeatureStrip />
+        <DualSection />
+        <MetricsStrip />
+        <PillarsSection />
+        <TestimonialSection />
+        <CtaSection />
+        <FooterFeatures />
       </main>
       <Footer />
     </>

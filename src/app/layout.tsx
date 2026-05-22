@@ -1,30 +1,30 @@
 import type { Metadata } from 'next'
-import { Rufina, Nunito } from 'next/font/google'
+import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
 
-const rufina = Rufina({
-  weight: ['400', '700'],
-  variable: '--font-rufina',
+const playfair = Playfair_Display({
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-playfair',
   subsets: ['latin'],
   display: 'swap',
 })
 
-const nunito = Nunito({
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-nunito',
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Proactiva Salud — Bienestar integral para mayores de 50',
+  title: 'Proactiva Salud — Bienestar para la Generación Silver',
   description:
-    'Programa de bienestar integral para personas mayores de 50 años. Nutrición, actividad física, salud emocional y teleconsultas desde tu hogar.',
+    'Programas de prevención, salud integral y apoyo humano para personas 50+ y organizaciones. Human Care Platform.',
   keywords:
-    'bienestar, salud, mayores de 50, nutrición, actividad física, teleconsultas, Argentina',
+    'bienestar, salud, mayores de 50, generación silver, prevención, Argentina',
   openGraph: {
     title: 'Proactiva Salud',
-    description: 'Tu mejor etapa no terminó. Acaba de empezar.',
+    description: 'Bienestar, autonomía y calidad de vida en cada etapa.',
     type: 'website',
     locale: 'es_AR',
   },
@@ -36,10 +36,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="es"
-      className={`${rufina.variable} ${nunito.variable} h-full`}
-    >
+    <html lang="es" className={`${playfair.variable} ${inter.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         <a
           href="#main"

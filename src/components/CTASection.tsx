@@ -1,202 +1,96 @@
 'use client'
 
-import { useState } from 'react'
-import { Send, CircleCheck } from 'lucide-react'
-import { PLANS } from '@/lib/constants'
+// ──────────────────────────────────────────────────────────────────────────────
+// NEW DESIGN — replaces previous pilot-registration form
+// ──────────────────────────────────────────────────────────────────────────────
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
 
-const INPUT_BASE =
-  'w-full px-4 py-3 rounded-xl bg-surface border border-brand-muted/60 font-body text-ink placeholder:text-ink-soft/50 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition-colors text-base'
-
-const LABEL_BASE =
-  'font-body text-xs font-semibold text-ink-mid uppercase tracking-wide'
-
-export function CTASection() {
-  const [submitted, setSubmitted] = useState(false)
-  const [nombre, setNombre] = useState('')
-  const [form, setForm] = useState({
-    apellido: '',
-    email: '',
-    telefono: '',
-    ciudad: '',
-    plan: '',
-  })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitted(true)
-  }
-
+export function CtaSection() {
   return (
-    <section id="inscripcion" className="py-20 lg:py-28 bg-brand-dark">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid lg:grid-cols-[1fr_1.15fr] gap-16 items-start">
+    <section className="py-16 px-6 lg:px-8 bg-white" id="demo">
+      <div className="max-w-7xl mx-auto">
+        <div
+          className="rounded-[40px] overflow-hidden relative"
+          style={{ background: 'linear-gradient(135deg, #0D5C4F 0%, #0e6b5c 50%, #093d33 100%)' }}
+        >
+          {/* Blobs */}
+          <div aria-hidden className="pointer-events-none absolute -top-16 -right-16 w-72 h-72 rounded-full bg-white/5 blur-3xl" />
+          <div aria-hidden className="pointer-events-none absolute bottom-0 left-1/3 w-56 h-56 rounded-full bg-white/5 blur-3xl" />
 
-          {/* ── Left: copy ────────────────────────────────────────────── */}
-          <div className="flex flex-col gap-6 lg:pt-4">
-            <p className="font-body text-brand-light/60 text-xs tracking-widest uppercase font-semibold">
-              Empezá hoy
-            </p>
-            <h2 className="font-display text-4xl lg:text-5xl text-white leading-tight">
-              Reservá tu cupo en el piloto
-            </h2>
-            <p className="font-body text-xl text-white/65 leading-relaxed max-w-[42ch]">
-              Dejanos tus datos y un asesor te va a contactar para contarte todo sobre el programa piloto de Junio 2026.
-            </p>
+          <div className="relative flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-16 p-10 lg:p-16">
 
-            <ul className="flex flex-col gap-4 mt-2">
-              {[
-                'Sin compromiso — solo información personalizada',
-                'Los cupos son limitados: 100 personas',
-                'Te contactamos a la brevedad para confirmar tu lugar',
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <CircleCheck
-                    size={18}
-                    className="text-accent flex-shrink-0"
-                    aria-hidden="true"
-                  />
-                  <span className="font-body text-white/75 text-sm">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Text */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.65, ease: [0.22,1,0.36,1] }}
+              className="flex-1 space-y-4"
+            >
+              <h2 className="font-display text-[2.2rem] lg:text-[2.8rem] font-semibold text-white leading-[1.1]">
+                Viví más y mejor.
+                <br />
+                <span className="text-sage-light">Estamos para acompañarte.</span>
+              </h2>
+              <p className="text-white/65 text-[16px] leading-relaxed max-w-md">
+                Sumate a Proactiva y accedé todo lo que necesitás para vivir más y mejor en cada etapa.
+              </p>
+            </motion.div>
 
-          {/* ── Right: form ───────────────────────────────────────────── */}
-          <div className="bg-white rounded-3xl p-8 lg:p-10">
-            {submitted ? (
-              <div className="flex flex-col items-center justify-center text-center gap-6 py-10">
-                <div className="w-16 h-16 rounded-full bg-accent-light flex items-center justify-center">
-                  <CircleCheck size={32} className="text-accent" aria-hidden="true" />
-                </div>
-                <h3 className="font-display text-2xl text-ink font-bold">
-                  ¡Gracias, {nombre}!
-                </h3>
-                <p className="font-body text-ink-mid max-w-xs leading-relaxed">
-                  Un asesor de Proactiva Salud se comunicará con vos pronto para confirmar tu lugar en el piloto de Junio 2026.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-                <h3 className="font-display text-2xl text-ink font-bold mb-1">
-                  Completá tus datos
-                </h3>
+            {/* Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.65, delay: 0.14, ease: [0.22,1,0.36,1] }}
+              className="flex flex-col gap-3 flex-shrink-0"
+            >
+              <motion.a
+                href="#personas"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 bg-white text-brand px-7 py-3.5 rounded-full font-semibold text-[14.5px] hover:bg-ivory transition-colors group whitespace-nowrap"
+              >
+                Soy una persona 50+
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+              <motion.a
+                href="#empresas"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="inline-flex items-center gap-2 bg-white/10 border border-white/25 text-white px-7 py-3.5 rounded-full font-semibold text-[14.5px] hover:bg-white/20 transition-colors group"
+              >
+                Quiero mejorar el bienestar de mi organización
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+            </motion.div>
 
-                {/* Nombre + Apellido */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="nombre" className={LABEL_BASE}>Nombre</label>
-                    <input
-                      id="nombre"
-                      name="nombre"
-                      type="text"
-                      required
-                      autoComplete="given-name"
-                      placeholder="Tu nombre"
-                      value={nombre}
-                      onChange={(e) => setNombre(e.target.value)}
-                      className={INPUT_BASE}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="apellido" className={LABEL_BASE}>Apellido</label>
-                    <input
-                      id="apellido"
-                      name="apellido"
-                      type="text"
-                      required
-                      autoComplete="family-name"
-                      placeholder="Tu apellido"
-                      value={form.apellido}
-                      onChange={(e) => setForm((f) => ({ ...f, apellido: e.target.value }))}
-                      className={INPUT_BASE}
-                    />
-                  </div>
-                </div>
+            {/* Accent photo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.75, delay: 0.2, ease: [0.22,1,0.36,1] }}
+              className="hidden lg:block relative rounded-2xl overflow-hidden w-48 h-48 flex-shrink-0 self-center"
+            >
+              <Image
+                src="/pareja-haciendo-ejercicio.png"
+                alt="Pareja activa haciendo ejercicio"
+                fill
+                className="object-cover"
+                sizes="192px"
+              />
+              <div className="absolute inset-0 bg-brand/20 pointer-events-none" />
+            </motion.div>
 
-                {/* Email */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="email" className={LABEL_BASE}>Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    placeholder="tu@email.com"
-                    value={form.email}
-                    onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                    className={INPUT_BASE}
-                  />
-                </div>
-
-                {/* Teléfono + Ciudad */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="telefono" className={LABEL_BASE}>Teléfono</label>
-                    <input
-                      id="telefono"
-                      name="telefono"
-                      type="tel"
-                      required
-                      autoComplete="tel"
-                      placeholder="+54 9 11..."
-                      value={form.telefono}
-                      onChange={(e) => setForm((f) => ({ ...f, telefono: e.target.value }))}
-                      className={INPUT_BASE}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="ciudad" className={LABEL_BASE}>Ciudad</label>
-                    <input
-                      id="ciudad"
-                      name="ciudad"
-                      type="text"
-                      required
-                      autoComplete="address-level2"
-                      placeholder="Tu ciudad"
-                      value={form.ciudad}
-                      onChange={(e) => setForm((f) => ({ ...f, ciudad: e.target.value }))}
-                      className={INPUT_BASE}
-                    />
-                  </div>
-                </div>
-
-                {/* Plan */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="plan" className={LABEL_BASE}>Plan de interés</label>
-                  <select
-                    id="plan"
-                    name="plan"
-                    value={form.plan}
-                    onChange={(e) => setForm((f) => ({ ...f, plan: e.target.value }))}
-                    className={`${INPUT_BASE} appearance-none cursor-pointer`}
-                  >
-                    <option value="">No sé todavía — me orientarán</option>
-                    {PLANS.map((plan) => (
-                      <option key={plan.id} value={plan.id}>
-                        Plan {plan.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Submit */}
-                <button
-                  type="submit"
-                  className="mt-1 w-full flex items-center justify-center gap-2.5 bg-brand text-white font-body font-semibold text-base py-4 rounded-full hover:bg-brand-dark transition-colors shadow-button"
-                >
-                  <Send size={18} aria-hidden="true" />
-                  Reservar mi cupo en el piloto
-                </button>
-
-                <p className="font-body text-xs text-ink-soft text-center">
-                  Al enviar aceptás que Proactiva Salud te contacte con información del programa.
-                </p>
-              </form>
-            )}
           </div>
         </div>
       </div>
     </section>
   )
 }
+
+// Backward-compat alias
+export { CtaSection as CTASection }

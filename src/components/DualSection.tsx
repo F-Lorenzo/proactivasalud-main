@@ -1,0 +1,134 @@
+'use client'
+
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { CircleCheck, ArrowRight } from 'lucide-react'
+
+const B2C = [
+  'Salud física y prevención',
+  'Salud emocional y cognitiva',
+  'Nutrición y hábitos saludables',
+  'Actividad y movilidad',
+  'Comunidad y bienestar social',
+]
+
+const B2B = [
+  'Programas para población 50+',
+  'Prevención y reducción de costos',
+  'Mejora de calidad de vida',
+  'Acompañamiento y adherencia',
+  'Reportes y métricas de impacto',
+]
+
+export function DualSection() {
+  return (
+    <section className="py-24 bg-ivory" id="personas">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-8">
+
+          {/* ── B2C Card ── */}
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.22,1,0.36,1] }}
+            className="bg-sage-pale rounded-[32px] overflow-hidden flex flex-col"
+          >
+            {/* Photo */}
+            <div className="relative h-60 overflow-hidden">
+              <Image
+                src="/hombre-50-con-celu.png"
+                alt="Persona 50+ usando la plataforma Proactiva en su celular"
+                fill
+                className="object-cover"
+                sizes="(max-width:1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-sage/30 to-transparent" />
+              <div className="absolute top-4 left-4">
+                <span className="bg-white/90 backdrop-blur-sm text-brand text-[11px] font-semibold px-3 py-1.5 rounded-full tracking-wide uppercase">
+                  Para personas 50+
+                </span>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-8 flex flex-col flex-1">
+              <h3 className="font-display text-[1.85rem] font-semibold text-navy mb-6 leading-tight">
+                Tu bienestar integral,<br />en un solo lugar
+              </h3>
+              <ul className="space-y-3 flex-1">
+                {B2C.map(item => (
+                  <li key={item} className="flex items-center gap-3">
+                    <CircleCheck className="text-brand w-5 h-5 flex-shrink-0" />
+                    <span className="text-[14px] text-navy/80">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <motion.a
+                href="#personas"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="mt-8 self-start inline-flex items-center gap-2 bg-brand text-white px-7 py-3.5 rounded-full font-semibold text-[14px] hover:bg-brand-dark transition-colors group"
+              >
+                Conocer programas
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+            </div>
+          </motion.div>
+
+          {/* ── B2B Card ── */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.12, ease: [0.22,1,0.36,1] }}
+            className="bg-orchid-pale rounded-[32px] overflow-hidden flex flex-col"
+            id="empresas"
+          >
+            {/* Photo */}
+            <div className="relative h-60 overflow-hidden">
+              <Image
+                src="/reunion-coaching-virtual.png"
+                alt="Empresa implementando programa de bienestar para empleados mayores de 50"
+                fill
+                className="object-cover"
+                sizes="(max-width:1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-orchid/30 to-transparent" />
+              <div className="absolute top-4 left-4">
+                <span className="bg-white/90 backdrop-blur-sm text-orchid text-[11px] font-semibold px-3 py-1.5 rounded-full tracking-wide uppercase">
+                  Para empresas y organizaciones
+                </span>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-8 flex flex-col flex-1">
+              <h3 className="font-display text-[1.85rem] font-semibold text-navy mb-6 leading-tight">
+                Bienestar que genera<br />impacto real
+              </h3>
+              <ul className="space-y-3 flex-1">
+                {B2B.map(item => (
+                  <li key={item} className="flex items-center gap-3">
+                    <CircleCheck className="text-orchid w-5 h-5 flex-shrink-0" />
+                    <span className="text-[14px] text-navy/80">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <motion.a
+                href="#demo"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="mt-8 self-start inline-flex items-center gap-2 bg-navy text-white px-7 py-3.5 rounded-full font-semibold text-[14px] hover:bg-navy/85 transition-colors group"
+              >
+                Solicitar demo
+                <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </motion.a>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    </section>
+  )
+}
