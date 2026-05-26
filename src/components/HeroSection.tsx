@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, HeartHandshake } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 const AVATARS = [
   { initial: 'A', bg: '#0D5C4F' },
@@ -18,6 +19,7 @@ const fadeUp = {
 }
 
 export function HeroSection() {
+  const { t } = useLanguage()
   return (
     <section className="relative min-h-screen flex items-center bg-white overflow-hidden pt-[72px]">
 
@@ -47,7 +49,7 @@ export function HeroSection() {
             <motion.div variants={fadeUp} transition={{ duration: 0.6, ease: [0.22,1,0.36,1] }}>
               <span className="inline-flex items-center gap-2 text-[11.5px] font-semibold tracking-[0.16em] text-brand uppercase bg-sage-pale px-4 py-2 rounded-full">
                 <span aria-hidden className="w-1.5 h-1.5 rounded-full bg-brand" />
-                Generación Silver
+                {t.hero.eyebrow}
               </span>
             </motion.div>
 
@@ -57,9 +59,9 @@ export function HeroSection() {
               transition={{ duration: 0.65, ease: [0.22,1,0.36,1] }}
               className="font-display text-[2.7rem] sm:text-5xl lg:text-[3.4rem] xl:text-[4rem] font-semibold text-navy leading-[1.08] tracking-tight"
             >
-              Bienestar, autonomía<br />
-              y calidad de vida<br />
-              <em className="not-italic italic text-brand">en cada etapa.</em>
+              {t.hero.headline1}<br />
+              {t.hero.headline2}<br />
+              <em className="not-italic italic text-brand">{t.hero.headlineAccent}</em>
             </motion.h1>
 
             {/* Subtitle */}
@@ -68,8 +70,7 @@ export function HeroSection() {
               transition={{ duration: 0.6, ease: [0.22,1,0.36,1] }}
               className="text-[17px] text-muted leading-relaxed max-w-[44ch]"
             >
-              Proactiva acompaña a las personas 50+ con programas de prevención,
-              salud integral y apoyo humano para vivir más y mejor.
+              {t.hero.subtitle}
             </motion.p>
 
             {/* CTAs */}
@@ -86,7 +87,7 @@ export function HeroSection() {
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 bg-brand text-white px-8 py-4 rounded-full font-semibold text-[15px] hover:bg-brand-dark transition-colors shadow-sm group"
               >
-                Soy una persona 50+
+                {t.hero.cta1}
                 <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
               </motion.a>
               <motion.a
@@ -97,7 +98,7 @@ export function HeroSection() {
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center justify-center gap-2 border-2 border-navy/18 text-navy px-8 py-4 rounded-full font-semibold text-[15px] hover:border-brand hover:text-brand transition-colors"
               >
-                Para empresas y organizaciones
+                {t.hero.cta2}
               </motion.a>
             </motion.div>
 
@@ -120,8 +121,8 @@ export function HeroSection() {
                 ))}
               </div>
               <div>
-                <p className="text-[13.5px] font-semibold text-navy">+25.000 personas 50+</p>
-                <p className="text-[12px] text-muted">ya confían en Proactiva</p>
+                <p className="text-[13.5px] font-semibold text-navy">{t.hero.socialTitle}</p>
+                <p className="text-[12px] text-muted">{t.hero.socialSub}</p>
               </div>
             </motion.div>
           </motion.div>
@@ -165,9 +166,9 @@ export function HeroSection() {
               </div>
               <div>
                 <p className="text-[12.5px] font-semibold text-navy leading-tight">
-                  Acompañamiento humano y cercano
+                  {t.hero.floatingTitle}
                 </p>
-                <p className="text-[11px] text-muted mt-0.5">Profesionales + tecnología</p>
+                <p className="text-[11px] text-muted mt-0.5">{t.hero.floatingSub}</p>
               </div>
             </motion.div>
           </motion.div>

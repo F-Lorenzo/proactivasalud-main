@@ -1,13 +1,12 @@
 'use client'
 
-// ──────────────────────────────────────────────────────────────────────────────
-// NEW DESIGN — replaces previous pilot-registration form
-// ──────────────────────────────────────────────────────────────────────────────
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export function CtaSection() {
+  const { t } = useLanguage()
   return (
     <section className="py-16 px-6 lg:px-8 bg-white" id="demo">
       <div className="max-w-7xl mx-auto">
@@ -30,12 +29,12 @@ export function CtaSection() {
               className="flex-1 space-y-4"
             >
               <h2 className="font-display text-[2.2rem] lg:text-[2.8rem] font-semibold text-white leading-[1.1]">
-                Viví más y mejor.
+                {t.cta.title}
                 <br />
-                <span className="text-sage-light">Estamos para acompañarte.</span>
+                <span className="text-sage-light">{t.cta.titleAccent}</span>
               </h2>
               <p className="text-white/65 text-[16px] leading-relaxed max-w-md">
-                Sumate a Proactiva y accedé todo lo que necesitás para vivir más y mejor en cada etapa.
+                {t.cta.subtitle}
               </p>
             </motion.div>
 
@@ -55,7 +54,7 @@ export function CtaSection() {
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2 bg-white text-brand px-7 py-3.5 rounded-full font-semibold text-[14.5px] hover:bg-ivory transition-colors group whitespace-nowrap"
               >
-                Soy una persona 50+
+                {t.cta.btn1}
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </motion.a>
               <motion.a
@@ -66,7 +65,7 @@ export function CtaSection() {
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2 bg-white/10 border border-white/25 text-white px-7 py-3.5 rounded-full font-semibold text-[14.5px] hover:bg-white/20 transition-colors group"
               >
-                Quiero mejorar el bienestar de mi organización
+                {t.cta.btn2}
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </motion.a>
             </motion.div>

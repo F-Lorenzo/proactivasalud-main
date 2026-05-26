@@ -5,27 +5,30 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 const B2C = 'https://proactivasalud-b2-c.vercel.app/'
 const B2B = 'https://proactivasalud-b2-b.vercel.app/'
 
-const NAV = [
-  { label: 'Personas 50+',  href: B2C },
-  { label: 'Empresas',      href: B2B },
-  { label: 'Programas',     href: '#programas' },
-  { label: 'Recursos',      href: '#recursos' },
-  { label: 'Nosotros',      href: '#nosotros' },
-]
-
 export function Header() {
-  const [scrolled, setScrolled]   = useState(false)
-  const [menuOpen, setMenuOpen]   = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  const NAV = [
+    { label: t.nav.personas,  href: B2C },
+    { label: t.nav.empresas,  href: B2B },
+    { label: t.nav.programas, href: '#programas' },
+    { label: t.nav.recursos,  href: '#recursos' },
+    { label: t.nav.nosotros,  href: '#nosotros' },
+  ]
 
   return (
     <header
@@ -52,7 +55,7 @@ export function Header() {
           <nav className="hidden lg:flex items-center gap-7" aria-label="Navegación principal">
             {NAV.map(({ label, href }) => (
               <Link
-                key={href}
+                key={label}
                 href={href}
                 className="text-[13.5px] font-medium text-navy/65 hover:text-brand transition-colors duration-200"
               >
@@ -61,26 +64,30 @@ export function Header() {
             ))}
           </nav>
 
-          {/* ── Desktop CTA ── */}
-          <div className="hidden lg:block">
+          {/* ── Desktop right: switcher + CTA ── */}
+          <div className="hidden lg:flex items-center gap-3">
+            <LanguageSwitcher />
             <motion.a
               href="#demo"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="bg-brand text-white text-[13.5px] font-semibold px-6 py-2.5 rounded-full hover:bg-brand-dark transition-colors shadow-sm"
             >
-              Solicitar demo
+              {t.nav.solicitarDemo}
             </motion.a>
           </div>
 
-          {/* ── Mobile burger ── */}
-          <button
-            className="lg:hidden p-2 text-navy rounded-lg hover:bg-navy/5 transition-colors"
-            onClick={() => setMenuOpen(o => !o)}
-            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
+          {/* ── Mobile right: switcher + burger ── */}
+          <div className="lg:hidden flex items-center gap-2">
+            <LanguageSwitcher />
+            <button
+              className="p-2 text-navy rounded-lg hover:bg-navy/5 transition-colors"
+              onClick={() => setMenuOpen(o => !o)}
+              aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
+            >
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -98,7 +105,7 @@ export function Header() {
             <div className="px-6 py-5 space-y-1">
               {NAV.map(({ label, href }) => (
                 <Link
-                  key={href}
+                  key={label}
                   href={href}
                   onClick={() => setMenuOpen(false)}
                   className="block py-3 text-[15px] font-medium text-navy/75 hover:text-brand transition-colors border-b border-gray-50 last:border-0"
@@ -111,7 +118,7 @@ export function Header() {
                 onClick={() => setMenuOpen(false)}
                 className="block mt-4 w-full text-center bg-brand text-white py-3.5 rounded-full font-semibold text-[15px]"
               >
-                Solicitar demo
+                {t.nav.solicitarDemo}
               </a>
             </div>
           </motion.div>

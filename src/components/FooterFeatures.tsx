@@ -2,23 +2,27 @@
 
 import { motion } from 'framer-motion'
 import { UserCheck, Heart, Monitor, Shield, Microscope } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
-const ITEMS = [
-  { icon: UserCheck,   label: 'Profesionales especializados' },
-  { icon: Heart,       label: 'Atención personalizada y cercana' },
-  { icon: Monitor,     label: 'Plataforma simple e intuitiva' },
-  { icon: Shield,      label: 'Seguridad y privacidad garantizadas' },
-  { icon: Microscope,  label: 'Programas basados en evidencia científica' },
-]
+const ICONS = [UserCheck, Heart, Monitor, Shield, Microscope]
 
 export function FooterFeatures() {
+  const { t } = useLanguage()
+  const ITEMS = [
+    { icon: ICONS[0], label: t.footerFeatures.f1 },
+    { icon: ICONS[1], label: t.footerFeatures.f2 },
+    { icon: ICONS[2], label: t.footerFeatures.f3 },
+    { icon: ICONS[3], label: t.footerFeatures.f4 },
+    { icon: ICONS[4], label: t.footerFeatures.f5 },
+  ]
+
   return (
     <section className="py-12 bg-white border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {ITEMS.map((item, i) => (
             <motion.div
-              key={item.label}
+              key={i}
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

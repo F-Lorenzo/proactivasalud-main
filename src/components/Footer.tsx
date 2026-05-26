@@ -1,30 +1,43 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { Heart } from 'lucide-react'
-
-const LINKS: Record<string, { label: string; href: string }[]> = {
-  'Personas 50+': [
-    { label: 'Programas de salud',   href: '#programas' },
-    { label: 'Salud emocional',      href: '#programas' },
-    { label: 'Nutrición',            href: '#programas' },
-    { label: 'Actividad física',     href: '#programas' },
-    { label: 'Comunidad',            href: '#programas' },
-  ],
-  'Empresas': [
-    { label: 'Programas corporativos', href: '#empresas' },
-    { label: 'Métricas de impacto',    href: '#empresas' },
-    { label: 'Solicitar demo',         href: '#demo'     },
-  ],
-  'Proactiva': [
-    { label: 'Nosotros',             href: '#nosotros' },
-    { label: 'Blog',                 href: '#recursos' },
-    { label: 'Privacidad',           href: '/privacidad' },
-    { label: 'Términos',             href: '/terminos'   },
-  ],
-}
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export function Footer() {
   const year = new Date().getFullYear()
+  const { t } = useLanguage()
+
+  const LINKS = [
+    {
+      title: t.footer.personas,
+      links: [
+        { label: t.footer.link_programasSalud,   href: '#programas' },
+        { label: t.footer.link_saludEmocional,    href: '#programas' },
+        { label: t.footer.link_nutricion,         href: '#programas' },
+        { label: t.footer.link_actividadFisica,   href: '#programas' },
+        { label: t.footer.link_comunidad,         href: '#programas' },
+      ],
+    },
+    {
+      title: t.footer.empresas,
+      links: [
+        { label: t.footer.link_programasCorporativos, href: '#empresas' },
+        { label: t.footer.link_metricasImpacto,       href: '#empresas' },
+        { label: t.footer.link_solicitarDemo,          href: '#demo'     },
+      ],
+    },
+    {
+      title: t.footer.proactiva,
+      links: [
+        { label: t.footer.link_nosotros,   href: '#nosotros'    },
+        { label: t.footer.link_blog,       href: '#recursos'    },
+        { label: t.footer.link_privacidad, href: '/privacidad'  },
+        { label: t.footer.link_terminos,   href: '/terminos'    },
+      ],
+    },
+  ]
 
   return (
     <footer className="bg-navy py-16">
@@ -43,19 +56,19 @@ export function Footer() {
               className="h-12 w-auto object-contain brightness-0 invert"
             />
             <p className="text-white/40 text-[13px] leading-relaxed max-w-[22ch]">
-              Bienestar integral para la generación silver. Human Care Platform.
+              Bienestar integral {t.footer.tagline}. Human Care Platform.
             </p>
           </div>
 
           {/* Nav columns */}
-          {Object.entries(LINKS).map(([title, links]) => (
+          {LINKS.map(({ title, links }) => (
             <div key={title}>
               <p className="text-white/25 text-[11px] font-semibold uppercase tracking-[0.14em] mb-4">
                 {title}
               </p>
               <ul className="flex flex-col gap-2.5">
                 {links.map(link => (
-                  <li key={link.label}>
+                  <li key={link.href}>
                     <Link
                       href={link.href}
                       className="text-white/45 text-[13px] hover:text-white transition-colors"
@@ -72,10 +85,10 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/25 text-[12px]">
-            © {year} Proactiva Salud. Todos los derechos reservados.
+            © {year} Proactiva Salud. {t.footer.copyright}
           </p>
           <p className="text-white/25 text-[12px] flex items-center gap-1.5">
-            Hecho con <Heart size={11} className="text-brand fill-brand" aria-hidden /> para la generación silver
+            Hecho con <Heart size={11} className="text-brand fill-brand" aria-hidden /> {t.footer.tagline}
           </p>
         </div>
 

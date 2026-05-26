@@ -2,46 +2,31 @@
 
 import { motion } from 'framer-motion'
 import { ShieldCheck, HeartHandshake, Smartphone, Lock } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
-const FEATURES = [
-  {
-    icon: ShieldCheck,
-    title: 'Enfoque preventivo',
-    desc:  'Cuidamos tu salud para prevenirla, no solo tratarla.',
-    iconBg:    'bg-brand/10',
-    iconColor: 'text-brand',
-  },
-  {
-    icon: HeartHandshake,
-    title: 'Acompañamiento real',
-    desc:  'Contamos contigo al servicio de tus necesidades.',
-    iconBg:    'bg-gold/20',
-    iconColor: 'text-[#b8942c]',
-  },
-  {
-    icon: Smartphone,
-    title: 'Fácil y accesible',
-    desc:  'Plataforma simple, clara y diseñada para vos.',
-    iconBg:    'bg-sky-soft/20',
-    iconColor: 'text-sky-soft',
-  },
-  {
-    icon: Lock,
-    title: 'Confidencial y segura',
-    desc:  'Tu información siempre protegida.',
-    iconBg:    'bg-orchid/15',
-    iconColor: 'text-orchid',
-  },
+const ICONS = [
+  { icon: ShieldCheck, iconBg: 'bg-brand/10',    iconColor: 'text-brand' },
+  { icon: HeartHandshake, iconBg: 'bg-gold/20',  iconColor: 'text-[#b8942c]' },
+  { icon: Smartphone, iconBg: 'bg-sky-soft/20',  iconColor: 'text-sky-soft' },
+  { icon: Lock,       iconBg: 'bg-orchid/15',    iconColor: 'text-orchid' },
 ]
 
 export function FeatureStrip() {
+  const { t } = useLanguage()
+  const FEATURES = [
+    { ...ICONS[0], title: t.features.f1Title, desc: t.features.f1Desc },
+    { ...ICONS[1], title: t.features.f2Title, desc: t.features.f2Desc },
+    { ...ICONS[2], title: t.features.f3Title, desc: t.features.f3Desc },
+    { ...ICONS[3], title: t.features.f4Title, desc: t.features.f4Desc },
+  ]
+
   return (
     <section className="py-14 bg-white border-y border-gray-50/80">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           {FEATURES.map((f, i) => (
             <motion.div
-              key={f.title}
+              key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

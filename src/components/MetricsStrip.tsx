@@ -2,15 +2,20 @@
 
 import { motion } from 'framer-motion'
 import { Users, Building2, Heart, TrendingDown } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
-const METRICS = [
-  { icon: Users,       value: '+25.000',     label: 'Personas 50+ activas' },
-  { icon: Building2,   value: '+120',         label: 'Empresas y organizaciones' },
-  { icon: Heart,       value: '+1.200.000',   label: 'Interacciones de bienestar' },
-  { icon: TrendingDown,value: '-32%',         label: 'Reducción promedio de ausentismo*' },
-]
+const VALUES = ['+25.000', '+120', '+1.200.000', '-32%']
+const ICONS  = [Users, Building2, Heart, TrendingDown]
 
 export function MetricsStrip() {
+  const { t } = useLanguage()
+  const METRICS = [
+    { icon: ICONS[0], value: VALUES[0], label: t.metrics.m1Label },
+    { icon: ICONS[1], value: VALUES[1], label: t.metrics.m2Label },
+    { icon: ICONS[2], value: VALUES[2], label: t.metrics.m3Label },
+    { icon: ICONS[3], value: VALUES[3], label: t.metrics.m4Label },
+  ]
+
   return (
     <section
       className="py-20 relative overflow-hidden"
@@ -24,7 +29,7 @@ export function MetricsStrip() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-6">
           {METRICS.map((m, i) => (
             <motion.div
-              key={m.label}
+              key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -42,7 +47,7 @@ export function MetricsStrip() {
           ))}
         </div>
         <p className="text-center text-white/25 text-[11px] mt-10 tracking-wide">
-          *En programas en desarrollo. Datos proyectados.
+          {t.metrics.footnote}
         </p>
       </div>
     </section>

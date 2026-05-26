@@ -3,24 +3,13 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { CircleCheck, ArrowRight } from 'lucide-react'
-
-const B2C = [
-  'Salud física y prevención',
-  'Salud emocional y cognitiva',
-  'Nutrición y hábitos saludables',
-  'Actividad y movilidad',
-  'Comunidad y bienestar social',
-]
-
-const B2B = [
-  'Programas para población 50+',
-  'Prevención y reducción de costos',
-  'Mejora de calidad de vida',
-  'Acompañamiento y adherencia',
-  'Reportes y métricas de impacto',
-]
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export function DualSection() {
+  const { t } = useLanguage()
+  const B2C = [t.dual.b2cItem1, t.dual.b2cItem2, t.dual.b2cItem3, t.dual.b2cItem4, t.dual.b2cItem5]
+  const B2B = [t.dual.b2bItem1, t.dual.b2bItem2, t.dual.b2bItem3, t.dual.b2bItem4, t.dual.b2bItem5]
+
   return (
     <section className="py-24 bg-ivory" id="personas">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -46,7 +35,7 @@ export function DualSection() {
               <div className="absolute inset-0 bg-gradient-to-t from-sage/30 to-transparent" />
               <div className="absolute top-4 left-4">
                 <span className="bg-white/90 backdrop-blur-sm text-brand text-[11px] font-semibold px-3 py-1.5 rounded-full tracking-wide uppercase">
-                  Para personas 50+
+                  {t.dual.b2cBadge}
                 </span>
               </div>
             </div>
@@ -54,7 +43,7 @@ export function DualSection() {
             {/* Content */}
             <div className="p-8 flex flex-col flex-1">
               <h3 className="font-display text-[1.85rem] font-semibold text-navy mb-6 leading-tight">
-                Tu bienestar integral,<br />en un solo lugar
+                {t.dual.b2cTitle1}<br />{t.dual.b2cTitle2}
               </h3>
               <ul className="space-y-3 flex-1">
                 {B2C.map(item => (
@@ -72,7 +61,7 @@ export function DualSection() {
                 whileTap={{ scale: 0.97 }}
                 className="mt-8 self-start inline-flex items-center gap-2 bg-brand text-white px-7 py-3.5 rounded-full font-semibold text-[14px] hover:bg-brand-dark transition-colors group"
               >
-                Conocer programas
+                {t.dual.b2cCta}
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </motion.a>
             </div>
@@ -99,7 +88,7 @@ export function DualSection() {
               <div className="absolute inset-0 bg-gradient-to-t from-orchid/30 to-transparent" />
               <div className="absolute top-4 left-4">
                 <span className="bg-white/90 backdrop-blur-sm text-orchid text-[11px] font-semibold px-3 py-1.5 rounded-full tracking-wide uppercase">
-                  Para empresas y organizaciones
+                  {t.dual.b2bBadge}
                 </span>
               </div>
             </div>
@@ -107,7 +96,7 @@ export function DualSection() {
             {/* Content */}
             <div className="p-8 flex flex-col flex-1">
               <h3 className="font-display text-[1.85rem] font-semibold text-navy mb-6 leading-tight">
-                Bienestar que genera<br />impacto real
+                {t.dual.b2bTitle1}<br />{t.dual.b2bTitle2}
               </h3>
               <ul className="space-y-3 flex-1">
                 {B2B.map(item => (
@@ -125,7 +114,7 @@ export function DualSection() {
                 whileTap={{ scale: 0.97 }}
                 className="mt-8 self-start inline-flex items-center gap-2 bg-navy text-white px-7 py-3.5 rounded-full font-semibold text-[14px] hover:bg-navy/85 transition-colors group"
               >
-                Solicitar demo
+                {t.dual.b2bCta}
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </motion.a>
             </div>

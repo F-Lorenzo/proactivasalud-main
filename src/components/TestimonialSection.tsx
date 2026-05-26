@@ -3,8 +3,10 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Quote } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export function TestimonialSection() {
+  const { t } = useLanguage()
   return (
     <section className="py-24 bg-ivory-dark">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -48,7 +50,7 @@ export function TestimonialSection() {
             <Quote className="text-brand w-12 h-12 opacity-50" />
 
             <blockquote className="font-display text-[1.6rem] lg:text-[1.85rem] font-medium italic text-navy leading-[1.4]">
-              "En Proactiva encontré el apoyo que necesitaba para mejorar mi salud y disfrutar más cada día."
+              "{t.testimonial.quote}"
             </blockquote>
 
             <div className="flex items-center gap-4">
@@ -56,8 +58,8 @@ export function TestimonialSection() {
                 M
               </div>
               <div>
-                <p className="font-semibold text-navy text-[15px]">Marta, 68 años</p>
-                <p className="text-sm text-muted">Usuaria de Proactiva</p>
+                <p className="font-semibold text-navy text-[15px]">{t.testimonial.name}</p>
+                <p className="text-sm text-muted">{t.testimonial.role}</p>
               </div>
             </div>
 
