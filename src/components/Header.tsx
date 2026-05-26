@@ -68,7 +68,9 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
             <motion.a
-              href="#demo"
+              href="https://proactivasalud-b2-b.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="bg-brand text-white text-[13.5px] font-semibold px-6 py-2.5 rounded-full hover:bg-brand-dark transition-colors shadow-sm"
@@ -114,7 +116,9 @@ export function Header() {
                 </Link>
               ))}
               <a
-                href="#demo"
+                href="https://proactivasalud-b2-b.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setMenuOpen(false)}
                 className="block mt-4 w-full text-center bg-brand text-white py-3.5 rounded-full font-semibold text-[15px]"
               >
