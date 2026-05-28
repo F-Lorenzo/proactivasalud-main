@@ -142,14 +142,14 @@ export function HeroSection() {
             />
 
             {/* Main photo */}
-            <div className="relative w-full max-w-[400px] rounded-[32px] overflow-hidden aspect-[4/5] shadow-2xl">
+            <div className="relative w-full max-w-[500px] rounded-[32px] overflow-hidden aspect-[4/5] shadow-2xl self-start mr-auto">
               <Image
                 src="/pareja-playa.png"
                 alt="Pareja feliz en la playa, generación silver"
                 fill
                 className="object-cover"
                 priority
-                sizes="(max-width:1024px) 0px, 400px"
+                sizes="(max-width:1024px) 0px, 500px"
               />
               {/* Subtle vignette */}
               <div className="absolute inset-0 bg-gradient-to-t from-navy/20 via-transparent to-transparent pointer-events-none" />
