@@ -57,7 +57,7 @@ export function Header() {
               <Link
                 key={label}
                 href={href}
-                className="text-[15px] font-medium text-black hover:text-brand transition-colors duration-200"
+                className="text-[15px] font-bold text-black hover:text-brand transition-colors duration-200"
               >
                 {label}
               </Link>
@@ -110,7 +110,7 @@ export function Header() {
                   key={label}
                   href={href}
                   onClick={() => setMenuOpen(false)}
-                  className="block py-3 text-[15px] font-medium text-black hover:text-brand transition-colors border-b border-gray-50 last:border-0"
+                  className="block py-3 text-[15px] font-bold text-black hover:text-brand transition-colors border-b border-gray-50 last:border-0"
                 >
                   {label}
                 </Link>
