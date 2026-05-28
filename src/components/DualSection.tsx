@@ -26,7 +26,7 @@ export function DualSection() {
             {/* Photo */}
             <div className="relative h-60 overflow-hidden">
               <Image
-                src="/hombre-50-con-celu.png"
+                src="/mature man working from home.png"
                 alt="Persona 50+ usando la plataforma Proactiva en su celular"
                 fill
                 className="object-cover"
