@@ -79,8 +79,8 @@ export function DualSection() {
             {/* Photo */}
             <div className="relative h-60 overflow-hidden">
               <Image
-                src="/reunion-coaching-virtual.png"
-                alt="Empresa implementando programa de bienestar para empleados mayores de 50"
+                src="/portrait-of-a-cheerful-senior-businesswoman-sitting-at-office-desk.png"
+                alt="Empresaria senior sonriendo en su oficina"
                 fill
                 className="object-cover"
                 sizes="(max-width:1024px) 100vw, 50vw"
