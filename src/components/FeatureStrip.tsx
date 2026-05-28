@@ -6,36 +6,40 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 const ICONS = [
   {
+    // Emerald oscuro — verde bosque
     icon: ShieldCheck,
-    cardBg:    'bg-[#c6dfc9]',
-    border:    'border-[#8DAA91]/60',
-    iconBg:    'bg-[#0D5C4F]/15',
-    iconColor: 'text-brand',
-    titleColor:'text-brand',
+    cardBg:    'bg-[#b5d4b9]',
+    border:    'border-[#0D5C4F]/30',
+    iconBg:    'bg-[#0D5C4F]/18',
+    iconColor: 'text-[#0a4a3f]',
+    titleColor:'text-[#0a4a3f]',
   },
   {
+    // Sage cálido — verde salvia
     icon: HeartHandshake,
-    cardBg:    'bg-[#f7e8b0]',
-    border:    'border-[#D8B75C]/60',
-    iconBg:    'bg-[#D8B75C]/35',
-    iconColor: 'text-[#8a6210]',
-    titleColor:'text-[#7a5a18]',
+    cardBg:    'bg-[#c8ddc4]',
+    border:    'border-[#8DAA91]/50',
+    iconBg:    'bg-[#8DAA91]/40',
+    iconColor: 'text-[#3d6645]',
+    titleColor:'text-[#3d6645]',
   },
   {
+    // Menta-teal — verde fresco
     icon: Smartphone,
-    cardBg:    'bg-[#b8d2f5]',
-    border:    'border-[#7FA7E8]/60',
-    iconBg:    'bg-[#7FA7E8]/35',
-    iconColor: 'text-[#2a5599]',
-    titleColor:'text-[#1e4080]',
+    cardBg:    'bg-[#a8d8c6]',
+    border:    'border-[#1a7060]/35',
+    iconBg:    'bg-[#1a7060]/20',
+    iconColor: 'text-[#0e5548]',
+    titleColor:'text-[#0e5548]',
   },
   {
+    // Lima suave — verde claro
     icon: Lock,
-    cardBg:    'bg-[#d8caf0]',
-    border:    'border-[#A58AD4]/60',
-    iconBg:    'bg-[#A58AD4]/30',
-    iconColor: 'text-[#5c3aa8]',
-    titleColor:'text-[#4a2d90]',
+    cardBg:    'bg-[#d2e8b8]',
+    border:    'border-[#6a9e58]/40',
+    iconBg:    'bg-[#6a9e58]/25',
+    iconColor: 'text-[#3d6830]',
+    titleColor:'text-[#3d6830]',
   },
 ]
 
