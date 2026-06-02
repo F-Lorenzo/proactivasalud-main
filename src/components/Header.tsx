@@ -28,6 +28,7 @@ export function Header() {
     { label: t.nav.programas, href: '#programas' },
     { label: t.nav.recursos,  href: '#recursos' },
     { label: t.nav.nosotros,  href: '#nosotros' },
+    { label: t.nav.blog,      href: '/blog' },
   ]
 
   return (

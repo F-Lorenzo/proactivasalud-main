@@ -5,6 +5,7 @@ export const es = {
     programas:     'Programas',
     recursos:      'Recursos',
     nosotros:      'Nosotros',
+    blog:          'Blog',
     solicitarDemo: 'Solicitar demo',
   },
   hero: {

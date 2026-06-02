@@ -7,6 +7,7 @@ export const en: Translations = {
     programas:     'Programs',
     recursos:      'Resources',
     nosotros:      'About Us',
+    blog:          'Blog',
     solicitarDemo: 'Request demo',
   },
   hero: {

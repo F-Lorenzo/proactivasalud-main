@@ -7,6 +7,7 @@ export const pt: Translations = {
     programas:     'Programas',
     recursos:      'Recursos',
     nosotros:      'Sobre nós',
+    blog:          'Blog',
     solicitarDemo: 'Solicitar demo',
   },
   hero: {
