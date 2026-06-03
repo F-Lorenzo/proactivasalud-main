@@ -41,21 +41,28 @@ function writeArticlesFs(articles: Article[]): void {
 
 async function readArticlesBlob(): Promise<Article[]> {
   try {
-    const { list, head } = await import('@vercel/blob')
+    const { list, get } = await import('@vercel/blob')
     const { blobs } = await list({ prefix: BLOB_ARTICLES_PATH })
     if (blobs.length === 0) return []
 
-    // Fetch blob content with SDK auth (OIDC in production)
-    const token = process.env.BLOB_READ_WRITE_TOKEN
-    const headers: HeadersInit = token
-      ? { Authorization: `Bearer ${token}` }
-      : {}
-    const res = await fetch(`${blobs[0].url}?t=${Date.now()}`, {
-      headers,
-      cache: 'no-store',
-    })
-    if (!res.ok) return []
-    return (await res.json()) as Article[]
+    // Use SDK get() — handles OIDC auth automatically in Vercel production
+    const result = await get(blobs[0].url, { access: 'private', useCache: false })
+    if (!result?.stream) return []
+
+    // Read stream → text → JSON
+    const reader = (result.stream as unknown as ReadableStream<Uint8Array>).getReader()
+    const chunks: Uint8Array[] = []
+    for (;;) {
+      const { done, value } = await reader.read()
+      if (done) break
+      if (value) chunks.push(value)
+    }
+    const totalLength = chunks.reduce((n, c) => n + c.length, 0)
+    const merged = new Uint8Array(totalLength)
+    let offset = 0
+    for (const chunk of chunks) { merged.set(chunk, offset); offset += chunk.length }
+    const text = new TextDecoder().decode(merged)
+    return JSON.parse(text) as Article[]
   } catch {
     return []
   }
