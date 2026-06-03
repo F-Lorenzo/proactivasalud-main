@@ -1,1 +1,72 @@
-[]
+[
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "slug": "como-alimentarte-bien-despues-de-los-50",
+    "title": "Cómo alimentarte bien después de los 50",
+    "excerpt": "Después de los 50 el cuerpo cambia, y la alimentación también debería hacerlo. Estos son los nutrientes clave para mantener energía, masa muscular y vitalidad.",
+    "coverImage": "",
+    "publishedAt": "2026-06-01",
+    "blocks": [
+      {
+        "id": "b1",
+        "type": "paragraph",
+        "content": "Llegar a los 50 es un logro que merece celebrarse — y también es una oportunidad para revisar hábitos que quizás funcionaban antes pero ya no te están dando lo mejor. El cuerpo cambia: el metabolismo se vuelve más lento, la masa muscular tiende a disminuir y las necesidades de ciertos nutrientes aumentan. La buena noticia es que con pequeños ajustes en la alimentación podés sentirte con más energía, más liviano/a y más conectado/a con tu bienestar."
+      },
+      {
+        "id": "b2",
+        "type": "paragraph",
+        "content": "El primero de esos ajustes es prestarle más atención a las proteínas. A partir de los 50, el cuerpo necesita más proteína para mantener la masa muscular que, de otra forma, se pierde de forma natural con el paso del tiempo. Esto no significa comer enormes porciones de carne; alcanza con incluir una fuente de proteína en cada comida: huevos, legumbres, pescado, pollo, lácteos o tofu son excelentes opciones."
+      },
+      {
+        "id": "b3",
+        "type": "paragraph",
+        "content": "El calcio y la vitamina D también cobran protagonismo. Los huesos se vuelven más frágiles con los años, y la combinación de estos dos nutrientes es esencial para mantenerlos fuertes. La vitamina D se obtiene principalmente del sol, pero en muchos casos es necesario suplementarla. Consultá con tu médico si tu nivel es adecuado."
+      },
+      {
+        "id": "b4",
+        "type": "paragraph",
+        "content": "Por último, no subestimes el poder de la hidratación. Con el paso del tiempo, la sensación de sed se vuelve menos intensa, lo que lleva a muchas personas a consumir menos agua de la que necesitan. La deshidratación afecta la concentración, la energía y la digestión. Un consejo simple: empezá cada mañana con un vaso de agua antes del café."
+      },
+      {
+        "id": "b5",
+        "type": "paragraph",
+        "content": "Comer bien después de los 50 no es hacer dieta ni privarse de lo que te gusta. Es escuchar a tu cuerpo, darle lo que necesita y disfrutar cada comida como un acto de cuidado. En Proactiva Salud, nuestras nutricionistas especializadas en personas 50+ pueden ayudarte a diseñar un plan personalizado, sin rigideces y con un acompañamiento cálido y constante."
+      }
+    ]
+  },
+  {
+    "id": "f6e5d4c3-b2a1-0987-fedc-ba9876543210",
+    "slug": "el-poder-del-movimiento-a-cualquier-edad",
+    "title": "El poder del movimiento a cualquier edad",
+    "excerpt": "No se trata del gimnasio ni de rutinas imposibles. Moverse bien es el seguro más importante para tu independencia y tu calidad de vida.",
+    "coverImage": "",
+    "publishedAt": "2026-05-20",
+    "blocks": [
+      {
+        "id": "c1",
+        "type": "paragraph",
+        "content": "Hay una creencia muy extendida de que el ejercicio es cosa de jóvenes, y que a partir de cierta edad el cuerpo ya no responde de la misma manera. Nada más lejos de la realidad. La ciencia es contundente: mantenerse físicamente activo después de los 50 es uno de los factores más poderosos para preservar la independencia, prevenir enfermedades y mejorar el estado de ánimo. No importa en qué punto empezás — importa que empieces."
+      },
+      {
+        "id": "c2",
+        "type": "paragraph",
+        "content": "El movimiento no tiene que ser intenso para ser efectivo. Caminar 30 minutos al día ya produce cambios importantes en la salud cardiovascular, el equilibrio y la salud mental. Lo fundamental es la consistencia: tres o cuatro caminatas por semana, una clase de yoga suave, ejercicios de elongación al levantarte. Todo suma, todo cuenta."
+      },
+      {
+        "id": "c3",
+        "type": "paragraph",
+        "content": "Uno de los beneficios más concretos del ejercicio regular es la prevención de caídas. A partir de los 50, las caídas son una causa frecuente de lesiones graves. El entrenamiento de equilibrio y la fortaleza de piernas y core son claves para reducir ese riesgo. Ejercicios simples como pararse en un pie, subir y bajar escaleras con control o sentadillas suaves pueden hacer una diferencia enorme."
+      },
+      {
+        "id": "c4",
+        "type": "paragraph",
+        "content": "Y no hablemos solo del cuerpo: el movimiento también es medicina para la mente. El ejercicio libera endorfinas, mejora la calidad del sueño y reduce los síntomas de ansiedad y depresión. Muchas personas que incorporan una rutina de actividad física notan que duermen mejor, tienen más energía durante el día y se sienten más optimistas."
+      },
+      {
+        "id": "c5",
+        "type": "paragraph",
+        "content": "En Proactiva Salud diseñamos planes de actividad física personalizados para personas 50+, teniendo en cuenta tu condición física actual, tus objetivos y cualquier limitación que puedas tener. El punto de partida no importa — lo que importa es que des el primer paso. Tu cuerpo te lo va a agradecer."
+      }
+    ]
+  }
+]
