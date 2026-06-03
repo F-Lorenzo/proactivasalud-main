@@ -77,6 +77,7 @@ async function writeArticlesBlob(articles: Article[]): Promise<void> {
     access: 'private',
     contentType: 'application/json',
     addRandomSuffix: false,
+    allowOverwrite: true,
   })
 }
 
