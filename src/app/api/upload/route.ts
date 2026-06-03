@@ -23,9 +23,10 @@ export async function POST(request: NextRequest) {
       access: 'private',
       addRandomSuffix: false,
     })
-    // Store a proxy URL so Next.js Image can serve it with auth
-    const proxyUrl = `/api/blob-image?url=${encodeURIComponent(blob.url)}`
-    return Response.json({ url: proxyUrl })
+
+    // Encode full blob URL as base64url → no special chars → next/image won't double-encode
+    const encoded = Buffer.from(blob.url).toString('base64url')
+    return Response.json({ url: `/api/blob-image/${encoded}` })
   }
 
   // Local dev: save to public/uploads/
