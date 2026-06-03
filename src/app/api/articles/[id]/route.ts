@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params
-  const article = readArticles().find(a => a.id === id)
+  const article = (await readArticles()).find(a => a.id === id)
   if (!article) return Response.json({ error: 'Not found' }, { status: 404 })
   return Response.json(article)
 }
@@ -18,7 +18,7 @@ export async function PUT(
 ) {
   const { id } = await params
   const body = await request.json() as Partial<Article>
-  const articles = readArticles()
+  const articles = await readArticles()
   const idx = articles.findIndex(a => a.id === id)
   if (idx === -1) return Response.json({ error: 'Not found' }, { status: 404 })
 
@@ -35,15 +35,8 @@ export async function PUT(
     }
   }
 
-  articles[idx] = {
-    ...existing,
-    ...body,
-    id: existing.id,
-    slug: finalSlug,
-    title: newTitle,
-  }
-
-  writeArticles(articles)
+  articles[idx] = { ...existing, ...body, id: existing.id, slug: finalSlug, title: newTitle }
+  await writeArticles(articles)
   return Response.json(articles[idx])
 }
 
@@ -52,8 +45,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params
-  const articles = readArticles()
-  const filtered = articles.filter(a => a.id !== id)
-  writeArticles(filtered)
+  const articles = await readArticles()
+  await writeArticles(articles.filter(a => a.id !== id))
   return Response.json({ ok: true })
 }

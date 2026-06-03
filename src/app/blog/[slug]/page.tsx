@@ -12,7 +12,7 @@ type Props = { params: Promise<{ slug: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const article = readArticles().find(a => a.slug === slug)
+  const article = (await readArticles()).find(a => a.slug === slug)
   if (!article) return {}
   return {
     title: `${article.title} — Proactiva Salud`,
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params
-  const article = readArticles().find(a => a.slug === slug)
+  const article = (await readArticles()).find(a => a.slug === slug)
   if (!article) notFound()
 
   return (
@@ -44,9 +44,7 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         )}
 
-        {/* Article content */}
         <article className="max-w-2xl mx-auto px-6 py-12">
-          {/* Back */}
           <Link
             href="/blog"
             className="inline-flex items-center gap-1 text-brand text-sm font-semibold mb-8 hover:opacity-80 transition-opacity"
@@ -73,7 +71,6 @@ export default async function ArticlePage({ params }: Props) {
             </p>
           )}
 
-          {/* Blocks */}
           <div className="space-y-8">
             {article.blocks.map(block => {
               if (block.type === 'paragraph') {
@@ -107,7 +104,6 @@ export default async function ArticlePage({ params }: Props) {
             })}
           </div>
 
-          {/* CTA */}
           <div className="mt-16 p-8 bg-sage-pale rounded-2xl text-center">
             <p className="font-display text-xl font-semibold text-navy mb-2">
               ¿Querés saber más sobre Proactiva Salud?

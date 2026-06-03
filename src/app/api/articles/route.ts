@@ -4,17 +4,16 @@ import type { Article } from '@/lib/articles'
 import { randomUUID } from 'crypto'
 
 export async function GET() {
-  const articles = readArticles()
+  const articles = await readArticles()
   return Response.json(articles)
 }
 
 export async function POST(request: NextRequest) {
   const body = await request.json() as Partial<Article>
-  const articles = readArticles()
+  const articles = await readArticles()
 
   const title = body.title?.trim() || 'Sin título'
-  const slug = slugify(title)
-  const base = slug || 'articulo'
+  const base = slugify(title) || 'articulo'
   let finalSlug = base
   let i = 2
   while (articles.some(a => a.slug === finalSlug)) {
@@ -32,7 +31,7 @@ export async function POST(request: NextRequest) {
   }
 
   articles.unshift(article)
-  writeArticles(articles)
+  await writeArticles(articles)
 
   return Response.json(article, { status: 201 })
 }

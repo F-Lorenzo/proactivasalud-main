@@ -3,23 +3,31 @@ import fs from 'fs'
 import path from 'path'
 import { randomUUID } from 'crypto'
 
+const IS_VERCEL = process.env.VERCEL === '1'
+const ALLOWED = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif']
+
 export async function POST(request: NextRequest) {
   const formData = await request.formData()
   const file = formData.get('file') as File | null
   if (!file) return Response.json({ error: 'No file' }, { status: 400 })
 
-  const buffer = Buffer.from(await file.arrayBuffer())
   const ext = file.name.split('.').pop()?.toLowerCase() ?? 'jpg'
-  const allowed = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif']
-  if (!allowed.includes(ext)) {
+  if (!ALLOWED.includes(ext)) {
     return Response.json({ error: 'Tipo de archivo no permitido' }, { status: 400 })
   }
 
+  if (IS_VERCEL) {
+    const { put } = await import('@vercel/blob')
+    const filename = `blog/images/${randomUUID()}.${ext}`
+    const blob = await put(filename, file, { access: 'public', addRandomSuffix: false })
+    return Response.json({ url: blob.url })
+  }
+
+  // Local dev: save to public/uploads/
+  const buffer = Buffer.from(await file.arrayBuffer())
   const uploadsDir = path.join(process.cwd(), 'public', 'uploads')
   if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true })
-
   const filename = `${randomUUID()}.${ext}`
   fs.writeFileSync(path.join(uploadsDir, filename), buffer)
-
   return Response.json({ url: `/uploads/${filename}` })
 }
