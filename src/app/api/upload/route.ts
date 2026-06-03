@@ -18,9 +18,14 @@ export async function POST(request: NextRequest) {
 
   if (IS_VERCEL) {
     const { put } = await import('@vercel/blob')
-    const filename = `blog/images/${randomUUID()}.${ext}`
-    const blob = await put(filename, file, { access: 'public', addRandomSuffix: false })
-    return Response.json({ url: blob.url })
+    const blobPath = `blog/images/${randomUUID()}.${ext}`
+    const blob = await put(blobPath, file, {
+      access: 'private',
+      addRandomSuffix: false,
+    })
+    // Store a proxy URL so Next.js Image can serve it with auth
+    const proxyUrl = `/api/blob-image?url=${encodeURIComponent(blob.url)}`
+    return Response.json({ url: proxyUrl })
   }
 
   // Local dev: save to public/uploads/

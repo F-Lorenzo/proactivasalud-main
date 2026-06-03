@@ -41,10 +41,20 @@ function writeArticlesFs(articles: Article[]): void {
 
 async function readArticlesBlob(): Promise<Article[]> {
   try {
-    const { list } = await import('@vercel/blob')
+    const { list, head } = await import('@vercel/blob')
     const { blobs } = await list({ prefix: BLOB_ARTICLES_PATH })
     if (blobs.length === 0) return []
-    const res = await fetch(`${blobs[0].url}?t=${Date.now()}`, { cache: 'no-store' })
+
+    // Fetch blob content with SDK auth (OIDC in production)
+    const token = process.env.BLOB_READ_WRITE_TOKEN
+    const headers: HeadersInit = token
+      ? { Authorization: `Bearer ${token}` }
+      : {}
+    const res = await fetch(`${blobs[0].url}?t=${Date.now()}`, {
+      headers,
+      cache: 'no-store',
+    })
+    if (!res.ok) return []
     return (await res.json()) as Article[]
   } catch {
     return []
@@ -54,7 +64,7 @@ async function readArticlesBlob(): Promise<Article[]> {
 async function writeArticlesBlob(articles: Article[]): Promise<void> {
   const { put } = await import('@vercel/blob')
   await put(BLOB_ARTICLES_PATH, JSON.stringify(articles), {
-    access: 'public',
+    access: 'private',
     contentType: 'application/json',
     addRandomSuffix: false,
   })
@@ -76,6 +86,7 @@ export function slugify(title: string): string {
   return title
     .toLowerCase()
     .normalize('NFD')
+    // eslint-disable-next-line no-misleading-character-class
     .replace(/[̀-ͯ]/g, '')
     .replace(/[^a-z0-9\s-]/g, '')
     .trim()
