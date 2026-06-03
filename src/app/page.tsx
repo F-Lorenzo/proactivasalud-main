@@ -6,6 +6,7 @@ import { MetricsStrip }       from '@/components/MetricsStrip'
 import { PillarsSection }     from '@/components/PillarsSection'
 import { TestimonialSection } from '@/components/TestimonialSection'
 import { CtaSection }         from '@/components/CTASection'
+import { NewsletterSection }  from '@/components/NewsletterSection'
 import { FooterFeatures }     from '@/components/FooterFeatures'
 import { Footer }             from '@/components/Footer'
 
@@ -20,6 +21,7 @@ export default function Home() {
         <MetricsStrip />
         <PillarsSection />
         <TestimonialSection />
+        <NewsletterSection />
         <CtaSection />
         <FooterFeatures />
       </main>
