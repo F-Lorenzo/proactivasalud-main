@@ -8,7 +8,7 @@ export async function GET(
 ) {
   const { encoded } = await params
 
-  // Decode base64url → original blob URL (no special chars = no double-encoding by next/image)
+  // Decode base64url → original blob URL
   let blobUrl: string
   try {
     blobUrl = Buffer.from(encoded, 'base64url').toString('utf-8')
@@ -27,45 +27,37 @@ export async function GET(
     return new Response('URL not allowed', { status: 403 })
   }
 
+  // Extract the pathname (e.g. "blog/images/uuid.jpg")
+  const blobPathname = parsed.pathname.slice(1)
+
   try {
-    // Use @vercel/blob SDK's get() — it handles OIDC auth automatically in production
-    const { get } = await import('@vercel/blob')
-    const result = await get(blobUrl, { access: 'private' })
+    const { issueSignedToken, presignUrl } = await import('@vercel/blob')
 
-    if (!result) {
-      return new Response('Blob not found', { status: 404 })
-    }
+    // Issue a short-lived signed token via the Vercel Blob API (OIDC auth)
+    const signed = await issueSignedToken({
+      operations: ['get'],
+      pathname: blobPathname,
+      validUntil: Date.now() + 300_000, // 5 minutes
+    })
 
-    const contentType = result.blob.contentType ?? 'image/jpeg'
+    // Build presigned URL — signature embedded, no auth header needed
+    const { presignedUrl } = await presignUrl(signed, {
+      operation: 'get',
+      pathname: blobPathname,
+      access: 'private',
+    })
 
-    // Stream blob content back to client
-    if (result.stream) {
-      return new Response(result.stream as unknown as ReadableStream, {
-        headers: {
-          'Content-Type': contentType,
-          'Cache-Control': 'public, max-age=31536000, immutable',
-        },
-      })
-    }
+    const res = await fetch(presignedUrl, { cache: 'no-store' })
+    if (!res.ok) return new Response('Blob fetch failed', { status: res.status })
 
-    return new Response('No content', { status: 204 })
+    return new Response(res.body, {
+      headers: {
+        'Content-Type': res.headers.get('Content-Type') ?? 'image/jpeg',
+        'Cache-Control': 'public, max-age=3600',
+      },
+    })
   } catch (err) {
-    // Fallback: try with explicit token header if SDK auth fails
-    const token = process.env.BLOB_READ_WRITE_TOKEN
-    if (token) {
-      const res = await fetch(blobUrl, {
-        headers: { Authorization: `Bearer ${token}` },
-        cache: 'no-store',
-      })
-      if (!res.ok) return new Response('Blob fetch failed', { status: res.status })
-      return new Response(res.body, {
-        headers: {
-          'Content-Type': res.headers.get('Content-Type') ?? 'image/jpeg',
-          'Cache-Control': 'public, max-age=31536000, immutable',
-        },
-      })
-    }
-    console.error('blob-image proxy error:', err)
+    console.error('[blob-image proxy]', err)
     return new Response('Error fetching image', { status: 500 })
   }
 }

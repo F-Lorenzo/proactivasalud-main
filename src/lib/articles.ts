@@ -21,7 +21,7 @@ export interface Article {
 
 const IS_VERCEL = process.env.VERCEL === '1'
 const DATA_PATH = path.join(process.cwd(), 'data', 'articles.json')
-const BLOB_ARTICLES_PATH = 'blog/articles.json'
+export const BLOB_ARTICLES_PATH = 'blog/articles.json'
 
 // ─── Filesystem (local dev) ───────────────────────────────────────────────────
 
@@ -41,29 +41,32 @@ function writeArticlesFs(articles: Article[]): void {
 
 async function readArticlesBlob(): Promise<Article[]> {
   try {
-    const { list, get } = await import('@vercel/blob')
+    const { list, issueSignedToken, presignUrl } = await import('@vercel/blob')
+
+    // 1. Find the blob via API (OIDC-authenticated)
     const { blobs } = await list({ prefix: BLOB_ARTICLES_PATH })
     if (blobs.length === 0) return []
 
-    // Use SDK get() — handles OIDC auth automatically in Vercel production
-    const result = await get(blobs[0].url, { access: 'private', useCache: false })
-    if (!result?.stream) return []
+    // 2. Issue a short-lived signed token for reading (goes via blob.vercel-storage.com API)
+    const signed = await issueSignedToken({
+      operations: ['get'],
+      pathname: BLOB_ARTICLES_PATH,
+      validUntil: Date.now() + 60_000, // 1 minute
+    })
 
-    // Read stream → text → JSON
-    const reader = (result.stream as unknown as ReadableStream<Uint8Array>).getReader()
-    const chunks: Uint8Array[] = []
-    for (;;) {
-      const { done, value } = await reader.read()
-      if (done) break
-      if (value) chunks.push(value)
-    }
-    const totalLength = chunks.reduce((n, c) => n + c.length, 0)
-    const merged = new Uint8Array(totalLength)
-    let offset = 0
-    for (const chunk of chunks) { merged.set(chunk, offset); offset += chunk.length }
-    const text = new TextDecoder().decode(merged)
-    return JSON.parse(text) as Article[]
-  } catch {
+    // 3. Build a presigned URL — the HMAC signature is embedded, no auth header needed
+    const { presignedUrl } = await presignUrl(signed, {
+      operation: 'get',
+      pathname: BLOB_ARTICLES_PATH,
+      access: 'private',
+    })
+
+    // 4. Plain fetch
+    const res = await fetch(presignedUrl, { cache: 'no-store' })
+    if (!res.ok) return []
+    return (await res.json()) as Article[]
+  } catch (err) {
+    console.error('[readArticlesBlob]', err)
     return []
   }
 }
