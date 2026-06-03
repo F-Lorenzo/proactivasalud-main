@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { ArticleImage as Image } from '@/components/ArticleImage'
 import { readArticles } from '@/lib/articles'
 
 export async function NewsletterSection() {

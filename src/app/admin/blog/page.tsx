@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import Image from 'next/image'
+import { ArticleImage as Image } from '@/components/ArticleImage'
 import type { Article, Block } from '@/lib/articles'
 
 const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? 'proactiva2025'

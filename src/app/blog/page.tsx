@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import { ArticleImage as Image } from '@/components/ArticleImage'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { readArticles } from '@/lib/articles'
