@@ -44,7 +44,7 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         )}
 
-        <article className="max-w-2xl mx-auto px-6 py-12">
+        <article className="max-w-[50%] mx-auto px-6 py-12">
           <Link
             href="/blog"
             className="inline-flex items-center gap-1 text-brand text-sm font-semibold mb-8 hover:opacity-80 transition-opacity"
