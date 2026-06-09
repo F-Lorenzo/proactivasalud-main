@@ -2,6 +2,7 @@ import type { Translations } from './es'
 
 export const en: Translations = {
   nav: {
+    inicio:        'Home',
     personas:      'People 50+',
     empresas:      'Businesses',
     programas:     'Programs',

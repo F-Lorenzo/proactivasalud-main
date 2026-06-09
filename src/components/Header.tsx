@@ -23,6 +23,7 @@ export function Header() {
   }, [])
 
   const NAV = [
+    { label: t.nav.inicio,    href: '/' },
     { label: t.nav.personas,  href: B2C },
     { label: t.nav.empresas,  href: B2B },
     { label: t.nav.programas, href: '#programas' },

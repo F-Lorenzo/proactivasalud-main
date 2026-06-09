@@ -1,5 +1,6 @@
 export const es = {
   nav: {
+    inicio:        'Inicio',
     personas:      'Personas 50+',
     empresas:      'Empresas',
     programas:     'Programas',
