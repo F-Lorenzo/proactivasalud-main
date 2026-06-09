@@ -18,9 +18,9 @@ export default function Home() {
       <Header />
       <main id="main">
         <HeroSection />
+        <MetricsStrip />
         <FeatureStrip />
         <DualSection />
-        <MetricsStrip />
         <PillarsSection />
         <TestimonialSection />
         <NewsletterSection />
