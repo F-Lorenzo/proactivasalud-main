@@ -3,8 +3,7 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   images: {
     localPatterns: [
-      { pathname: '/api/blob-image/**' },
-      { pathname: '/uploads/**' },
+      { pathname: '/**' },
     ],
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
