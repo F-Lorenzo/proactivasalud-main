@@ -72,7 +72,7 @@ export const en: Translations = {
     p3Desc:  'Mindful eating and habits that sustain your energy and vitality.',
     p4Title: 'Movement',
     p4Desc:  'Activities adapted to your pace of life for greater autonomy and wellness.',
-    p5Title: 'Connection',
+    p5Title: 'Community',
     p5Desc:  'Community, bonds and belonging for active and supported aging.',
   },
   testimonial: {

@@ -70,7 +70,7 @@ export const es = {
     p3Desc:  'Alimentación consciente y hábitos que sostienen tu energía y vitalidad.',
     p4Title: 'Movimiento',
     p4Desc:  'Actividades adaptadas a tu ritmo de vida para mayor autonomía y bienestar.',
-    p5Title: 'Conexión',
+    p5Title: 'Comunidad',
     p5Desc:  'Comunidad, vínculos y pertenencia para un envejecimiento activo y acompañado.',
   },
   testimonial: {

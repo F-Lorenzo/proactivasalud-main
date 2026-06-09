@@ -72,7 +72,7 @@ export const pt: Translations = {
     p3Desc:  'Alimentação consciente e hábitos que sustentam sua energia e vitalidade.',
     p4Title: 'Movimento',
     p4Desc:  'Atividades adaptadas ao seu ritmo de vida para maior autonomia e bem-estar.',
-    p5Title: 'Conexão',
+    p5Title: 'Comunidade',
     p5Desc:  'Comunidade, vínculos e pertencimento para um envelhecimento ativo e acompanhado.',
   },
   testimonial: {
