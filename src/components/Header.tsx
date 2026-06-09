@@ -45,9 +45,9 @@ export function Header() {
             <Image
               src="/ProActiva-NUEVA.png"
               alt="Proactiva Salud"
-              width={148}
-              height={44}
-              className="h-10 w-auto object-contain"
+              width={296}
+              height={88}
+              className="h-20 w-auto object-contain"
               priority
             />
           </Link>
@@ -65,9 +65,9 @@ export function Header() {
                   <Image
                     src="/logo_club_50.png"
                     alt="Proactiva Club+50"
-                    width={40}
-                    height={40}
-                    className="h-8 w-auto object-contain"
+                    width={80}
+                    height={80}
+                    className="h-16 w-auto object-contain"
                   />
                 )}
               </Link>
