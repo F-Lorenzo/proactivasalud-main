@@ -58,9 +58,18 @@ export function Header() {
               <Link
                 key={label}
                 href={href}
-                className="text-[15px] font-bold text-black hover:text-brand transition-colors duration-200"
+                className="inline-flex items-center gap-2 text-[15px] font-bold text-black hover:text-brand transition-colors duration-200"
               >
                 {label}
+                {label === t.nav.blog && (
+                  <Image
+                    src="/logo_club_50.png"
+                    alt="Proactiva Club+50"
+                    width={40}
+                    height={40}
+                    className="h-8 w-auto object-contain"
+                  />
+                )}
               </Link>
             ))}
           </nav>
@@ -111,9 +120,18 @@ export function Header() {
                   key={label}
                   href={href}
                   onClick={() => setMenuOpen(false)}
-                  className="block py-3 text-[15px] font-bold text-black hover:text-brand transition-colors border-b border-gray-50 last:border-0"
+                  className="flex items-center gap-2 py-3 text-[15px] font-bold text-black hover:text-brand transition-colors border-b border-gray-50 last:border-0"
                 >
                   {label}
+                  {label === t.nav.blog && (
+                    <Image
+                      src="/logo_club_50.png"
+                      alt="Proactiva Club+50"
+                      width={40}
+                      height={40}
+                      className="h-7 w-auto object-contain"
+                    />
+                  )}
                 </Link>
               ))}
               <a
