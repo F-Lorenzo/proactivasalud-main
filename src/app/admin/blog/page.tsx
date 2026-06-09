@@ -482,11 +482,29 @@ function BlockEditor({ block, isFirst, isLast, onUpdate, onRemove, onMove, onAdd
   return (
     <div className="group relative bg-white border border-gray-200 rounded-2xl overflow-hidden hover:border-gray-300 transition-colors">
       {/* Block toolbar */}
-      <div className="flex items-center justify-between px-4 py-2 bg-gray-50 border-b border-gray-100">
+      <div className="flex items-center justify-between px-4 py-2 bg-gray-50 border-b border-gray-100 flex-wrap gap-2">
         <span className="text-xs font-semibold text-muted uppercase tracking-wider">
           {block.type === 'paragraph' ? 'Párrafo' : 'Imagen'}
         </span>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
+          {/* Column span selector */}
+          <div className="flex items-center gap-1 border border-gray-200 rounded-lg overflow-hidden bg-white">
+            {([1, 2, 3, 4] as const).map(n => (
+              <button
+                key={n}
+                onClick={() => onUpdate({ colSpan: n })}
+                title={`Ocupa ${n} columna${n > 1 ? 's' : ''}`}
+                className={`px-2.5 py-1 text-xs font-semibold transition-colors ${
+                  (block.colSpan ?? 4) === n
+                    ? 'bg-brand text-white'
+                    : 'text-muted hover:bg-gray-100'
+                }`}
+              >
+                {n}c
+              </button>
+            ))}
+          </div>
+          {/* Move up/down */}
           <button
             onClick={() => onMove(-1)}
             disabled={isFirst}

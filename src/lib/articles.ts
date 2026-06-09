@@ -7,6 +7,8 @@ export interface Block {
   content?: string
   src?: string
   caption?: string
+  /** How many grid columns this block spans (1–4). Default: 4 (full width) */
+  colSpan?: 1 | 2 | 3 | 4
 }
 
 export interface Article {

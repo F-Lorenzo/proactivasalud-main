@@ -44,7 +44,7 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         )}
 
-        <article className="max-w-[50%] mx-auto px-6 py-12">
+        <article className="max-w-5xl mx-auto px-6 py-12">
           <Link
             href="/blog"
             className="inline-flex items-center gap-1 text-brand text-sm font-semibold mb-8 hover:opacity-80 transition-opacity"
@@ -71,25 +71,33 @@ export default async function ArticlePage({ params }: Props) {
             </p>
           )}
 
-          <div className="space-y-8">
+          {/* Content grid — 4 columns, each block chooses how many it spans */}
+          <div className="grid grid-cols-4 gap-6 items-start">
             {article.blocks.map(block => {
+              const span = block.colSpan ?? 4
+              const colClass =
+                span === 1 ? 'col-span-1' :
+                span === 2 ? 'col-span-2' :
+                span === 3 ? 'col-span-3' :
+                             'col-span-4'
+
               if (block.type === 'paragraph') {
                 return (
-                  <p key={block.id} className="text-[17px] text-ink-mid leading-relaxed whitespace-pre-wrap">
+                  <p key={block.id} className={`${colClass} text-[17px] text-ink-mid leading-relaxed whitespace-pre-wrap`}>
                     {block.content}
                   </p>
                 )
               }
               if (block.type === 'image' && block.src) {
                 return (
-                  <figure key={block.id} className="my-10">
+                  <figure key={block.id} className={colClass}>
                     <div className="relative w-full rounded-2xl overflow-hidden bg-sage-pale" style={{ aspectRatio: '16/9' }}>
                       <Image
                         src={block.src}
                         alt={block.caption ?? ''}
                         fill
                         className="object-cover"
-                        sizes="(max-width: 768px) 100vw, 672px"
+                        sizes="(max-width: 768px) 100vw, 960px"
                       />
                     </div>
                     {block.caption && (
