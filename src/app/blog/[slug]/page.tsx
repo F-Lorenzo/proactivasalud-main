@@ -3,6 +3,7 @@ import { ArticleImage as Image } from '@/components/ArticleImage'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { TranslateWidget } from '@/components/TranslateWidget'
 import { readArticles } from '@/lib/articles'
 import type { Metadata } from 'next'
 
@@ -45,15 +46,18 @@ export default async function ArticlePage({ params }: Props) {
         )}
 
         <article className="max-w-5xl mx-auto px-6 py-12">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1 text-brand text-sm font-semibold mb-8 hover:opacity-80 transition-opacity"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Volver al blog
-          </Link>
+          <div className="flex items-center justify-between mb-8">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-1 text-brand text-sm font-semibold hover:opacity-80 transition-opacity"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Volver al blog
+            </Link>
+            <TranslateWidget />
+          </div>
 
           <p className="text-muted text-sm mb-3">
             {new Date(article.publishedAt).toLocaleDateString('es-AR', {
