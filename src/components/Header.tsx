@@ -27,9 +27,8 @@ export function Header() {
     { label: t.nav.personas,  href: B2C },
     { label: t.nav.empresas,  href: B2B },
     { label: t.nav.programas, href: '#programas' },
-    { label: t.nav.recursos,  href: '#recursos' },
     { label: t.nav.nosotros,  href: '#nosotros' },
-    { label: t.nav.blog,      href: '/blog' },
+    { label: t.nav.blog,      href: '#recursos' },
   ]
 
   return (
