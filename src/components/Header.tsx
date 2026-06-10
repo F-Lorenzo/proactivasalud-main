@@ -47,7 +47,7 @@ export function Header() {
               alt="Proactiva Salud"
               width={296}
               height={88}
-              className="h-20 w-auto object-contain"
+              className="h-[6.5rem] w-auto object-contain"
               priority
             />
           </Link>
@@ -67,7 +67,7 @@ export function Header() {
                     alt="Proactiva Club+50"
                     width={80}
                     height={80}
-                    className="h-16 w-auto object-contain"
+                    className="h-[5.2rem] w-auto object-contain"
                   />
                 )}
               </Link>
