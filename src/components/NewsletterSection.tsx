@@ -14,7 +14,7 @@ export async function NewsletterSection() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
           <div>
             <p className="text-brand text-sm font-semibold uppercase tracking-widest mb-2">
-              Newsletter &amp; Recursos
+              Noticias &amp; Bienestar
             </p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-navy leading-tight">
               Vivir mejor, cada semana
