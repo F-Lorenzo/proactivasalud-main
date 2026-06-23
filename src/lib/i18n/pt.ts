@@ -55,10 +55,10 @@ export const pt: Translations = {
     b2bCta:    'Solicitar demo',
   },
   metrics: {
-    m1Label:  'Pessoas 50+ ativas',
-    m2Label:  'Empresas e organizações',
-    m3Label:  'Interações de bem-estar',
-    m4Label:  'Redução média de absenteísmo*',
+    m1Label:  'Pessoas visitaram a Proactiva Salud',
+    m2Label:  'Empresas se interessaram pelo nosso serviço',
+    m3Label:  'Pessoas consultaram sobre o serviço no primeiro mês',
+    m4Label:  'Melhora na adesão nos primeiros 60 dias*',
     footnote: '*Em programas em desenvolvimento. Dados projetados.',
   },
   pillars: {

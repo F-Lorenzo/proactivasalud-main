@@ -53,10 +53,10 @@ export const es = {
     b2bCta:    'Solicitar demo',
   },
   metrics: {
-    m1Label:  'Personas 50+ activas',
-    m2Label:  'Empresas y organizaciones',
-    m3Label:  'Interacciones de bienestar',
-    m4Label:  'Reducción promedio de ausentismo*',
+    m1Label:  'Personas visitaron Proactiva Salud',
+    m2Label:  'Empresas se interesaron por nuestro servicio',
+    m3Label:  'Personas consultaron por el servicio en el primer mes',
+    m4Label:  'Mejora en la adherencia en los primeros 60 días*',
     footnote: '*En programas en desarrollo. Datos proyectados.',
   },
   pillars: {

@@ -1,11 +1,11 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Users, Building2, Heart, TrendingDown } from 'lucide-react'
+import { Users, Building2, MessageCircle, TrendingUp } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const VALUES = ['+25.000', '+120', '+1.200.000', '-32%']
-const ICONS  = [Users, Building2, Heart, TrendingDown]
+const VALUES = ['+20.000', '+10', '+12.000', '+15%']
+const ICONS  = [Users, Building2, MessageCircle, TrendingUp]
 
 export function MetricsStrip() {
   const { t } = useLanguage()
