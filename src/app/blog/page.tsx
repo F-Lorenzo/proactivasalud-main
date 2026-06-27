@@ -3,6 +3,7 @@ import { ArticleImage as Image } from '@/components/ArticleImage'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { readArticles } from '@/lib/articles'
+import { textStyleToCss } from '@/lib/textStyles'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -78,11 +79,16 @@ export default async function BlogPage() {
                         year: 'numeric', month: 'long', day: 'numeric',
                       })}
                     </p>
-                    <h2 className="font-display text-xl font-semibold text-navy mb-2 leading-snug group-hover:text-brand transition-colors">
+                    <h2
+                      className="font-display text-xl font-semibold text-navy mb-2 leading-snug group-hover:text-brand transition-colors"
+                      style={textStyleToCss(article.titleStyle)}
+                    >
                       {article.title}
                     </h2>
                     {article.excerpt && (
-                      <p className="text-muted text-sm line-clamp-3">{article.excerpt}</p>
+                      <p className="text-muted text-sm line-clamp-3" style={textStyleToCss(article.excerptStyle)}>
+                        {article.excerpt}
+                      </p>
                     )}
                     <span className="mt-4 inline-flex items-center gap-1 text-brand text-sm font-semibold">
                       Leer más

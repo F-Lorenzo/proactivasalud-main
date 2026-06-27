@@ -5,6 +5,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { TranslateWidget } from '@/components/TranslateWidget'
 import { readArticles } from '@/lib/articles'
+import { textStyleToCss } from '@/lib/textStyles'
 import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
@@ -65,12 +66,18 @@ export default async function ArticlePage({ params }: Props) {
             })}
           </p>
 
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-navy leading-tight mb-4">
+          <h1
+            className="font-display text-3xl md:text-4xl font-bold text-navy leading-tight mb-4"
+            style={textStyleToCss(article.titleStyle)}
+          >
             {article.title}
           </h1>
 
           {article.excerpt && (
-            <p className="text-lg text-muted leading-relaxed mb-10 border-l-4 border-brand pl-4">
+            <p
+              className="text-lg text-muted leading-relaxed mb-10 border-l-4 border-brand pl-4"
+              style={textStyleToCss(article.excerptStyle)}
+            >
               {article.excerpt}
             </p>
           )}
@@ -87,7 +94,11 @@ export default async function ArticlePage({ params }: Props) {
 
               if (block.type === 'paragraph') {
                 return (
-                  <p key={block.id} className={`${colClass} text-[17px] text-ink-mid leading-relaxed whitespace-pre-wrap`}>
+                  <p
+                    key={block.id}
+                    className={`${colClass} text-[17px] text-ink-mid leading-relaxed whitespace-pre-wrap`}
+                    style={textStyleToCss(block.style)}
+                  >
                     {block.content}
                   </p>
                 )

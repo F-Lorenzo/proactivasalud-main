@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import type { TextStyle } from './textStyles'
 
 export interface Block {
   id: string
@@ -9,6 +10,8 @@ export interface Block {
   caption?: string
   /** How many grid columns this block spans (1–4). Default: 4 (full width) */
   colSpan?: 1 | 2 | 3 | 4
+  /** Typography override for paragraph blocks */
+  style?: TextStyle
 }
 
 export interface Article {
@@ -19,6 +22,8 @@ export interface Article {
   coverImage: string
   publishedAt: string
   blocks: Block[]
+  titleStyle?: TextStyle
+  excerptStyle?: TextStyle
 }
 
 const IS_VERCEL = process.env.VERCEL === '1'

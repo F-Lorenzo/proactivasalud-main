@@ -3,6 +3,12 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { ArticleImage as Image } from '@/components/ArticleImage'
 import type { Article, Block } from '@/lib/articles'
+import {
+  type TextStyle,
+  FONT_OPTIONS, WEIGHT_OPTIONS,
+  TITLE_SIZE_OPTIONS, SUBTITLE_SIZE_OPTIONS, TEXT_SIZE_OPTIONS,
+  textStyleToCss,
+} from '@/lib/textStyles'
 
 const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? 'proactiva2025'
 
@@ -325,8 +331,16 @@ export default function AdminBlogPage() {
               <label className="block text-xs font-semibold text-muted uppercase tracking-wider mb-1.5">Título del artículo</label>
               <input type="text" value={draft.title} onChange={e => setField('title', e.target.value)}
                 placeholder="Escribe un título atractivo..."
+                style={textStyleToCss(draft.titleStyle)}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3 font-display text-xl font-semibold text-navy placeholder-gray-300 outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition"
               />
+              <div className="mt-2">
+                <TypographyControls
+                  style={draft.titleStyle}
+                  sizeOptions={TITLE_SIZE_OPTIONS}
+                  onChange={patch => setField('titleStyle', { ...draft.titleStyle, ...patch })}
+                />
+              </div>
             </div>
 
             {/* Excerpt */}
@@ -334,8 +348,16 @@ export default function AdminBlogPage() {
               <label className="block text-xs font-semibold text-muted uppercase tracking-wider mb-1.5">Resumen / Bajada</label>
               <textarea value={draft.excerpt} onChange={e => setField('excerpt', e.target.value)}
                 placeholder="Un párrafo corto que describe el artículo..." rows={2}
+                style={textStyleToCss(draft.excerptStyle)}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm text-navy placeholder-gray-300 outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition resize-none"
               />
+              <div className="mt-2">
+                <TypographyControls
+                  style={draft.excerptStyle}
+                  sizeOptions={SUBTITLE_SIZE_OPTIONS}
+                  onChange={patch => setField('excerptStyle', { ...draft.excerptStyle, ...patch })}
+                />
+              </div>
             </div>
 
             {/* Date */}
@@ -554,13 +576,21 @@ function BlockEditor({
         {/* ── Content ── */}
         <div className="p-4 flex-1">
           {block.type === 'paragraph' ? (
-            <textarea
-              value={block.content ?? ''}
-              onChange={e => onUpdate({ content: e.target.value })}
-              placeholder="Escribe el contenido del párrafo..."
-              rows={4}
-              className="w-full text-sm text-navy leading-relaxed placeholder-gray-300 outline-none resize-none"
-            />
+            <div className="space-y-2.5">
+              <textarea
+                value={block.content ?? ''}
+                onChange={e => onUpdate({ content: e.target.value })}
+                placeholder="Escribe el contenido del párrafo..."
+                rows={4}
+                style={textStyleToCss(block.style)}
+                className="w-full text-sm text-navy leading-relaxed placeholder-gray-300 outline-none resize-none"
+              />
+              <TypographyControls
+                style={block.style}
+                sizeOptions={TEXT_SIZE_OPTIONS}
+                onChange={patch => onUpdate({ style: { ...block.style, ...patch } })}
+              />
+            </div>
           ) : (
             <div className="space-y-3">
               <input ref={fileRef} type="file" accept="image/*" className="hidden"
@@ -619,6 +649,54 @@ function BlockEditor({
       >
         <div className="w-1 h-10 bg-brand/50 hover:bg-brand rounded-full transition-colors" />
       </div>
+    </div>
+  )
+}
+
+// ─── Typography controls ───────────────────────────────────────────────────────
+
+function TypographyControls({
+  style, onChange, sizeOptions,
+}: {
+  style?: TextStyle
+  onChange: (patch: Partial<TextStyle>) => void
+  sizeOptions: readonly number[]
+}) {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <select
+        value={style?.font ?? ''}
+        onChange={e => onChange({ font: e.target.value || undefined })}
+        className="text-xs border border-gray-200 rounded-lg px-2 py-1.5 text-navy outline-none focus:border-brand/50 transition bg-white"
+        title="Tipografía"
+      >
+        <option value="">Tipografía por defecto</option>
+        {FONT_OPTIONS.map(f => (
+          <option key={f.value} value={f.value}>{f.label}</option>
+        ))}
+      </select>
+      <select
+        value={style?.weight ?? ''}
+        onChange={e => onChange({ weight: e.target.value ? Number(e.target.value) : undefined })}
+        className="text-xs border border-gray-200 rounded-lg px-2 py-1.5 text-navy outline-none focus:border-brand/50 transition bg-white"
+        title="Peso"
+      >
+        <option value="">Peso por defecto</option>
+        {WEIGHT_OPTIONS.map(w => (
+          <option key={w.value} value={w.value}>{w.label}</option>
+        ))}
+      </select>
+      <select
+        value={style?.size ?? ''}
+        onChange={e => onChange({ size: e.target.value ? Number(e.target.value) : undefined })}
+        className="text-xs border border-gray-200 rounded-lg px-2 py-1.5 text-navy outline-none focus:border-brand/50 transition bg-white"
+        title="Tamaño"
+      >
+        <option value="">Tamaño por defecto</option>
+        {sizeOptions.map(s => (
+          <option key={s} value={s}>{s}px</option>
+        ))}
+      </select>
     </div>
   )
 }

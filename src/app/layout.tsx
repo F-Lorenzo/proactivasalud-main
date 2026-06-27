@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Inter } from 'next/font/google'
+import { Playfair_Display, Inter, Montserrat, Merriweather, Lora } from 'next/font/google'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import './globals.css'
 
@@ -13,6 +13,28 @@ const playfair = Playfair_Display({
 
 const inter = Inter({
   variable: '--font-inter',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+const montserrat = Montserrat({
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-montserrat',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+const merriweather = Merriweather({
+  weight: ['400', '700', '900'],
+  variable: '--font-merriweather',
+  subsets: ['latin'],
+  display: 'swap',
+})
+
+const lora = Lora({
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-lora',
   subsets: ['latin'],
   display: 'swap',
 })
@@ -37,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className={`${playfair.variable} ${inter.variable} h-full`}>
+    <html lang="es" className={`${playfair.variable} ${inter.variable} ${montserrat.variable} ${merriweather.variable} ${lora.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         <a
           href="#main"
