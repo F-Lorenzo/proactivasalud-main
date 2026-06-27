@@ -96,7 +96,7 @@ export default async function ArticlePage({ params }: Props) {
                 return (
                   <p
                     key={block.id}
-                    className={`${colClass} text-[17px] text-ink-mid leading-relaxed whitespace-pre-wrap`}
+                    className={`${colClass} min-w-0 text-[17px] text-ink-mid leading-relaxed whitespace-pre-wrap break-words`}
                     style={textStyleToCss(block.style)}
                   >
                     {block.content}
@@ -105,7 +105,7 @@ export default async function ArticlePage({ params }: Props) {
               }
               if (block.type === 'image' && block.src) {
                 return (
-                  <figure key={block.id} className={colClass}>
+                  <figure key={block.id} className={`${colClass} min-w-0`}>
                     <div className="relative w-full rounded-2xl overflow-hidden bg-sage-pale" style={{ aspectRatio: '16/9' }}>
                       <Image
                         src={block.src}

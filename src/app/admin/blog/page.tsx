@@ -511,7 +511,7 @@ function BlockEditor({
   return (
     <div
       data-block-id={block.id}
-      className={`${colClass} relative group`}
+      className={`${colClass} min-w-0 relative group`}
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
