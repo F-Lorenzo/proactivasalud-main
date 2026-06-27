@@ -79,7 +79,7 @@ export function CtaSection() {
               className="hidden lg:block relative rounded-2xl overflow-hidden w-48 h-48 flex-shrink-0 self-center"
             >
               <Image
-                src="/pareja-haciendo-ejercicio.png"
+                src="/pareja_ejercitando_2.jpg"
                 alt="Pareja activa haciendo ejercicio"
                 fill
                 className="object-cover"
