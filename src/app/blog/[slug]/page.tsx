@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer'
 import { TranslateWidget } from '@/components/TranslateWidget'
 import { readArticles } from '@/lib/articles'
 import { textStyleToCss } from '@/lib/textStyles'
+import { renderRichText } from '@/lib/richText'
 import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
@@ -99,7 +100,7 @@ export default async function ArticlePage({ params }: Props) {
                     className={`${colClass} min-w-0 text-[17px] text-ink-mid leading-relaxed whitespace-pre-wrap break-words`}
                     style={textStyleToCss(block.style)}
                   >
-                    {block.content}
+                    {renderRichText(block.content ?? '')}
                   </p>
                 )
               }

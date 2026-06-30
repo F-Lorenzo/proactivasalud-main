@@ -505,8 +505,24 @@ function BlockEditor({
   onDragStart, onDragOver, onDrop, onDragEnd,
 }: BlockEditorProps) {
   const fileRef = useRef<HTMLInputElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
   const colSpan = (block.colSpan ?? 4) as ColSpan
   const colClass = COL_CLASSES[colSpan]
+
+  function applyInlineFormat(marker: string) {
+    const el = textareaRef.current
+    if (!el) return
+    const { selectionStart: start, selectionEnd: end } = el
+    if (start === end) return
+    const content = block.content ?? ''
+    const selected = content.slice(start, end)
+    const newContent = content.slice(0, start) + marker + selected + marker + content.slice(end)
+    onUpdate({ content: newContent })
+    requestAnimationFrame(() => {
+      el.focus()
+      el.setSelectionRange(start + marker.length, end + marker.length)
+    })
+  }
 
   return (
     <div
@@ -577,7 +593,23 @@ function BlockEditor({
         <div className="p-4 flex-1">
           {block.type === 'paragraph' ? (
             <div className="space-y-2.5">
+              <div className="flex items-center gap-1">
+                <button type="button" onMouseDown={e => e.preventDefault()} onClick={() => applyInlineFormat('**')}
+                  title="Negrita (seleccioná texto primero)"
+                  className="w-7 h-7 flex items-center justify-center rounded-md border border-gray-200 text-xs font-bold text-navy hover:bg-sage-pale hover:border-brand transition-colors"
+                >B</button>
+                <button type="button" onMouseDown={e => e.preventDefault()} onClick={() => applyInlineFormat('*')}
+                  title="Cursiva (seleccioná texto primero)"
+                  className="w-7 h-7 flex items-center justify-center rounded-md border border-gray-200 text-xs italic text-navy hover:bg-sage-pale hover:border-brand transition-colors"
+                >I</button>
+                <button type="button" onMouseDown={e => e.preventDefault()} onClick={() => applyInlineFormat('__')}
+                  title="Subrayado (seleccioná texto primero)"
+                  className="w-7 h-7 flex items-center justify-center rounded-md border border-gray-200 text-xs underline text-navy hover:bg-sage-pale hover:border-brand transition-colors"
+                >U</button>
+                <span className="text-[10px] text-muted ml-1">Seleccioná texto y aplicá formato</span>
+              </div>
               <textarea
+                ref={textareaRef}
                 value={block.content ?? ''}
                 onChange={e => onUpdate({ content: e.target.value })}
                 placeholder="Escribe el contenido del párrafo..."
