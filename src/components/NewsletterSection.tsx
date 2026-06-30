@@ -147,9 +147,12 @@ function ArticleCard({ article, featured }: { article: Article; featured: boolea
       </div>
       <div className="p-5 flex flex-col flex-1">
         <p className="text-xs text-muted mb-1.5">{date}</p>
-        <h3 className="font-display text-base font-semibold text-navy leading-snug mb-2 group-hover:text-brand transition-colors flex-1">
+        <h3 className="font-display text-base font-semibold text-navy leading-snug mb-2 group-hover:text-brand transition-colors">
           {article.title}
         </h3>
+        {article.excerpt && (
+          <p className="text-muted text-sm line-clamp-2 mb-3 flex-1">{article.excerpt}</p>
+        )}
         <span className="inline-flex items-center gap-1 text-brand text-xs font-semibold mt-auto">
           Leer
           <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
