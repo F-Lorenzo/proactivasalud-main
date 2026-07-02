@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { unstable_cache } from 'next/cache'
-import type { TextStyle } from './textStyles'
+import { sanitizeTextStyle, type TextStyle } from './textStyles'
 
 export interface Block {
   id: string
@@ -99,12 +99,44 @@ export async function writeArticles(articles: Article[]): Promise<void> {
       addRandomSuffix: false,
       allowOverwrite: true,
     })
-    // Invalidate the cache so next read reflects the new data
-    const { revalidateTag } = await import('next/cache')
-    revalidateTag('articles')
+    // Expire the data cache immediately (not stale-while-revalidate) so the
+    // next readArticles() call after a write returns fresh data.
+    const { revalidateTag, revalidatePath } = await import('next/cache')
+    revalidateTag('articles', { expire: 0 })
+    // Also bust the page-level Full Route Cache — revalidateTag alone only
+    // invalidates the underlying data, not already-rendered page HTML.
+    revalidatePath('/', 'layout')
     return
   }
   writeArticlesFs(articles)
+}
+
+const ALLOWED_COL_SPANS = new Set([1, 2, 3, 4])
+
+/** Validates/strips untrusted block data from the write API — keeps only the
+ * shape the admin block editor could have produced. */
+export function sanitizeBlocks(blocks: unknown): Block[] {
+  if (!Array.isArray(blocks)) return []
+  const clean: Block[] = []
+  for (const b of blocks) {
+    if (!b || typeof b !== 'object') continue
+    const block = b as Record<string, unknown>
+    if (typeof block.id !== 'string') continue
+    if (block.type !== 'paragraph' && block.type !== 'image') continue
+
+    const out: Block = { id: block.id, type: block.type }
+    if (typeof block.content === 'string') out.content = block.content
+    if (typeof block.src === 'string') out.src = block.src
+    if (typeof block.caption === 'string') out.caption = block.caption
+    if (typeof block.colSpan === 'number' && ALLOWED_COL_SPANS.has(block.colSpan)) {
+      out.colSpan = block.colSpan as 1 | 2 | 3 | 4
+    }
+    const style = sanitizeTextStyle(block.style)
+    if (style) out.style = style
+
+    clean.push(out)
+  }
+  return clean
 }
 
 export function slugify(title: string): string {

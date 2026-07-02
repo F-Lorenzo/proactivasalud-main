@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
-import { readArticles, writeArticles, slugify } from '@/lib/articles'
+import { readArticles, writeArticles, slugify, sanitizeBlocks } from '@/lib/articles'
 import { requireAdminAuth } from '@/lib/adminAuth'
+import { sanitizeTextStyle } from '@/lib/textStyles'
 import type { Article } from '@/lib/articles'
 
 export async function GET(
@@ -39,7 +40,16 @@ export async function PUT(
     }
   }
 
-  articles[idx] = { ...existing, ...body, id: existing.id, slug: finalSlug, title: newTitle }
+  articles[idx] = {
+    ...existing,
+    ...body,
+    id: existing.id,
+    slug: finalSlug,
+    title: newTitle,
+    blocks: body.blocks !== undefined ? sanitizeBlocks(body.blocks) : existing.blocks,
+    titleStyle: body.titleStyle !== undefined ? sanitizeTextStyle(body.titleStyle) : existing.titleStyle,
+    excerptStyle: body.excerptStyle !== undefined ? sanitizeTextStyle(body.excerptStyle) : existing.excerptStyle,
+  }
   await writeArticles(articles)
   return Response.json(articles[idx])
 }

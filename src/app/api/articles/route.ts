@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server'
-import { readArticles, writeArticles, slugify } from '@/lib/articles'
+import { readArticles, writeArticles, slugify, sanitizeBlocks } from '@/lib/articles'
 import { requireAdminAuth } from '@/lib/adminAuth'
+import { sanitizeTextStyle } from '@/lib/textStyles'
 import type { Article } from '@/lib/articles'
 import { randomUUID } from 'crypto'
 
@@ -31,7 +32,9 @@ export async function POST(request: NextRequest) {
     excerpt: body.excerpt?.trim() ?? '',
     coverImage: body.coverImage ?? '',
     publishedAt: body.publishedAt ?? new Date().toISOString().slice(0, 10),
-    blocks: body.blocks ?? [],
+    blocks: sanitizeBlocks(body.blocks),
+    titleStyle: sanitizeTextStyle(body.titleStyle),
+    excerptStyle: sanitizeTextStyle(body.excerptStyle),
   }
 
   articles.unshift(article)

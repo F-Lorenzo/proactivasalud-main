@@ -47,6 +47,28 @@ async function uploadImage(file: File, password: string): Promise<string> {
 type Draft = Omit<Article, 'id' | 'slug'> & { id?: string; slug?: string }
 type ColSpan = 1 | 2 | 3 | 4
 
+// Draft autosave — survives an accidental refresh mid-edit. Cleared on
+// successful save or when starting a fresh article. sessionStorage (not
+// localStorage) so it doesn't linger across browser sessions on a shared machine.
+const DRAFT_STORAGE_KEY = 'proactiva-admin-draft'
+
+function loadStoredDraft(): { draft: Draft; editing: string | null } | null {
+  try {
+    const raw = sessionStorage.getItem(DRAFT_STORAGE_KEY)
+    if (!raw) return null
+    return JSON.parse(raw) as { draft: Draft; editing: string | null }
+  } catch { return null }
+}
+
+function storeDraft(draft: Draft, editing: string | null) {
+  try { sessionStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify({ draft, editing })) }
+  catch { /* storage unavailable — autosave is best-effort */ }
+}
+
+function clearStoredDraft() {
+  try { sessionStorage.removeItem(DRAFT_STORAGE_KEY) } catch { /* ignore */ }
+}
+
 const COL_CLASSES: Record<ColSpan, string> = {
   1: 'col-span-1',
   2: 'col-span-2',
@@ -61,11 +83,16 @@ export default function AdminBlogPage() {
   const [pwInput, setPwInput] = useState('')
   const [password, setPassword] = useState('') // stored in state, never in the bundle
   const [pwError, setPwError] = useState(false)
+  const [pwErrorMsg, setPwErrorMsg] = useState('Contraseña incorrecta')
+  const [loggingIn, setLoggingIn] = useState(false)
 
   const [articles, setArticles] = useState<Article[]>([])
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [uploading, setUploading] = useState(false)
+  // Counter, not a boolean — concurrent uploads (e.g. two image blocks at once)
+  // must not let the first finisher re-enable Save while another is in flight.
+  const [uploadCount, setUploadCount] = useState(0)
+  const uploading = uploadCount > 0
   const [saveMsg, setSaveMsg] = useState('')
 
   const [draft, setDraft] = useState<Draft>(emptyDraft())
@@ -102,18 +129,34 @@ export default function AdminBlogPage() {
     }
   }, [])
 
-  // ── Auth — password validated server-side ──
+  // ── Auth — password validated server-side. Only a 2xx response grants access;
+  // network errors and non-401 failures show feedback instead of failing open. ──
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
-    const res = await fetch('/api/admin/verify', {
-      method: 'POST',
-      headers: { 'x-admin-password': pwInput },
-    })
-    if (res.status === 401) {
+    setLoggingIn(true)
+    try {
+      const res = await fetch('/api/admin/verify', {
+        method: 'POST',
+        headers: { 'x-admin-password': pwInput },
+      })
+      if (res.ok) {
+        setPassword(pwInput)
+        setAuthed(true)
+        return
+      }
+      if (res.status === 429) {
+        setPwErrorMsg('Demasiados intentos. Esperá un minuto e intentá de nuevo.')
+      } else if (res.status === 401) {
+        setPwErrorMsg('Contraseña incorrecta')
+      } else {
+        setPwErrorMsg('Error del servidor. Intentá de nuevo en unos segundos.')
+      }
       setPwError(true)
-    } else {
-      setPassword(pwInput)
-      setAuthed(true)
+    } catch {
+      setPwErrorMsg('No se pudo conectar. Revisá tu conexión e intentá de nuevo.')
+      setPwError(true)
+    } finally {
+      setLoggingIn(false)
     }
   }
 
@@ -128,12 +171,26 @@ export default function AdminBlogPage() {
 
   useEffect(() => { if (authed) loadArticles() }, [authed, loadArticles])
 
+  // Restore an in-progress draft once (e.g. after an accidental refresh)
+  useEffect(() => {
+    if (!authed) return
+    const stored = loadStoredDraft()
+    if (stored) { setDraft(stored.draft); setEditing(stored.editing) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authed])
+
+  // Autosave the draft on every change so a refresh doesn't lose in-progress work
+  useEffect(() => {
+    if (!authed) return
+    storeDraft(draft, editing)
+  }, [authed, draft, editing])
+
   function adminHeaders(extra?: Record<string, string>) {
     return { 'x-admin-password': password, ...extra }
   }
 
   function selectArticle(a: Article) { setEditing(a.id); setDraft({ ...a }); setSaveMsg('') }
-  function newDraft() { setEditing(null); setDraft(emptyDraft()); setSaveMsg('') }
+  function newDraft() { setEditing(null); setDraft(emptyDraft()); setSaveMsg(''); clearStoredDraft() }
   function setField<K extends keyof Draft>(key: K, value: Draft[K]) {
     setDraft(d => ({ ...d, [key]: value }))
   }
@@ -208,17 +265,17 @@ export default function AdminBlogPage() {
 
   // ── Images ──
   async function handleBlockImageUpload(blockId: string, file: File) {
-    setUploading(true)
+    setUploadCount(n => n + 1)
     try { updateBlock(blockId, { src: await uploadImage(file, password) }) }
     catch { alert('Error al subir la imagen') }
-    finally { setUploading(false) }
+    finally { setUploadCount(n => n - 1) }
   }
 
   async function handleCoverUpload(file: File) {
-    setUploading(true)
+    setUploadCount(n => n + 1)
     try { setField('coverImage', await uploadImage(file, password)) }
     catch { alert('Error al subir la imagen') }
-    finally { setUploading(false) }
+    finally { setUploadCount(n => n - 1) }
   }
 
   // ── Save ──
@@ -234,6 +291,7 @@ export default function AdminBlogPage() {
       const saved = await res.json() as Article
       setSaveMsg('¡Guardado!')
       setEditing(saved.id); setDraft(saved)
+      clearStoredDraft()
       await loadArticles()
       setTimeout(() => setSaveMsg(''), 3000)
     } catch { alert('Error al guardar el artículo') }
@@ -272,10 +330,12 @@ export default function AdminBlogPage() {
                 className={`w-full border rounded-xl px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition ${pwError ? 'border-red-400' : 'border-gray-200'}`}
                 placeholder="••••••••" autoFocus
               />
-              {pwError && <p className="text-red-500 text-xs mt-1">Contraseña incorrecta</p>}
+              {pwError && <p className="text-red-500 text-xs mt-1">{pwErrorMsg}</p>}
             </div>
-            <button type="submit" className="w-full bg-brand text-white font-semibold py-3 rounded-xl hover:bg-brand-dark transition-colors">
-              Ingresar
+            <button type="submit" disabled={loggingIn}
+              className="w-full bg-brand text-white font-semibold py-3 rounded-xl hover:bg-brand-dark transition-colors disabled:opacity-60"
+            >
+              {loggingIn ? 'Verificando...' : 'Ingresar'}
             </button>
           </form>
         </div>

@@ -32,3 +32,26 @@ export function textStyleToCss(style?: TextStyle): React.CSSProperties {
     ...(style.size ? { fontSize: `${style.size}px` } : {}),
   }
 }
+
+const ALLOWED_FONTS = new Set(FONT_OPTIONS.map(f => f.value))
+const ALLOWED_WEIGHTS = new Set(WEIGHT_OPTIONS.map(w => w.value))
+const ALLOWED_SIZES = new Set([...TITLE_SIZE_OPTIONS, ...SUBTITLE_SIZE_OPTIONS, ...TEXT_SIZE_OPTIONS])
+
+/** Strips any font/weight/size value that isn't one of the dropdown's allowed
+ * options — the write API only stores values that the admin UI could have
+ * produced, regardless of what a raw API caller sends. */
+export function sanitizeTextStyle(style: unknown): TextStyle | undefined {
+  if (!style || typeof style !== 'object') return undefined
+  const s = style as Record<string, unknown>
+  const clean: TextStyle = {}
+  if (typeof s.font === 'string' && ALLOWED_FONTS.has(s.font as typeof FONT_OPTIONS[number]['value'])) {
+    clean.font = s.font
+  }
+  if (typeof s.weight === 'number' && ALLOWED_WEIGHTS.has(s.weight as typeof WEIGHT_OPTIONS[number]['value'])) {
+    clean.weight = s.weight
+  }
+  if (typeof s.size === 'number' && ALLOWED_SIZES.has(s.size as never)) {
+    clean.size = s.size
+  }
+  return Object.keys(clean).length > 0 ? clean : undefined
+}
