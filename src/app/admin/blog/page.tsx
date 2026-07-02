@@ -55,9 +55,11 @@ async function uploadImage(file: File, password: string): Promise<string> {
 
   // Large file (e.g. a phone photo) — upload directly from the browser to
   // Vercel Blob, bypassing the serverless function body-size limit entirely.
-  const { upload } = await import('@vercel/blob/client')
+  // Uses the presigned-URL flow (not the classic client-token flow) because
+  // this store is connected via OIDC, with no static BLOB_READ_WRITE_TOKEN.
+  const { uploadPresigned } = await import('@vercel/blob/client')
   const ext = file.name.split('.').pop()?.toLowerCase() ?? 'jpg'
-  const blob = await upload(`blog/images/${crypto.randomUUID()}.${ext}`, file, {
+  const blob = await uploadPresigned(`blog/images/${crypto.randomUUID()}.${ext}`, file, {
     access: 'private',
     handleUploadUrl: '/api/upload',
     headers: { 'x-admin-password': password },

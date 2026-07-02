@@ -31,33 +31,42 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json()
 
-    // Only the token-issuance event needs our own auth — the upload-completed
-    // callback is a server-to-server call from Vercel Blob, verified internally
-    // by the SDK, and never carries our x-admin-password header.
-    if (body?.type === 'blob.generate-client-token') {
+    // Only the presigned-URL-issuance event needs our own auth — the
+    // upload-completed callback is a server-to-server call from Vercel Blob,
+    // verified internally via its webhook signature, and never carries our
+    // x-admin-password header.
+    if (body?.type === 'blob.generate-presigned-url') {
       const authError = requireAdminAuth(request)
       if (authError) return authError
     }
 
     try {
-      const { handleUpload } = await import('@vercel/blob/client')
-      const jsonResponse = await handleUpload({
+      // This store is connected via OIDC (no static BLOB_READ_WRITE_TOKEN),
+      // so we use the presigned-URL flow (issueSignedToken, same auth path
+      // already used elsewhere in this app) instead of handleUpload's
+      // classic client-token flow, which hard-requires BLOB_READ_WRITE_TOKEN.
+      const { handleUploadPresigned } = await import('@vercel/blob/client')
+      const { issueSignedToken } = await import('@vercel/blob')
+      const jsonResponse = await handleUploadPresigned({
         body,
         request,
-        onBeforeGenerateToken: async (pathname) => {
+        getSignedToken: async (pathname) => {
           if (!pathname.startsWith('blog/images/')) {
             throw new Error('Invalid upload path')
           }
-          return {
+          const token = await issueSignedToken({
+            operations: ['put'],
+            pathname,
+            validUntil: Date.now() + 5 * 60_000,
             allowedContentTypes: ALLOWED_MIME,
             maximumSizeInBytes: LARGE_UPLOAD_MAX_BYTES,
-            addRandomSuffix: false,
-          }
+          })
+          return { token }
         },
       })
       return Response.json(jsonResponse)
     } catch (err) {
-      console.error('[upload] client-token flow error:', String(err))
+      console.error('[upload] presigned-token flow error:', String(err))
       return Response.json({ error: 'Error al subir la imagen' }, { status: 400 })
     }
   }
