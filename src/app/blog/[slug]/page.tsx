@@ -9,7 +9,7 @@ import { textStyleToCss } from '@/lib/textStyles'
 import { renderRichText } from '@/lib/richText'
 import type { Metadata } from 'next'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 60
 
 type Props = { params: Promise<{ slug: string }> }
 

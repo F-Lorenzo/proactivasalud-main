@@ -57,6 +57,6 @@ export async function GET(
     })
   } catch (err) {
     console.error('[blob-image proxy] error:', String(err))
-    return new Response(`Error: ${String(err)}`, { status: 500 })
+    return new Response('Internal server error', { status: 500 })
   }
 }

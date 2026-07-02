@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { readArticles, writeArticles, slugify } from '@/lib/articles'
+import { requireAdminAuth } from '@/lib/adminAuth'
 import type { Article } from '@/lib/articles'
 
 export async function GET(
@@ -16,6 +17,9 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const authError = requireAdminAuth(request)
+  if (authError) return authError
+
   const { id } = await params
   const body = await request.json() as Partial<Article>
   const articles = await readArticles()
@@ -41,9 +45,12 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _req: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const authError = requireAdminAuth(request)
+  if (authError) return authError
+
   const { id } = await params
   const articles = await readArticles()
   await writeArticles(articles.filter(a => a.id !== id))

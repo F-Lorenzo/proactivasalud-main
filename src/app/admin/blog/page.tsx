@@ -10,8 +10,7 @@ import {
   textStyleToCss,
 } from '@/lib/textStyles'
 
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? 'proactiva2025'
-
+// Password stored in state only — never in a module-level variable sent to the bundle
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function newParagraph(): Block {
@@ -32,10 +31,14 @@ function emptyDraft(): Omit<Article, 'id' | 'slug'> {
   }
 }
 
-async function uploadImage(file: File): Promise<string> {
+async function uploadImage(file: File, password: string): Promise<string> {
   const fd = new FormData()
   fd.append('file', file)
-  const res = await fetch('/api/upload', { method: 'POST', body: fd })
+  const res = await fetch('/api/upload', {
+    method: 'POST',
+    headers: { 'x-admin-password': password },
+    body: fd,
+  })
   if (!res.ok) throw new Error('Error al subir imagen')
   const data = await res.json() as { url: string }
   return data.url
@@ -56,11 +59,13 @@ const COL_CLASSES: Record<ColSpan, string> = {
 export default function AdminBlogPage() {
   const [authed, setAuthed] = useState(false)
   const [pwInput, setPwInput] = useState('')
+  const [password, setPassword] = useState('') // stored in state, never in the bundle
   const [pwError, setPwError] = useState(false)
 
   const [articles, setArticles] = useState<Article[]>([])
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [saveMsg, setSaveMsg] = useState('')
 
   const [draft, setDraft] = useState<Draft>(emptyDraft())
@@ -97,11 +102,19 @@ export default function AdminBlogPage() {
     }
   }, [])
 
-  // ── Auth ──
-  function handleLogin(e: React.FormEvent) {
+  // ── Auth — password validated server-side ──
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
-    if (pwInput === ADMIN_PASSWORD) { setAuthed(true); loadArticles() }
-    else setPwError(true)
+    const res = await fetch('/api/admin/verify', {
+      method: 'POST',
+      headers: { 'x-admin-password': pwInput },
+    })
+    if (res.status === 401) {
+      setPwError(true)
+    } else {
+      setPassword(pwInput)
+      setAuthed(true)
+    }
   }
 
   // ── Load ──
@@ -114,6 +127,10 @@ export default function AdminBlogPage() {
   }, [])
 
   useEffect(() => { if (authed) loadArticles() }, [authed, loadArticles])
+
+  function adminHeaders(extra?: Record<string, string>) {
+    return { 'x-admin-password': password, ...extra }
+  }
 
   function selectArticle(a: Article) { setEditing(a.id); setDraft({ ...a }); setSaveMsg('') }
   function newDraft() { setEditing(null); setDraft(emptyDraft()); setSaveMsg('') }
@@ -191,23 +208,28 @@ export default function AdminBlogPage() {
 
   // ── Images ──
   async function handleBlockImageUpload(blockId: string, file: File) {
-    try { updateBlock(blockId, { src: await uploadImage(file) }) }
+    setUploading(true)
+    try { updateBlock(blockId, { src: await uploadImage(file, password) }) }
     catch { alert('Error al subir la imagen') }
+    finally { setUploading(false) }
   }
 
   async function handleCoverUpload(file: File) {
-    try { setField('coverImage', await uploadImage(file)) }
+    setUploading(true)
+    try { setField('coverImage', await uploadImage(file, password)) }
     catch { alert('Error al subir la imagen') }
+    finally { setUploading(false) }
   }
 
   // ── Save ──
   async function handleSave() {
     if (!draft.title.trim()) { alert('El artículo necesita un título'); return }
+    if (uploading) { alert('Esperá a que termine la subida de imagen'); return }
     setSaving(true); setSaveMsg('')
     try {
       const res = editing
-        ? await fetch(`/api/articles/${editing}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(draft) })
-        : await fetch('/api/articles', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(draft) })
+        ? await fetch(`/api/articles/${editing}`, { method: 'PUT', headers: adminHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify(draft) })
+        : await fetch('/api/articles', { method: 'POST', headers: adminHeaders({ 'Content-Type': 'application/json' }), body: JSON.stringify(draft) })
       if (!res.ok) throw new Error()
       const saved = await res.json() as Article
       setSaveMsg('¡Guardado!')
@@ -221,7 +243,8 @@ export default function AdminBlogPage() {
   // ── Delete ──
   async function handleDelete(id: string) {
     if (!confirm('¿Eliminar este artículo?')) return
-    await fetch(`/api/articles/${id}`, { method: 'DELETE' })
+    const res = await fetch(`/api/articles/${id}`, { method: 'DELETE', headers: adminHeaders() })
+    if (!res.ok) { alert('Error al eliminar el artículo'); return }
     if (editing === id) newDraft()
     await loadArticles()
   }
@@ -451,10 +474,10 @@ export default function AdminBlogPage() {
 
             {/* Save */}
             <div className="flex items-center gap-4 pt-2 pb-12">
-              <button onClick={handleSave} disabled={saving}
+              <button onClick={handleSave} disabled={saving || uploading}
                 className="bg-brand text-white font-semibold px-8 py-3 rounded-xl hover:bg-brand-dark transition-colors disabled:opacity-60 shadow-button"
               >
-                {saving ? 'Guardando...' : editing ? 'Guardar cambios' : 'Publicar artículo'}
+                {uploading ? 'Subiendo imagen...' : saving ? 'Guardando...' : editing ? 'Guardar cambios' : 'Publicar artículo'}
               </button>
               {saveMsg && (
                 <span className="text-brand font-semibold text-sm flex items-center gap-1">

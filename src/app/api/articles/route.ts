@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { readArticles, writeArticles, slugify } from '@/lib/articles'
+import { requireAdminAuth } from '@/lib/adminAuth'
 import type { Article } from '@/lib/articles'
 import { randomUUID } from 'crypto'
 
@@ -9,6 +10,9 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const authError = requireAdminAuth(request)
+  if (authError) return authError
+
   const body = await request.json() as Partial<Article>
   const articles = await readArticles()
 

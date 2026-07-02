@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import { unstable_cache } from 'next/cache'
 import type { TextStyle } from './textStyles'
 
 export interface Block {
@@ -46,30 +47,26 @@ function writeArticlesFs(articles: Article[]): void {
 
 // ─── Vercel Blob (production) ─────────────────────────────────────────────────
 
-async function readArticlesBlob(): Promise<Article[]> {
+async function fetchArticlesBlob(): Promise<Article[]> {
   try {
     const { list, issueSignedToken, presignUrl } = await import('@vercel/blob')
 
-    // 1. Find the blob via API (OIDC-authenticated)
     const { blobs } = await list({ prefix: BLOB_ARTICLES_PATH })
     if (blobs.length === 0) return []
 
-    // 2. Issue a short-lived signed token for reading (goes via blob.vercel-storage.com API)
     const signed = await issueSignedToken({
       operations: ['get'],
       pathname: BLOB_ARTICLES_PATH,
-      validUntil: Date.now() + 60_000, // 1 minute
+      validUntil: Date.now() + 60_000,
     })
 
-    // 3. Build a presigned URL — the HMAC signature is embedded, no auth header needed
     const { presignedUrl } = await presignUrl(signed, {
       operation: 'get',
       pathname: BLOB_ARTICLES_PATH,
       access: 'private',
     })
 
-    // 4. Plain fetch
-    const res = await fetch(presignedUrl, { cache: 'no-store' })
+    const res = await fetch(presignedUrl)
     if (!res.ok) return []
     return (await res.json()) as Article[]
   } catch (err) {
@@ -78,25 +75,35 @@ async function readArticlesBlob(): Promise<Article[]> {
   }
 }
 
-async function writeArticlesBlob(articles: Article[]): Promise<void> {
-  const { put } = await import('@vercel/blob')
-  await put(BLOB_ARTICLES_PATH, JSON.stringify(articles), {
-    access: 'private',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-  })
-}
+// Cache blob reads for 60 s — deduplicates multiple calls within the same
+// request and across requests until content changes (invalidated on write).
+const readArticlesCached = unstable_cache(
+  fetchArticlesBlob,
+  ['articles'],
+  { revalidate: 60, tags: ['articles'] }
+)
 
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 export async function readArticles(): Promise<Article[]> {
-  if (IS_VERCEL) return readArticlesBlob()
+  if (IS_VERCEL) return readArticlesCached()
   return readArticlesFs()
 }
 
 export async function writeArticles(articles: Article[]): Promise<void> {
-  if (IS_VERCEL) return writeArticlesBlob(articles)
+  if (IS_VERCEL) {
+    const { put } = await import('@vercel/blob')
+    await put(BLOB_ARTICLES_PATH, JSON.stringify(articles), {
+      access: 'private',
+      contentType: 'application/json',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+    })
+    // Invalidate the cache so next read reflects the new data
+    const { revalidateTag } = await import('next/cache')
+    revalidateTag('articles')
+    return
+  }
   writeArticlesFs(articles)
 }
 

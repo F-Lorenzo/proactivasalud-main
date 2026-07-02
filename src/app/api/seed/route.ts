@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { writeArticles, readArticles } from '@/lib/articles'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
 // One-time seeder — POSTs the hardcoded articles to Vercel Blob
 // Protected with ADMIN_PASSWORD. Hit once, then ignore.
@@ -40,11 +41,8 @@ const SEED_ARTICLES = [
 ]
 
 export async function POST(request: NextRequest) {
-  const { password } = await request.json() as { password?: string }
-  const adminPw = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? 'proactiva2025'
-  if (password !== adminPw) {
-    return Response.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const authError = requireAdminAuth(request)
+  if (authError) return authError
 
   const existing = await readArticles()
   if (existing.length > 0) {

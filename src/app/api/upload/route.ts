@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server'
+import { requireAdminAuth } from '@/lib/adminAuth'
 import fs from 'fs'
 import path from 'path'
 import { randomUUID } from 'crypto'
@@ -7,6 +8,9 @@ const IS_VERCEL = process.env.VERCEL === '1'
 const ALLOWED = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif']
 
 export async function POST(request: NextRequest) {
+  const authError = requireAdminAuth(request)
+  if (authError) return authError
+
   const formData = await request.formData()
   const file = formData.get('file') as File | null
   if (!file) return Response.json({ error: 'No file' }, { status: 400 })
