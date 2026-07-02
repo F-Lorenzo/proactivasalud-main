@@ -20,13 +20,10 @@ export async function POST(request: NextRequest) {
     const { put } = await import('@vercel/blob')
     const blobPath = `blog/images/${randomUUID()}.${ext}`
     const blob = await put(blobPath, file, {
-      access: 'private',
+      access: 'public',
       addRandomSuffix: false,
     })
-
-    // Encode full blob URL as base64url → no special chars → next/image won't double-encode
-    const encoded = Buffer.from(blob.url).toString('base64url')
-    return Response.json({ url: `/api/blob-image/${encoded}` })
+    return Response.json({ url: blob.url })
   }
 
   // Local dev: save to public/uploads/
