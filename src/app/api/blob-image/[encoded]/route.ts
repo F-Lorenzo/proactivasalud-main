@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 const VERCEL_BLOB_PATTERN = /\.blob\.vercel-storage\.com$/
 
@@ -25,26 +25,13 @@ export async function GET(
     return new Response('URL not allowed', { status: 403 })
   }
 
-  const token = process.env.BLOB_READ_WRITE_TOKEN
-  if (!token) {
-    return new Response('Missing blob token', { status: 500 })
-  }
-
   try {
-    const res = await fetch(blobUrl, {
-      headers: { Authorization: `Bearer ${token}` },
-      cache: 'no-store',
-    })
-    if (!res.ok) return new Response('Blob fetch failed', { status: res.status })
-
-    return new Response(res.body, {
-      headers: {
-        'Content-Type': res.headers.get('Content-Type') ?? 'image/jpeg',
-        'Cache-Control': 'public, max-age=3600',
-      },
-    })
+    const { getDownloadUrl } = await import('@vercel/blob')
+    const { url: signedUrl } = await getDownloadUrl(blobUrl)
+    // Redirect to the signed URL — browser fetches image directly from Vercel Blob CDN
+    return NextResponse.redirect(signedUrl, { status: 302 })
   } catch (err) {
-    console.error('[blob-image proxy]', err)
+    console.error('[blob-image proxy] getDownloadUrl failed:', err)
     return new Response('Error fetching image', { status: 500 })
   }
 }
