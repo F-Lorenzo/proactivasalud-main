@@ -8,7 +8,6 @@ export async function GET(
 ) {
   const { encoded } = await params
 
-  // Decode base64url → original blob URL
   let blobUrl: string
   try {
     blobUrl = Buffer.from(encoded, 'base64url').toString('utf-8')
@@ -16,7 +15,6 @@ export async function GET(
     return new Response('Invalid encoded URL', { status: 400 })
   }
 
-  // Validate it's a Vercel Blob URL
   let parsed: URL
   try {
     parsed = new URL(blobUrl)
@@ -27,27 +25,16 @@ export async function GET(
     return new Response('URL not allowed', { status: 403 })
   }
 
-  // Extract the pathname (e.g. "blog/images/uuid.jpg")
-  const blobPathname = parsed.pathname.slice(1)
+  const token = process.env.BLOB_READ_WRITE_TOKEN
+  if (!token) {
+    return new Response('Missing blob token', { status: 500 })
+  }
 
   try {
-    const { issueSignedToken, presignUrl } = await import('@vercel/blob')
-
-    // Issue a short-lived signed token via the Vercel Blob API (OIDC auth)
-    const signed = await issueSignedToken({
-      operations: ['get'],
-      pathname: blobPathname,
-      validUntil: Date.now() + 300_000, // 5 minutes
+    const res = await fetch(blobUrl, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: 'no-store',
     })
-
-    // Build presigned URL — signature embedded, no auth header needed
-    const { presignedUrl } = await presignUrl(signed, {
-      operation: 'get',
-      pathname: blobPathname,
-      access: 'private',
-    })
-
-    const res = await fetch(presignedUrl, { cache: 'no-store' })
     if (!res.ok) return new Response('Blob fetch failed', { status: res.status })
 
     return new Response(res.body, {
