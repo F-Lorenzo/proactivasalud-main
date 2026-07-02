@@ -7,9 +7,62 @@ import { randomUUID } from 'crypto'
 
 const IS_VERCEL = process.env.VERCEL === '1'
 const ALLOWED = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif']
-const MAX_SIZE_BYTES = 8 * 1024 * 1024 // 8 MB
+const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif']
+
+// Vercel serverless functions reject request bodies above ~4.5MB at the
+// platform level (413), before our code ever runs. Files under this size go
+// through this route as FormData (server reads + validates the real bytes);
+// larger files use the client-direct-upload flow below, which never sends
+// the file through this function at all.
+const SMALL_UPLOAD_MAX_BYTES = 4 * 1024 * 1024
+const LARGE_UPLOAD_MAX_BYTES = 15 * 1024 * 1024
 
 export async function POST(request: NextRequest) {
+  const contentType = request.headers.get('content-type') ?? ''
+
+  // ── Large files: client uploads directly to Vercel Blob. This route only
+  // issues a short-lived, scoped token — the file bytes never pass through
+  // our serverless function, so we can't sniff them here; Vercel Blob still
+  // enforces allowedContentTypes/maximumSizeInBytes at the storage layer. ──
+  if (!contentType.includes('multipart/form-data')) {
+    if (!IS_VERCEL) {
+      return Response.json({ error: 'La subida de archivos grandes solo está disponible en producción' }, { status: 400 })
+    }
+
+    const body = await request.json()
+
+    // Only the token-issuance event needs our own auth — the upload-completed
+    // callback is a server-to-server call from Vercel Blob, verified internally
+    // by the SDK, and never carries our x-admin-password header.
+    if (body?.type === 'blob.generate-client-token') {
+      const authError = requireAdminAuth(request)
+      if (authError) return authError
+    }
+
+    try {
+      const { handleUpload } = await import('@vercel/blob/client')
+      const jsonResponse = await handleUpload({
+        body,
+        request,
+        onBeforeGenerateToken: async (pathname) => {
+          if (!pathname.startsWith('blog/images/')) {
+            throw new Error('Invalid upload path')
+          }
+          return {
+            allowedContentTypes: ALLOWED_MIME,
+            maximumSizeInBytes: LARGE_UPLOAD_MAX_BYTES,
+            addRandomSuffix: false,
+          }
+        },
+      })
+      return Response.json(jsonResponse)
+    } catch (err) {
+      console.error('[upload] client-token flow error:', String(err))
+      return Response.json({ error: 'Error al subir la imagen' }, { status: 400 })
+    }
+  }
+
+  // ── Small files: classic upload through this function, bytes verified server-side ──
   const authError = requireAdminAuth(request)
   if (authError) return authError
 
@@ -17,8 +70,8 @@ export async function POST(request: NextRequest) {
   const file = formData.get('file') as File | null
   if (!file) return Response.json({ error: 'No file' }, { status: 400 })
 
-  if (file.size > MAX_SIZE_BYTES) {
-    return Response.json({ error: 'El archivo supera el límite de 8 MB' }, { status: 400 })
+  if (file.size > SMALL_UPLOAD_MAX_BYTES) {
+    return Response.json({ error: 'El archivo supera el límite de 4 MB para este método' }, { status: 400 })
   }
 
   const declaredExt = file.name.split('.').pop()?.toLowerCase() ?? ''

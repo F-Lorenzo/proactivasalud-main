@@ -31,17 +31,39 @@ function emptyDraft(): Omit<Article, 'id' | 'slug'> {
   }
 }
 
+// Vercel serverless functions reject bodies over ~4.5MB (413) before our code
+// runs — keep a safety margin below that for the classic FormData upload.
+const SMALL_UPLOAD_MAX_BYTES = 4 * 1024 * 1024
+
+function toBase64Url(str: string): string {
+  return btoa(str).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+}
+
 async function uploadImage(file: File, password: string): Promise<string> {
-  const fd = new FormData()
-  fd.append('file', file)
-  const res = await fetch('/api/upload', {
-    method: 'POST',
+  if (file.size <= SMALL_UPLOAD_MAX_BYTES) {
+    const fd = new FormData()
+    fd.append('file', file)
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      headers: { 'x-admin-password': password },
+      body: fd,
+    })
+    if (!res.ok) throw new Error('Error al subir imagen')
+    const data = await res.json() as { url: string }
+    return data.url
+  }
+
+  // Large file (e.g. a phone photo) — upload directly from the browser to
+  // Vercel Blob, bypassing the serverless function body-size limit entirely.
+  const { upload } = await import('@vercel/blob/client')
+  const ext = file.name.split('.').pop()?.toLowerCase() ?? 'jpg'
+  const blob = await upload(`blog/images/${crypto.randomUUID()}.${ext}`, file, {
+    access: 'private',
+    handleUploadUrl: '/api/upload',
     headers: { 'x-admin-password': password },
-    body: fd,
   })
-  if (!res.ok) throw new Error('Error al subir imagen')
-  const data = await res.json() as { url: string }
-  return data.url
+  const encoded = toBase64Url(blob.url)
+  return `/api/blob-image/${encoded}`
 }
 
 type Draft = Omit<Article, 'id' | 'slug'> & { id?: string; slug?: string }
@@ -169,14 +191,15 @@ export default function AdminBlogPage() {
     } finally { setLoading(false) }
   }, [])
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- data fetch on auth change, not state mirroring
   useEffect(() => { if (authed) loadArticles() }, [authed, loadArticles])
 
   // Restore an in-progress draft once (e.g. after an accidental refresh)
   useEffect(() => {
     if (!authed) return
     const stored = loadStoredDraft()
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time restore from storage on login, not state mirroring
     if (stored) { setDraft(stored.draft); setEditing(stored.editing) }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authed])
 
   // Autosave the draft on every change so a refresh doesn't lose in-progress work
