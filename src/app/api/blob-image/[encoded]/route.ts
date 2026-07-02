@@ -25,21 +25,27 @@ export async function GET(
     return new Response('URL not allowed', { status: 403 })
   }
 
-  // Use the SDK so it resolves auth from env automatically (BLOB_READ_WRITE_TOKEN or OIDC)
-  try {
-    const { head } = await import('@vercel/blob')
-    // head() verifies the blob exists and resolves auth — if this throws, we have an auth problem
-    await head(blobUrl)
+  // blobPathname: e.g. "blog/images/uuid.png"
+  const blobPathname = parsed.pathname.slice(1)
 
-    // Fetch the blob directly; Vercel Blob private URLs accept Bearer auth
-    const token = process.env.BLOB_READ_WRITE_TOKEN ?? ''
-    const res = await fetch(blobUrl, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-      cache: 'no-store',
+  try {
+    const { issueSignedToken, presignUrl } = await import('@vercel/blob')
+
+    const signedToken = await issueSignedToken({
+      operations: ['get'],
+      pathname: blobPathname,
+      validUntil: Date.now() + 300_000, // 5 min
     })
 
+    const { presignedUrl } = await presignUrl(signedToken, {
+      operation: 'get',
+      pathname: blobPathname,
+      access: 'private',
+    })
+
+    const res = await fetch(presignedUrl, { cache: 'no-store' })
     if (!res.ok) {
-      console.error('[blob-image] fetch status', res.status, blobUrl)
+      console.error('[blob-image] presigned fetch status', res.status)
       return new Response('Blob fetch failed', { status: res.status })
     }
 
