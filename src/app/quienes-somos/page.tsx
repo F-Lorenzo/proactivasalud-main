@@ -80,7 +80,7 @@ export default function QuienesSomos() {
                   href="/#inscripcion"
                   className="self-start inline-flex items-center gap-2 bg-brand text-white font-body font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-200 shadow-button hover:shadow-elevated"
                 >
-                  Reservar mi cupo
+                  Empezar mi cambio saludable
                 </Link>
               </div>
 
@@ -185,14 +185,11 @@ export default function QuienesSomos() {
             <h2 className="font-display text-2xl text-white leading-tight max-w-[26ch]">
               Empezá hoy a vivir con más energía y bienestar
             </h2>
-            <p className="font-body text-base text-white/65 max-w-[44ch] leading-relaxed">
-              Sumate al piloto de Proactiva Salud. Solo 100 cupos disponibles para Junio 2026.
-            </p>
             <Link
               href="/#inscripcion"
               className="inline-flex items-center justify-center bg-white text-brand font-body font-semibold text-sm px-9 py-3.5 rounded-full hover:bg-brand-light transition-colors shadow-elevated"
             >
-              Reservar mi cupo
+              Empezar mi cambio saludable
             </Link>
           </div>
         </section>
