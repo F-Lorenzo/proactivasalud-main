@@ -87,7 +87,7 @@ export function DualSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-orchid/30 to-transparent" />
               <div className="absolute top-4 left-4">
-                <span className="bg-white/90 backdrop-blur-sm text-orchid text-[11px] font-extrabold px-3 py-1.5 rounded-full tracking-wide uppercase">
+                <span className="bg-white/90 backdrop-blur-sm text-orchid-dark text-[11px] font-extrabold px-3 py-1.5 rounded-full tracking-wide uppercase">
                   {t.dual.b2bBadge}
                 </span>
               </div>
