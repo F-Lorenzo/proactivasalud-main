@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Users, Building2, MessageCircle, TrendingUp } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const VALUES = ['+20.000', '+10', '+12.000', '+15%']
+const VALUES = ['+5.000', '+10', '+1.000', '+15%']
 const ICONS  = [Users, Building2, MessageCircle, TrendingUp]
 
 export function MetricsStrip() {
