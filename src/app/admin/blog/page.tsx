@@ -640,6 +640,22 @@ function BlockEditor({
     applyWrapFormat(`{{#${hex.replace('#', '')}}}`, '{{/}}')
   }
 
+  function removeColor() {
+    const el = textareaRef.current
+    if (!el) return
+    const { selectionStart: start, selectionEnd: end } = el
+    if (start === end) return
+    const content = block.content ?? ''
+    const selected = content.slice(start, end)
+    const cleaned = selected.replace(/\{\{#[0-9a-fA-F]{6}\}\}|\{\{\/\}\}/g, '')
+    const newContent = content.slice(0, start) + cleaned + content.slice(end)
+    onUpdate({ content: newContent })
+    requestAnimationFrame(() => {
+      el.focus()
+      el.setSelectionRange(start, start + cleaned.length)
+    })
+  }
+
   return (
     <div
       data-block-id={block.id}
@@ -736,6 +752,15 @@ function BlockEditor({
                     className="absolute inset-0 opacity-0 cursor-pointer"
                   />
                 </label>
+                <button type="button" onMouseDown={e => e.preventDefault()} onClick={removeColor}
+                  title="Quitar color (seleccioná texto primero)"
+                  className="w-7 h-7 flex items-center justify-center rounded-md border border-gray-200 text-navy hover:bg-sage-pale hover:border-brand transition-colors"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4l16 16" />
+                  </svg>
+                </button>
                 <span className="text-[10px] text-muted ml-1">Seleccioná texto y aplicá formato o color</span>
               </div>
               <textarea
