@@ -114,26 +114,31 @@ export default function QuienesSomos() {
 
               <div className="flex flex-col gap-5">
                 <p className="font-body text-base text-ink-mid leading-relaxed">
-                  Sabemos que sentirse bien, mantenerse activo y conservar la autonomía es fundamental,
-                  y por eso trabajamos para brindar herramientas que ayuden a lograrlo.
+                  Somos una plataforma de salud preventiva y acompañamiento humano diseñada para
+                  anticipar riesgos y generar impacto real en la vida de las personas. Integramos
+                  nutrición, bienestar físico, salud emocional, teleconsulta y seguimiento continuo
+                  para transformar el modelo reactivo actual de atención en un sistema más cercano,
+                  eficiente y sostenible.
                 </p>
                 <p className="font-body text-base text-ink-mid leading-relaxed">
-                  Somos un equipo de profesionales comprometidos con la prevención y el bienestar integral,
-                  ofreciendo orientación, seguimiento continuo y propuestas adaptadas a cada persona.
-                  Nuestro enfoque busca anticiparse a los problemas de salud, promoviendo hábitos saludables,
-                  bienestar físico y el equilibrio emocional.
+                  En Proactiva Salud creemos que el verdadero valor de la salud está en llegar antes.
+                  Combinando cuidado activo, tecnología simple más atención cercana y continua para
+                  ayudar a sostener hábitos saludables. Esta mejora en el bienestar integral, reduce
+                  el uso permanente y evitable del sistema médico.
                 </p>
               </div>
 
               <div className="flex flex-col gap-5">
                 <p className="font-body text-base text-ink-mid leading-relaxed">
-                  Creemos que nunca es tarde para empezar a cuidarse mejor. Por eso, en Proactiva Salud
-                  brindamos un acompañamiento cercano, claro y confiable, ayudando a cada persona a vivir
-                  con más energía, tranquilidad y bienestar.
+                  Nuestro modelo transforma el cuidado cotidiano en impacto real positivo: más
+                  adherencia al programa, más seguimiento y más prevención, redundan en una mejor
+                  atención para personas que desean vivir mejor. Asimismo, el ecosistema digital
+                  brinda soluciones diferenciadas para instituciones o empresas, que ofrecen
+                  servicios de salud o seguros de vida.
                 </p>
                 <div className="h-px bg-brand-light" aria-hidden="true" />
                 <p className="font-body text-base text-brand font-semibold leading-relaxed italic">
-                  "Nunca es tarde para empezar a cuidarse mejor."
+                  "El verdadero valor de la salud está en llegar antes."
                 </p>
               </div>
 
