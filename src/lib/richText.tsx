@@ -1,11 +1,14 @@
 /**
  * Lightweight inline-markup parser for paragraph blocks.
- * Supports **bold**, __underline__ and *italic* applied to part of a paragraph.
- * Bold (**) is matched before italic (*) so ** never gets consumed by the * pattern.
+ * Supports **bold**, __underline__, *italic* and {{#RRGGBB}}colored{{/}} applied
+ * to part of a paragraph. Bold (**) is matched before italic (*) so ** never
+ * gets consumed by the * pattern.
  */
+const COLOR_MARKER = /^\{\{#([0-9a-fA-F]{6})\}\}([\s\S]*)\{\{\/\}\}$/
+
 export function renderRichText(text: string): React.ReactNode[] {
   if (!text) return []
-  const regex = /(\*\*[^*]+\*\*|__[^_]+__|\*[^*]+\*)/g
+  const regex = /(\*\*[^*]+\*\*|__[^_]+__|\*[^*]+\*|\{\{#[0-9a-fA-F]{6}\}\}[\s\S]*?\{\{\/\}\})/g
   const parts = text.split(regex).filter(part => part !== '')
   return parts.map((part, i) => {
     // Use content as part of the key to avoid reconciliation bugs when parts shift
@@ -18,6 +21,10 @@ export function renderRichText(text: string): React.ReactNode[] {
     }
     if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
       return <em key={key}>{part.slice(1, -1)}</em>
+    }
+    const colorMatch = part.match(COLOR_MARKER)
+    if (colorMatch) {
+      return <span key={key} style={{ color: `#${colorMatch[1]}` }}>{colorMatch[2]}</span>
     }
     return part
   })

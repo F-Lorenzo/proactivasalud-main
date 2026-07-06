@@ -617,19 +617,27 @@ function BlockEditor({
   const colSpan = (block.colSpan ?? 4) as ColSpan
   const colClass = COL_CLASSES[colSpan]
 
-  function applyInlineFormat(marker: string) {
+  function applyWrapFormat(prefix: string, suffix: string) {
     const el = textareaRef.current
     if (!el) return
     const { selectionStart: start, selectionEnd: end } = el
     if (start === end) return
     const content = block.content ?? ''
     const selected = content.slice(start, end)
-    const newContent = content.slice(0, start) + marker + selected + marker + content.slice(end)
+    const newContent = content.slice(0, start) + prefix + selected + suffix + content.slice(end)
     onUpdate({ content: newContent })
     requestAnimationFrame(() => {
       el.focus()
-      el.setSelectionRange(start + marker.length, end + marker.length)
+      el.setSelectionRange(start + prefix.length, end + prefix.length)
     })
+  }
+
+  function applyInlineFormat(marker: string) {
+    applyWrapFormat(marker, marker)
+  }
+
+  function applyColor(hex: string) {
+    applyWrapFormat(`{{#${hex.replace('#', '')}}}`, '{{/}}')
   }
 
   return (
@@ -714,7 +722,21 @@ function BlockEditor({
                   title="Subrayado (seleccioná texto primero)"
                   className="w-7 h-7 flex items-center justify-center rounded-md border border-gray-200 text-xs underline text-navy hover:bg-sage-pale hover:border-brand transition-colors"
                 >U</button>
-                <span className="text-[10px] text-muted ml-1">Seleccioná texto y aplicá formato</span>
+                <label
+                  title="Color de texto (seleccioná texto primero)"
+                  className="w-7 h-7 flex items-center justify-center rounded-md border border-gray-200 hover:bg-sage-pale hover:border-brand transition-colors cursor-pointer relative overflow-hidden"
+                >
+                  <svg className="w-3.5 h-3.5 text-navy pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z" />
+                  </svg>
+                  <input
+                    type="color"
+                    defaultValue="#000000"
+                    onChange={e => applyColor(e.target.value)}
+                    className="absolute inset-0 opacity-0 cursor-pointer"
+                  />
+                </label>
+                <span className="text-[10px] text-muted ml-1">Seleccioná texto y aplicá formato o color</span>
               </div>
               <textarea
                 ref={textareaRef}
