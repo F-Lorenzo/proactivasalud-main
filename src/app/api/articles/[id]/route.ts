@@ -31,13 +31,19 @@ export async function PUT(
   const existing = articles[idx]
   const newTitle = body.title?.trim() ?? existing.title
 
+  // Regenerate whenever the current slug no longer matches what a clean
+  // derivation of the title would produce — covers both a real title edit
+  // and self-healing a slug left corrupted by an older bug (e.g. a stray
+  // {{#hex}} marker that used to leak into the slug).
+  const desiredBase = slugify(stripRichText(newTitle)) || 'articulo'
+  const slugMatchesTitle = new RegExp(`^${desiredBase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(-\\d+)?$`).test(existing.slug)
+
   let finalSlug = existing.slug
-  if (newTitle !== existing.title) {
-    const base = slugify(stripRichText(newTitle)) || 'articulo'
-    finalSlug = base
+  if (!slugMatchesTitle) {
+    finalSlug = desiredBase
     let i = 2
     while (articles.some((a, j) => j !== idx && a.slug === finalSlug)) {
-      finalSlug = `${base}-${i++}`
+      finalSlug = `${desiredBase}-${i++}`
     }
   }
 

@@ -30,11 +30,16 @@ export function renderRichText(text: string): React.ReactNode[] {
   })
 }
 
-/** Strips inline markup markers for plain-text contexts (alt text, <title>, previews). */
+/**
+ * Strips inline markup markers for plain-text contexts (alt text, <title>, slugs, previews).
+ * Strips color tokens individually (not just matched pairs) so a dangling,
+ * unpaired {{#hex}} or {{/}} — e.g. left behind by hand-editing the raw text —
+ * never leaks its hex digits into a slug or other plain-text output.
+ */
 export function stripRichText(text: string): string {
   if (!text) return text
   return text
-    .replace(/\{\{#[0-9a-fA-F]{6}\}\}([\s\S]*?)\{\{\/\}\}/g, '$1')
+    .replace(/\{\{#[0-9a-fA-F]{6}\}\}|\{\{\/\}\}/g, '')
     .replace(/\*\*([^*]+)\*\*/g, '$1')
     .replace(/__([^_]+)__/g, '$1')
     .replace(/\*([^*]+)\*/g, '$1')
