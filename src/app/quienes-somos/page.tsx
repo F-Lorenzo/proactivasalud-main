@@ -45,64 +45,61 @@ export default function QuienesSomos() {
       <main id="main">
 
         {/* ── Hero ────────────────────────────────────────────────────── */}
-        <section className="relative pt-40 pb-24 lg:pt-48 lg:pb-32 bg-surface overflow-hidden">
+        <section className="relative pt-40 pb-24 lg:pt-48 lg:pb-28 bg-surface overflow-hidden">
           <div
-            aria-hidden="true"
-            className="absolute inset-y-0 right-0 w-[40%] bg-brand-light/50 hidden lg:block"
+            aria-hidden
+            className="pointer-events-none absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(141,170,145,0.22) 0%, transparent 70%)' }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-0 -left-32 w-[420px] h-[420px] rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(13,92,79,0.08) 0%, transparent 70%)' }}
           />
 
-          <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="grid lg:grid-cols-[55%_45%] gap-16 items-center">
+          <div className="relative max-w-3xl mx-auto px-6 lg:px-8 text-center flex flex-col items-center gap-6">
+            <div className="flex items-center gap-3">
+              <div className="h-px w-10 bg-brand" aria-hidden="true" />
+              <span className="font-body font-semibold text-sm tracking-widest uppercase text-brand">
+                Quiénes somos
+              </span>
+              <div className="h-px w-10 bg-brand" aria-hidden="true" />
+            </div>
 
-              {/* Text */}
-              <div className="flex flex-col gap-6">
-                <div className="flex items-center gap-3">
-                  <div className="h-px w-10 bg-brand" aria-hidden="true" />
-                  <span className="font-body font-semibold text-sm tracking-widest uppercase text-brand">
-                    Quiénes somos
-                  </span>
-                </div>
+            <h1 className="font-display text-3xl lg:text-[2.6rem] text-ink leading-snug tracking-tight">
+              Creemos en el poder de los{' '}
+              <span className="text-brand">pequeños cambios</span>{' '}
+              que perduran toda la vida.
+            </h1>
 
-                {/* Título 24px */}
-                <h1 className="font-display text-2xl text-ink leading-snug tracking-tight">
-                  Creemos en el poder de los{' '}
-                  <span className="text-brand">pequeños cambios</span>{' '}
-                  que perduran toda la vida.
-                </h1>
+            <p className="font-body text-base text-ink-mid leading-relaxed max-w-[56ch]">
+              Nos dedicamos a acompañar a las personas en cada etapa de la vida,
+              con especial atención en el cuidado y la calidad de vida en la adultez.
+            </p>
 
-                {/* Párrafo 16px */}
-                <p className="font-body text-base text-ink-mid leading-relaxed max-w-[52ch]">
-                  Nos dedicamos a acompañar a las personas en cada etapa de la vida,
-                  con especial atención en el cuidado y la calidad de vida en la adultez.
-                </p>
+            <Link
+              href="/#inscripcion"
+              className="inline-flex items-center gap-2 bg-brand text-white font-body font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-200 shadow-button hover:shadow-elevated"
+            >
+              Empezar mi cambio saludable
+            </Link>
+          </div>
 
-                <Link
-                  href="/#inscripcion"
-                  className="self-start inline-flex items-center gap-2 bg-brand text-white font-body font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-200 shadow-button hover:shadow-elevated"
-                >
-                  Empezar mi cambio saludable
-                </Link>
-              </div>
-
-              {/* Image */}
-              <div className="relative hidden lg:block">
-                <div className="relative w-[85%] mx-auto aspect-[4/5] rounded-[2rem] overflow-hidden">
-                  <Image
-                    src="/imagen-portada-quienes-somos.png"
-                    alt="Equipo Proactiva Salud acompañando a adultos mayores"
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(max-width: 1024px) 0px, 45vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/30 to-transparent" />
-                </div>
-                <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl px-6 py-4 shadow-elevated">
-                  <p className="font-display text-3xl font-bold text-brand leading-none">+50</p>
-                  <p className="font-body text-sm text-ink-mid mt-1">años, mejor calidad de vida</p>
-                </div>
-              </div>
-
+          {/* Showcase image */}
+          <div className="relative max-w-6xl mx-auto px-6 lg:px-8 mt-14 lg:mt-16">
+            <div className="relative aspect-[16/9] sm:aspect-[2/1] rounded-[2rem] overflow-hidden shadow-elevated">
+              <Image
+                src="/quienes-somos-plataforma-bienestar.png"
+                alt="Plataforma Proactiva Salud: nutrición, salud emocional y bienestar físico en un mismo panel de seguimiento"
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 1024px) 100vw, 1152px"
+              />
+            </div>
+            <div className="absolute -bottom-6 left-6 sm:left-10 bg-white rounded-2xl px-6 py-4 shadow-elevated">
+              <p className="font-display text-3xl font-bold text-brand leading-none">+50</p>
+              <p className="font-body text-sm text-ink-mid mt-1">años, mejor calidad de vida</p>
             </div>
           </div>
         </section>
