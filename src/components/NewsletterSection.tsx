@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ArticleImage as Image } from '@/components/ArticleImage'
 import { readArticles } from '@/lib/articles'
+import { renderRichText, stripRichText } from '@/lib/richText'
 
 export async function NewsletterSection() {
   const all = await readArticles()
@@ -98,7 +99,7 @@ function ArticleCard({ article, featured }: { article: Article; featured: boolea
           {article.coverImage ? (
             <Image
               src={article.coverImage}
-              alt={article.title}
+              alt={stripRichText(article.title)}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
               sizes="(max-width: 768px) 100vw, 33vw"
@@ -110,7 +111,7 @@ function ArticleCard({ article, featured }: { article: Article; featured: boolea
         <div className="p-6 flex flex-col flex-1">
           <p className="text-xs text-muted mb-2">{date}</p>
           <h3 className="font-display text-lg font-semibold text-navy leading-snug mb-2 group-hover:text-brand transition-colors flex-1">
-            {article.title}
+            {renderRichText(article.title)}
           </h3>
           {article.excerpt && (
             <p className="text-muted text-sm line-clamp-2 mb-4">{article.excerpt}</p>
@@ -136,7 +137,7 @@ function ArticleCard({ article, featured }: { article: Article; featured: boolea
         {article.coverImage ? (
           <Image
             src={article.coverImage}
-            alt={article.title}
+            alt={stripRichText(article.title)}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, 33vw"
@@ -148,7 +149,7 @@ function ArticleCard({ article, featured }: { article: Article; featured: boolea
       <div className="p-5 flex flex-col flex-1">
         <p className="text-xs text-muted mb-1.5">{date}</p>
         <h3 className="font-display text-base font-semibold text-navy leading-snug mb-2 group-hover:text-brand transition-colors">
-          {article.title}
+          {renderRichText(article.title)}
         </h3>
         {article.excerpt && (
           <p className="text-muted text-sm line-clamp-2 mb-3 flex-1">{article.excerpt}</p>

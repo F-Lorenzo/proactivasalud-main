@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer'
 import { TranslateWidget } from '@/components/TranslateWidget'
 import { readArticles } from '@/lib/articles'
 import { textStyleToCss } from '@/lib/textStyles'
-import { renderRichText } from '@/lib/richText'
+import { renderRichText, stripRichText } from '@/lib/richText'
 import type { Metadata } from 'next'
 
 export const revalidate = 60
@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = (await readArticles()).find(a => a.slug === slug)
   if (!article) return {}
   return {
-    title: `${article.title} — Proactiva Salud`,
-    description: article.excerpt,
+    title: `${stripRichText(article.title)} — Proactiva Salud`,
+    description: stripRichText(article.excerpt),
   }
 }
 
@@ -37,7 +37,7 @@ export default async function ArticlePage({ params }: Props) {
           <div className="relative w-full h-72 md:h-[420px] bg-sage-pale overflow-hidden">
             <Image
               src={article.coverImage}
-              alt={article.title}
+              alt={stripRichText(article.title)}
               fill
               className="object-cover"
               priority
@@ -71,7 +71,7 @@ export default async function ArticlePage({ params }: Props) {
             className="font-display text-3xl md:text-4xl font-bold text-navy leading-tight mb-4"
             style={textStyleToCss(article.titleStyle)}
           >
-            {article.title}
+            {renderRichText(article.title)}
           </h1>
 
           {article.excerpt && (

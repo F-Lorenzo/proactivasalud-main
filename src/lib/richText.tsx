@@ -29,3 +29,13 @@ export function renderRichText(text: string): React.ReactNode[] {
     return part
   })
 }
+
+/** Strips inline markup markers for plain-text contexts (alt text, <title>, previews). */
+export function stripRichText(text: string): string {
+  if (!text) return text
+  return text
+    .replace(/\{\{#[0-9a-fA-F]{6}\}\}([\s\S]*?)\{\{\/\}\}/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+}

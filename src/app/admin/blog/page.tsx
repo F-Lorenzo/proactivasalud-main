@@ -9,6 +9,7 @@ import {
   TITLE_SIZE_OPTIONS, SUBTITLE_SIZE_OPTIONS, TEXT_SIZE_OPTIONS,
   textStyleToCss,
 } from '@/lib/textStyles'
+import { stripRichText } from '@/lib/richText'
 
 // Password stored in state only — never in a module-level variable sent to the bundle
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -123,6 +124,7 @@ export default function AdminBlogPage() {
   const [editing, setEditing] = useState<string | null>(null)
 
   const coverInputRef = useRef<HTMLInputElement>(null)
+  const titleInputRef = useRef<HTMLInputElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
 
   // ── Resize drag (via mouse) ──
@@ -218,6 +220,40 @@ export default function AdminBlogPage() {
   function newDraft() { setEditing(null); setDraft(emptyDraft()); setSaveMsg(''); clearStoredDraft() }
   function setField<K extends keyof Draft>(key: K, value: Draft[K]) {
     setDraft(d => ({ ...d, [key]: value }))
+  }
+
+  // ── Title color ──
+  function applyTitleColor(hex: string) {
+    const el = titleInputRef.current
+    if (!el) return
+    const { selectionStart: start, selectionEnd: end } = el
+    if (start == null || end == null || start === end) return
+    const content = draft.title
+    const selected = content.slice(start, end)
+    const prefix = `{{#${hex.replace('#', '')}}}`
+    const suffix = '{{/}}'
+    const newContent = content.slice(0, start) + prefix + selected + suffix + content.slice(end)
+    setField('title', newContent)
+    requestAnimationFrame(() => {
+      el.focus()
+      el.setSelectionRange(start + prefix.length, end + prefix.length)
+    })
+  }
+
+  function removeTitleColor() {
+    const el = titleInputRef.current
+    if (!el) return
+    const { selectionStart: start, selectionEnd: end } = el
+    if (start == null || end == null || start === end) return
+    const content = draft.title
+    const selected = content.slice(start, end)
+    const cleaned = selected.replace(/\{\{#[0-9a-fA-F]{6}\}\}|\{\{\/\}\}/g, '')
+    const newContent = content.slice(0, start) + cleaned + content.slice(end)
+    setField('title', newContent)
+    requestAnimationFrame(() => {
+      el.focus()
+      el.setSelectionRange(start, start + cleaned.length)
+    })
   }
 
   // ── Blocks ──
@@ -411,7 +447,7 @@ export default function AdminBlogPage() {
                 className={`px-4 py-3 cursor-pointer border-b border-gray-50 hover:bg-ivory transition-colors group ${editing === a.id ? 'bg-sage-pale border-l-4 border-l-brand' : ''}`}
               >
                 <p className={`text-sm font-semibold leading-snug ${editing === a.id ? 'text-brand' : 'text-navy'}`}>
-                  {a.title || 'Sin título'}
+                  {stripRichText(a.title) || 'Sin título'}
                 </p>
                 <div className="flex items-center justify-between mt-1">
                   <p className="text-xs text-muted">
@@ -437,7 +473,33 @@ export default function AdminBlogPage() {
             {/* Title */}
             <div>
               <label className="block text-xs font-semibold text-muted uppercase tracking-wider mb-1.5">Título del artículo</label>
-              <input type="text" value={draft.title} onChange={e => setField('title', e.target.value)}
+              <div className="flex items-center gap-1 mb-2">
+                <label
+                  title="Color de texto (seleccioná texto primero)"
+                  className="w-7 h-7 flex items-center justify-center rounded-md border border-gray-200 hover:bg-sage-pale hover:border-brand transition-colors cursor-pointer relative overflow-hidden"
+                >
+                  <svg className="w-3.5 h-3.5 text-navy pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z" />
+                  </svg>
+                  <input
+                    type="color"
+                    defaultValue="#000000"
+                    onChange={e => applyTitleColor(e.target.value)}
+                    className="absolute inset-0 opacity-0 cursor-pointer"
+                  />
+                </label>
+                <button type="button" onMouseDown={e => e.preventDefault()} onClick={removeTitleColor}
+                  title="Quitar color (seleccioná texto primero)"
+                  className="w-7 h-7 flex items-center justify-center rounded-md border border-gray-200 text-navy hover:bg-sage-pale hover:border-brand transition-colors"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4l16 16" />
+                  </svg>
+                </button>
+                <span className="text-[10px] text-muted ml-1">Seleccioná texto y aplicá color</span>
+              </div>
+              <input ref={titleInputRef} type="text" value={draft.title} onChange={e => setField('title', e.target.value)}
                 placeholder="Escribe un título atractivo..."
                 style={textStyleToCss(draft.titleStyle)}
                 className="w-full border border-gray-200 rounded-xl px-4 py-3 font-display text-xl font-semibold text-navy placeholder-gray-300 outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand transition"

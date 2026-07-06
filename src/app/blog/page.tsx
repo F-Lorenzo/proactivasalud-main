@@ -4,6 +4,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { readArticles } from '@/lib/articles'
 import { textStyleToCss } from '@/lib/textStyles'
+import { renderRichText, stripRichText } from '@/lib/richText'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -60,7 +61,7 @@ export default async function BlogPage() {
                     {article.coverImage ? (
                       <Image
                         src={article.coverImage}
-                        alt={article.title}
+                        alt={stripRichText(article.title)}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -83,7 +84,7 @@ export default async function BlogPage() {
                       className="font-display text-xl font-semibold text-navy mb-2 leading-snug group-hover:text-brand transition-colors"
                       style={textStyleToCss(article.titleStyle)}
                     >
-                      {article.title}
+                      {renderRichText(article.title)}
                     </h2>
                     {article.excerpt && (
                       <p className="text-muted text-sm line-clamp-3" style={textStyleToCss(article.excerptStyle)}>

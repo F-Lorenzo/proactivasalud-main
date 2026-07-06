@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server'
 import { readArticles, writeArticles, slugify, sanitizeBlocks } from '@/lib/articles'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { sanitizeTextStyle } from '@/lib/textStyles'
+import { stripRichText } from '@/lib/richText'
 import type { Article } from '@/lib/articles'
 import { randomUUID } from 'crypto'
 
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest) {
   const articles = await readArticles()
 
   const title = body.title?.trim() || 'Sin título'
-  const base = slugify(title) || 'articulo'
+  const base = slugify(stripRichText(title)) || 'articulo'
   let finalSlug = base
   let i = 2
   while (articles.some(a => a.slug === finalSlug)) {
