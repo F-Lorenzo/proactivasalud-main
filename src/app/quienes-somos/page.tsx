@@ -89,7 +89,7 @@ export default function QuienesSomos() {
           <div className="relative max-w-6xl mx-auto px-6 lg:px-8 mt-14 lg:mt-16">
             <div className="relative aspect-[16/9] sm:aspect-[2/1] rounded-[2rem] overflow-hidden shadow-elevated">
               <Image
-                src="/quienes-somos-plataforma-bienestar.png"
+                src="/nosotros_nitida.png"
                 alt="Plataforma Proactiva Salud: nutrición, salud emocional y bienestar físico en un mismo panel de seguimiento"
                 fill
                 className="object-cover"
