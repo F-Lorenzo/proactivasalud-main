@@ -67,15 +67,11 @@ export default function QuienesSomos() {
             </div>
 
             <h1 className="font-display text-3xl lg:text-[2.6rem] text-ink leading-snug tracking-tight">
-              Creemos en el poder de los{' '}
-              <span className="text-brand">pequeños cambios</span>{' '}
-              que perduran toda la vida.
+              Creemos que los{' '}
+              <span className="text-brand">pequeños hábitos</span>{' '}
+              sostenidos en el tiempo, pueden transformar la salud, el bienestar
+              y la calidad de vida de las personas.
             </h1>
-
-            <p className="font-body text-base text-ink-mid leading-relaxed max-w-[56ch]">
-              Nos dedicamos a acompañar a las personas en cada etapa de la vida,
-              con especial atención en el cuidado y la calidad de vida en la adultez.
-            </p>
 
             <Link
               href="/#inscripcion"
@@ -110,15 +106,16 @@ export default function QuienesSomos() {
             <div className="grid lg:grid-cols-[1fr_1fr] gap-16 items-start">
 
               <div className="flex flex-col gap-5">
-                <p className="font-body text-base text-ink-mid leading-relaxed">
-                  Somos una plataforma de salud preventiva y acompañamiento humano diseñada para
-                  anticipar riesgos y generar impacto real en la vida de las personas. Integramos
+                <p className="font-body text-base text-ink-mid leading-relaxed text-justify">
+                  Somos <strong className="font-semibold text-ink">una plataforma de salud preventiva y acompañamiento humano</strong>{' '}
+                  diseñada para anticipar riesgos y generar impacto real en la vida de las personas. Integramos
                   nutrición, bienestar físico, salud emocional, teleconsulta y seguimiento continuo
                   para transformar el modelo reactivo actual de atención en un sistema más cercano,
                   eficiente y sostenible.
                 </p>
-                <p className="font-body text-base text-ink-mid leading-relaxed">
-                  En Proactiva Salud creemos que el verdadero valor de la salud está en llegar antes.
+                <p className="font-body text-base text-ink-mid leading-relaxed text-justify">
+                  En Proactiva Salud creemos que{' '}
+                  <strong className="font-semibold text-ink">el verdadero valor de la salud está en llegar antes</strong>.
                   Combinando cuidado activo, tecnología simple más atención cercana y continua para
                   ayudar a sostener hábitos saludables. Esta mejora en el bienestar integral, reduce
                   el uso permanente y evitable del sistema médico.
@@ -126,9 +123,10 @@ export default function QuienesSomos() {
               </div>
 
               <div className="flex flex-col gap-5">
-                <p className="font-body text-base text-ink-mid leading-relaxed">
-                  Nuestro modelo transforma el cuidado cotidiano en impacto real positivo: más
-                  adherencia al programa, más seguimiento y más prevención, redundan en una mejor
+                <p className="font-body text-base text-ink-mid leading-relaxed text-justify">
+                  Nuestro modelo{' '}
+                  <strong className="font-semibold text-ink">transforma el cuidado cotidiano en impacto real positivo</strong>:
+                  más adherencia al programa, más seguimiento y más prevención, redundan en una mejor
                   atención para personas que desean vivir mejor. Asimismo, el ecosistema digital
                   brinda soluciones diferenciadas para instituciones o empresas, que ofrecen
                   servicios de salud o seguros de vida.
