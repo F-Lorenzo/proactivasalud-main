@@ -6,7 +6,7 @@ import { Footer } from '@/components/Footer'
 import { Heart, Users, ShieldCheck, Sparkles } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Quiénes somos — Proactiva Salud',
+  title: 'Nosotros — Proactiva Salud',
   description:
     'Conocé al equipo de Proactiva Salud: profesionales comprometidos con la prevención y el bienestar integral para mayores de 50.',
 }
@@ -61,7 +61,7 @@ export default function QuienesSomos() {
             <div className="flex items-center gap-3">
               <div className="h-px w-10 bg-brand" aria-hidden="true" />
               <span className="font-body font-semibold text-sm tracking-widest uppercase text-brand">
-                Quiénes somos
+                Nosotros
               </span>
               <div className="h-px w-10 bg-brand" aria-hidden="true" />
             </div>
