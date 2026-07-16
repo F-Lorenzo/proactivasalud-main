@@ -13,28 +13,28 @@ export function Footer() {
     {
       title: t.footer.personas,
       links: [
-        { label: t.footer.link_programasSalud,   href: '#programas' },
-        { label: t.footer.link_saludEmocional,    href: '#programas' },
-        { label: t.footer.link_nutricion,         href: '#programas' },
-        { label: t.footer.link_actividadFisica,   href: '#programas' },
-        { label: t.footer.link_comunidad,         href: '#programas' },
+        { label: t.footer.link_programasSalud,   href: '/#programas' },
+        { label: t.footer.link_saludEmocional,    href: '/#programas' },
+        { label: t.footer.link_nutricion,         href: '/#programas' },
+        { label: t.footer.link_actividadFisica,   href: '/#programas' },
+        { label: t.footer.link_comunidad,         href: '/#programas' },
       ],
     },
     {
       title: t.footer.empresas,
       links: [
-        { label: t.footer.link_programasCorporativos, href: '#empresas' },
-        { label: t.footer.link_metricasImpacto,       href: '#empresas' },
-        { label: t.footer.link_solicitarDemo,          href: '#demo'     },
+        { label: t.footer.link_programasCorporativos, href: '/#empresas' },
+        { label: t.footer.link_metricasImpacto,       href: '/#empresas' },
+        { label: t.footer.link_solicitarDemo,          href: '/#demo'     },
       ],
     },
     {
       title: t.footer.proactiva,
       links: [
-        { label: t.footer.link_nosotros,   href: '#nosotros'    },
-        { label: t.footer.link_blog,       href: '#recursos'    },
-        { label: t.footer.link_privacidad, href: '/privacidad'  },
-        { label: t.footer.link_terminos,   href: '/terminos'    },
+        { label: t.footer.link_nosotros,   href: '/quienes-somos' },
+        { label: t.footer.link_blog,       href: '/#recursos'     },
+        { label: t.footer.link_privacidad, href: '/privacidad'    },
+        { label: t.footer.link_terminos,   href: '/terminos'      },
       ],
     },
   ]

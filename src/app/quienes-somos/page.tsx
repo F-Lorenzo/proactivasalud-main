@@ -74,7 +74,7 @@ export default function QuienesSomos() {
             </h1>
 
             <Link
-              href="/#inscripcion"
+              href="/#demo"
               className="inline-flex items-center gap-2 bg-brand text-white font-body font-semibold text-sm px-7 py-3.5 rounded-full hover:bg-brand-dark transition-all duration-200 shadow-button hover:shadow-elevated"
             >
               Empezar mi cambio saludable
@@ -181,7 +181,7 @@ export default function QuienesSomos() {
               Empezá hoy a vivir con más energía y bienestar
             </h2>
             <Link
-              href="/#inscripcion"
+              href="/#demo"
               className="inline-flex items-center justify-center bg-white text-brand font-body font-semibold text-sm px-9 py-3.5 rounded-full hover:bg-brand-light transition-colors shadow-elevated"
             >
               Empezar mi cambio saludable
