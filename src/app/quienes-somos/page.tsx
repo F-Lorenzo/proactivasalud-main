@@ -133,7 +133,7 @@ export default function QuienesSomos() {
                 </p>
                 <div className="h-px bg-brand-light" aria-hidden="true" />
                 <p className="font-body text-base text-brand font-semibold leading-relaxed italic">
-                  "El verdadero valor de la salud está en llegar antes."
+                  &ldquo;El verdadero valor de la salud está en llegar antes.&rdquo;
                 </p>
               </div>
 

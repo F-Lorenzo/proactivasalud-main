@@ -14,6 +14,10 @@ function safeCompare(a: string, b: string): boolean {
 
 // In-memory sliding-window rate limit — best-effort per serverless instance.
 // Not a substitute for an edge/WAF-level limiter, but stops naive brute force.
+// Only WRONG-password attempts count against the limit (recorded below on
+// failure) — requireAdminAuth runs on every authenticated write call, so
+// counting successes too would lock an active admin out of their own panel
+// after ~10 legitimate actions (e.g. a handful of image uploads) in a minute.
 const attempts = new Map<string, number[]>()
 const WINDOW_MS = 60_000
 const MAX_ATTEMPTS = 10
@@ -21,9 +25,15 @@ const MAX_ATTEMPTS = 10
 function isRateLimited(ip: string): boolean {
   const now = Date.now()
   const timestamps = (attempts.get(ip) ?? []).filter(t => now - t < WINDOW_MS)
+  attempts.set(ip, timestamps)
+  return timestamps.length >= MAX_ATTEMPTS
+}
+
+function recordFailedAttempt(ip: string): void {
+  const now = Date.now()
+  const timestamps = (attempts.get(ip) ?? []).filter(t => now - t < WINDOW_MS)
   timestamps.push(now)
   attempts.set(ip, timestamps)
-  return timestamps.length > MAX_ATTEMPTS
 }
 
 export function requireAdminAuth(request: NextRequest): Response | null {
@@ -39,6 +49,7 @@ export function requireAdminAuth(request: NextRequest): Response | null {
 
   const auth = request.headers.get('x-admin-password')
   if (!auth || !safeCompare(auth, ADMIN_PASSWORD)) {
+    recordFailedAttempt(ip)
     return Response.json({ error: 'Unauthorized' }, { status: 401 })
   }
   return null

@@ -7,6 +7,7 @@ import { TranslateWidget } from '@/components/TranslateWidget'
 import { readArticles } from '@/lib/articles'
 import { textStyleToCss } from '@/lib/textStyles'
 import { renderRichText, stripRichText } from '@/lib/richText'
+import { formatArticleDate } from '@/lib/date'
 import type { Metadata } from 'next'
 
 export const revalidate = 60
@@ -62,9 +63,7 @@ export default async function ArticlePage({ params }: Props) {
           </div>
 
           <p className="text-muted text-sm mb-3">
-            {new Date(article.publishedAt).toLocaleDateString('es-AR', {
-              year: 'numeric', month: 'long', day: 'numeric',
-            })}
+            {formatArticleDate(article.publishedAt)}
           </p>
 
           <h1

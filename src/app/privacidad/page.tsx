@@ -49,9 +49,9 @@ export default function PrivacidadPage() {
 
             <Section title="1. Responsable del tratamiento">
               <p>
-                Proactiva Salud ("nosotros") es responsable del tratamiento de los datos personales que
+                Proactiva Salud (&ldquo;nosotros&rdquo;) es responsable del tratamiento de los datos personales que
                 recolectamos a través de este sitio web y de nuestra plataforma (en conjunto, la
-                "Plataforma"). Esta Política de Privacidad describe qué datos recolectamos, con qué
+                &ldquo;Plataforma&rdquo;). Esta Política de Privacidad describe qué datos recolectamos, con qué
                 finalidad los utilizamos, con quién los compartimos y qué derechos tenés como titular
                 de esos datos.
               </p>
@@ -145,8 +145,8 @@ export default function PrivacidadPage() {
             <Section title="11. Tus derechos como titular de los datos">
               <p>
                 De acuerdo con la Ley 25.326, tenés derecho a acceder, rectificar, actualizar y suprimir tus
-                datos personales, así como a solicitar información sobre su tratamiento (derecho de "Habeas
-                Data"). También podés retirar tu consentimiento en cualquier momento.
+                datos personales, así como a solicitar información sobre su tratamiento (derecho de &ldquo;Habeas
+                Data&rdquo;). También podés retirar tu consentimiento en cualquier momento.
               </p>
               <p>
                 Para ejercer estos derechos, escribinos a{' '}

@@ -49,9 +49,9 @@ export default function TerminosPage() {
 
             <Section title="1. Aceptación de los términos">
               <p>
-                Estos Términos de Uso ("Términos") regulan el acceso y uso del sitio web, la plataforma
-                y los servicios ofrecidos por Proactiva Salud ("Proactiva Salud", "nosotros" o "la
-                Plataforma"). Al acceder o utilizar nuestros servicios, aceptás quedar sujeto a estos
+                Estos Términos de Uso (&ldquo;Términos&rdquo;) regulan el acceso y uso del sitio web, la plataforma
+                y los servicios ofrecidos por Proactiva Salud (&ldquo;Proactiva Salud&rdquo;, &ldquo;nosotros&rdquo; o &ldquo;la
+                Plataforma&rdquo;). Al acceder o utilizar nuestros servicios, aceptás quedar sujeto a estos
                 Términos y a nuestra{' '}
                 <a href="/privacidad" className="text-brand font-semibold hover:underline">
                   Política de Privacidad
@@ -119,7 +119,7 @@ export default function TerminosPage() {
 
             <Section title="7. Limitación de responsabilidad">
               <p>
-                La Plataforma se ofrece "tal cual" y "según disponibilidad". En la medida permitida por la
+                La Plataforma se ofrece &ldquo;tal cual&rdquo; y &ldquo;según disponibilidad&rdquo;. En la medida permitida por la
                 ley aplicable, Proactiva Salud no garantiza que el servicio sea ininterrumpido o esté libre
                 de errores, y no será responsable por daños indirectos, incidentales o derivados del uso o
                 la imposibilidad de uso de la Plataforma, salvo en los casos en que dicha limitación no sea

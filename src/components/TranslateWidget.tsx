@@ -56,8 +56,10 @@ export function TranslateWidget() {
     setActive(code)
 
     if (code === 'es') {
-      // Reset to original language — clear Google's cookie and reload
+      // Reset to original language — clear Google's cookie and reload.
+      // eslint-disable-next-line react-hooks/immutability -- document.cookie is a browser API setter, not React state
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
+      // eslint-disable-next-line react-hooks/immutability -- document.cookie is a browser API setter, not React state
       document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + location.hostname
       window.location.reload()
       return

@@ -27,6 +27,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem('proactiva-lang') as Lang | null
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time restore from storage on mount, not state mirroring
     if (saved && saved in translations) setLangState(saved)
   }, [])
 

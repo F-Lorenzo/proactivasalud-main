@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ArticleImage as Image } from '@/components/ArticleImage'
 import { readArticles } from '@/lib/articles'
 import { renderRichText, stripRichText } from '@/lib/richText'
+import { formatArticleDate } from '@/lib/date'
 
 export async function NewsletterSection() {
   const all = await readArticles()
@@ -85,9 +86,7 @@ export async function NewsletterSection() {
 import type { Article } from '@/lib/articles'
 
 function ArticleCard({ article, featured }: { article: Article; featured: boolean }) {
-  const date = new Date(article.publishedAt).toLocaleDateString('es-AR', {
-    day: 'numeric', month: 'long', year: 'numeric',
-  })
+  const date = formatArticleDate(article.publishedAt)
 
   if (featured) {
     return (

@@ -5,6 +5,7 @@ import { Footer } from '@/components/Footer'
 import { readArticles } from '@/lib/articles'
 import { textStyleToCss } from '@/lib/textStyles'
 import { renderRichText, stripRichText } from '@/lib/richText'
+import { formatArticleDate } from '@/lib/date'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -76,9 +77,7 @@ export default async function BlogPage() {
                   </div>
                   <div className="p-6">
                     <p className="text-xs text-muted mb-2">
-                      {new Date(article.publishedAt).toLocaleDateString('es-AR', {
-                        year: 'numeric', month: 'long', day: 'numeric',
-                      })}
+                      {formatArticleDate(article.publishedAt)}
                     </p>
                     <h2
                       className="font-display text-xl font-semibold text-navy mb-2 leading-snug group-hover:text-brand transition-colors"

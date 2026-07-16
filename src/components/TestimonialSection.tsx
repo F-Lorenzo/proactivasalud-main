@@ -50,7 +50,7 @@ export function TestimonialSection() {
             <Quote className="text-brand w-12 h-12 opacity-50" />
 
             <blockquote className="font-display text-[1.6rem] lg:text-[1.85rem] font-medium italic text-navy leading-[1.4]">
-              "{t.testimonial.quote}"
+              &ldquo;{t.testimonial.quote}&rdquo;
             </blockquote>
 
             <div className="flex items-center gap-4">

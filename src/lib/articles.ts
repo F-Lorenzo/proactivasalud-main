@@ -143,7 +143,6 @@ export function slugify(title: string): string {
   return title
     .toLowerCase()
     .normalize('NFD')
-    // eslint-disable-next-line no-misleading-character-class
     .replace(/[̀-ͯ]/g, '')
     .replace(/[^a-z0-9\s-]/g, '')
     .trim()

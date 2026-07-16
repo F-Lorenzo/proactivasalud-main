@@ -10,6 +10,7 @@ import {
   textStyleToCss,
 } from '@/lib/textStyles'
 import { stripRichText } from '@/lib/richText'
+import { formatArticleDate } from '@/lib/date'
 
 // Password stored in state only — never in a module-level variable sent to the bundle
 // ─── Helpers ──────────────────────────────────────────────────────────────────
@@ -451,7 +452,7 @@ export default function AdminBlogPage() {
                 </p>
                 <div className="flex items-center justify-between mt-1">
                   <p className="text-xs text-muted">
-                    {new Date(a.publishedAt).toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    {formatArticleDate(a.publishedAt, 'short')}
                   </p>
                   <button onClick={e => { e.stopPropagation(); handleDelete(a.id) }}
                     className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-600 transition-all p-1 rounded" title="Eliminar"
