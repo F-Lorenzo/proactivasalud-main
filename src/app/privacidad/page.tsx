@@ -150,8 +150,8 @@ export default function PrivacidadPage() {
               </p>
               <p>
                 Para ejercer estos derechos, escribinos a{' '}
-                <a href="mailto:hola@proactivasalud.com" className="text-brand font-semibold hover:underline">
-                  hola@proactivasalud.com
+                <a href="mailto:info@proactivasalud.com" className="text-brand font-semibold hover:underline">
+                  info@proactivasalud.com
                 </a>. La Agencia de Acceso a la Información Pública, en su carácter de Órgano de Control de la
                 Ley 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan con
                 relación al incumplimiento de las normas sobre protección de datos personales.
@@ -178,8 +178,8 @@ export default function PrivacidadPage() {
               <p>
                 Ante cualquier consulta sobre esta Política de Privacidad o sobre el tratamiento de tus datos
                 personales, podés escribirnos a{' '}
-                <a href="mailto:hola@proactivasalud.com" className="text-brand font-semibold hover:underline">
-                  hola@proactivasalud.com
+                <a href="mailto:info@proactivasalud.com" className="text-brand font-semibold hover:underline">
+                  info@proactivasalud.com
                 </a>.
               </p>
             </Section>

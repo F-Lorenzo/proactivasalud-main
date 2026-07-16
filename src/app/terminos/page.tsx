@@ -158,8 +158,8 @@ export default function TerminosPage() {
             <Section title="11. Contacto">
               <p>
                 Ante cualquier consulta sobre estos Términos, podés escribirnos a{' '}
-                <a href="mailto:hola@proactivasalud.com" className="text-brand font-semibold hover:underline">
-                  hola@proactivasalud.com
+                <a href="mailto:info@proactivasalud.com" className="text-brand font-semibold hover:underline">
+                  info@proactivasalud.com
                 </a>.
               </p>
             </Section>
