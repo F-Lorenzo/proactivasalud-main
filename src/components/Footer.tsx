@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Heart } from 'lucide-react'
+import { Heart, MessageCircle, Mail } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export function Footer() {
@@ -58,6 +58,24 @@ export function Footer() {
             <p className="text-white/40 text-[13px] leading-relaxed max-w-[22ch]">
               Bienestar integral {t.footer.tagline}. Human Care Platform.
             </p>
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://wa.me/5491176781555"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-white/45 text-[13px] hover:text-white transition-colors"
+              >
+                <MessageCircle size={14} aria-hidden />
+                +54 9 11 7678-1555
+              </a>
+              <a
+                href="mailto:info@proactivasalud.com"
+                className="inline-flex items-center gap-2 text-white/45 text-[13px] hover:text-white transition-colors"
+              >
+                <Mail size={14} aria-hidden />
+                info@proactivasalud.com
+              </a>
+            </div>
           </div>
 
           {/* Nav columns */}
