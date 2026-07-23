@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LANGUAGES, type Lang } from '@/lib/i18n'
 
@@ -7,22 +8,28 @@ export function LanguageSwitcher() {
   const { lang, setLang } = useLanguage()
 
   return (
-    <div className="flex items-center gap-1" aria-label="Seleccionar idioma">
-      {(Object.entries(LANGUAGES) as [Lang, { label: string; code: string }][]).map(
-        ([langCode, { label, code }]) => (
+    <div className="flex items-center gap-1.5" aria-label="Seleccionar idioma">
+      {(Object.entries(LANGUAGES) as [Lang, { label: string; flagCode: string }][]).map(
+        ([langCode, { label, flagCode }]) => (
           <button
             key={langCode}
             onClick={() => setLang(langCode)}
             title={label}
             aria-label={label}
             aria-pressed={lang === langCode}
-            className={`rounded-full px-2 py-1 text-[12px] font-semibold tracking-wide transition-all duration-200 cursor-pointer flex-shrink-0 ${
+            className={`relative w-7 h-7 rounded-full overflow-hidden flex-shrink-0 transition-all duration-200 cursor-pointer ${
               lang === langCode
-                ? 'text-brand border-2 border-brand'
-                : 'text-muted/70 border-2 border-transparent hover:text-brand/70'
+                ? 'ring-2 ring-brand ring-offset-2 scale-110'
+                : 'ring-1 ring-black/10 opacity-55 hover:opacity-90'
             }`}
           >
-            {code}
+            <Image
+              src={`https://flagcdn.com/w80/${flagCode}.png`}
+              alt={label}
+              fill
+              sizes="28px"
+              className="object-cover"
+            />
           </button>
         )
       )}
