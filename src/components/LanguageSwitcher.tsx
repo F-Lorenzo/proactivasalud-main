@@ -17,7 +17,7 @@ export function LanguageSwitcher() {
             title={label}
             aria-label={label}
             aria-pressed={lang === langCode}
-            className={`relative w-7 h-7 rounded-full overflow-hidden flex-shrink-0 transition-all duration-200 cursor-pointer ${
+            className={`relative w-8 h-6 rounded-[3px] overflow-hidden flex-shrink-0 transition-all duration-200 cursor-pointer ${
               lang === langCode
                 ? 'ring-2 ring-brand ring-offset-2 scale-110'
                 : 'ring-1 ring-black/10 opacity-55 hover:opacity-90'
@@ -27,7 +27,7 @@ export function LanguageSwitcher() {
               src={`https://flagcdn.com/w80/${flagCode}.png`}
               alt={label}
               fill
-              sizes="28px"
+              sizes="32px"
               className="object-cover"
             />
           </button>
