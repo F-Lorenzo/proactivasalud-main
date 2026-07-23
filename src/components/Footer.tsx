@@ -44,7 +44,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         {/* Top grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-10 mb-12">
 
           {/* Brand */}
           <div className="col-span-2 lg:col-span-1 space-y-5">
@@ -58,24 +58,6 @@ export function Footer() {
             <p className="text-white/40 text-[13px] leading-relaxed max-w-[22ch]">
               Bienestar integral {t.footer.tagline}. Human Care Platform.
             </p>
-            <div className="flex flex-col gap-2">
-              <a
-                href="https://wa.me/5491176781555"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-white/45 text-[13px] hover:text-white transition-colors"
-              >
-                <MessageCircle size={14} aria-hidden />
-                +54 9 11 7678-1555
-              </a>
-              <a
-                href="mailto:info@proactivasalud.com"
-                className="inline-flex items-center gap-2 text-white/45 text-[13px] hover:text-white transition-colors"
-              >
-                <Mail size={14} aria-hidden />
-                info@proactivasalud.com
-              </a>
-            </div>
           </div>
 
           {/* Nav columns */}
@@ -98,6 +80,35 @@ export function Footer() {
               </ul>
             </div>
           ))}
+
+          {/* Contacto */}
+          <div>
+            <p className="text-white/25 text-[11px] font-semibold uppercase tracking-[0.14em] mb-4">
+              Contacto
+            </p>
+            <ul className="flex flex-col gap-2.5">
+              <li>
+                <a
+                  href="mailto:info@proactivasalud.com"
+                  className="inline-flex items-center gap-2 text-white/45 text-[13px] hover:text-white transition-colors"
+                >
+                  <Mail size={14} className="text-brand flex-shrink-0" aria-hidden />
+                  info@proactivasalud.com
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://wa.me/5491176781555"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-white/45 text-[13px] hover:text-white transition-colors"
+                >
+                  <MessageCircle size={14} className="text-brand flex-shrink-0" aria-hidden />
+                  +54 11 7678-1555
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Bottom bar */}
