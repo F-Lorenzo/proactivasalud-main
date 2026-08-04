@@ -3,16 +3,24 @@ import { readArticles, writeArticles, slugify, sanitizeBlocks } from '@/lib/arti
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { sanitizeTextStyle } from '@/lib/textStyles'
 import { stripRichText } from '@/lib/richText'
+import { withCors, corsPreflight } from '@/lib/cors'
+import { toPublicArticle } from '@/lib/publicArticle'
 import type { Article } from '@/lib/articles'
 
+// Public read — accepts either the internal id or the blog slug, so a PWA
+// can fetch a single article the same way /blog/[slug] does.
 export async function GET(
-  _req: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params
-  const article = (await readArticles()).find(a => a.id === id)
-  if (!article) return Response.json({ error: 'Not found' }, { status: 404 })
-  return Response.json(article)
+  const article = (await readArticles()).find(a => a.id === id || a.slug === id)
+  if (!article) return withCors(Response.json({ error: 'Not found' }, { status: 404 }))
+  return withCors(Response.json(toPublicArticle(article, request.nextUrl.origin)))
+}
+
+export async function OPTIONS() {
+  return corsPreflight()
 }
 
 export async function PUT(

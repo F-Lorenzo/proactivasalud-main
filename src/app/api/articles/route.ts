@@ -3,12 +3,22 @@ import { readArticles, writeArticles, slugify, sanitizeBlocks } from '@/lib/arti
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { sanitizeTextStyle } from '@/lib/textStyles'
 import { stripRichText } from '@/lib/richText'
+import { withCors, corsPreflight } from '@/lib/cors'
+import { toPublicArticle } from '@/lib/publicArticle'
 import type { Article } from '@/lib/articles'
 import { randomUUID } from 'crypto'
 
-export async function GET() {
+// Public read API — used by the site itself and by external clients (e.g. a
+// companion PWA) to read published blog content. Read-only, no auth, CORS
+// open to any origin: everything returned here is already public on /blog.
+export async function GET(request: NextRequest) {
   const articles = await readArticles()
-  return Response.json(articles)
+  const origin = request.nextUrl.origin
+  return withCors(Response.json(articles.map(a => toPublicArticle(a, origin))))
+}
+
+export async function OPTIONS() {
+  return corsPreflight()
 }
 
 export async function POST(request: NextRequest) {
