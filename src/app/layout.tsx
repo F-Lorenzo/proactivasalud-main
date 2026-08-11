@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Playfair_Display, Inter, Montserrat, Merriweather, Lora } from 'next/font/google'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { AutoTranslate } from '@/components/AutoTranslate'
+import { WhatsAppFloat } from '@/components/WhatsAppFloat'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -71,6 +72,7 @@ export default function RootLayout({
         <LanguageProvider>
           <AutoTranslate />
           {children}
+          <WhatsAppFloat />
         </LanguageProvider>
       </body>
     </html>

@@ -51,11 +51,11 @@ export function Footer() {
             <Image
               src="/ProActiva-NUEVA.png"
               alt="Proactiva Salud"
-              width={148}
-              height={44}
-              className="h-12 w-auto object-contain brightness-0 invert"
+              width={296}
+              height={88}
+              className="h-24 w-auto object-contain brightness-0 invert"
             />
-            <p className="text-white/40 text-[13px] leading-relaxed max-w-[22ch]">
+            <p className="text-white text-[13px] leading-relaxed max-w-[22ch]">
               Bienestar integral {t.footer.tagline}. Human Care Platform.
             </p>
           </div>
@@ -63,7 +63,7 @@ export function Footer() {
           {/* Nav columns */}
           {LINKS.map(({ title, links }) => (
             <div key={title}>
-              <p className="text-white/25 text-[11px] font-semibold uppercase tracking-[0.14em] mb-4">
+              <p className="text-white text-[11px] font-semibold uppercase tracking-[0.14em] mb-4">
                 {title}
               </p>
               <ul className="flex flex-col gap-2.5">
@@ -71,7 +71,7 @@ export function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-white/45 text-[13px] hover:text-white transition-colors"
+                      className="text-white text-[13px] hover:text-white/70 transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -83,14 +83,14 @@ export function Footer() {
 
           {/* Contacto */}
           <div>
-            <p className="text-white/25 text-[11px] font-semibold uppercase tracking-[0.14em] mb-4">
+            <p className="text-white text-[11px] font-semibold uppercase tracking-[0.14em] mb-4">
               Contacto
             </p>
             <ul className="flex flex-col gap-2.5">
               <li>
                 <a
                   href="mailto:info@proactivasalud.com"
-                  className="inline-flex items-center gap-2 text-white/45 text-[13px] hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 text-white text-[13px] hover:text-white/70 transition-colors"
                 >
                   <Mail size={14} className="text-brand flex-shrink-0" aria-hidden />
                   info@proactivasalud.com
@@ -101,7 +101,7 @@ export function Footer() {
                   href="https://wa.me/5491176781555"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-white/45 text-[13px] hover:text-white transition-colors"
+                  className="inline-flex items-center gap-2 text-white text-[13px] hover:text-white/70 transition-colors"
                 >
                   <MessageCircle size={14} className="text-brand flex-shrink-0" aria-hidden />
                   +54 11 7678-1555
@@ -113,10 +113,10 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/25 text-[12px]">
+          <p className="text-white text-[12px]">
             © {year} Proactiva Salud. {t.footer.copyright}
           </p>
-          <p className="text-white/25 text-[12px] flex items-center gap-1.5">
+          <p className="text-white text-[12px] flex items-center gap-1.5">
             Hecho con <Heart size={11} className="text-brand fill-brand" aria-hidden /> {t.footer.tagline}
           </p>
         </div>

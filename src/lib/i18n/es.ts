@@ -108,8 +108,8 @@ export const es = {
     link_solicitarDemo:        'Solicitar demo',
     link_nosotros:             'Nosotros',
     link_blog:                 'Blog',
-    link_privacidad:           'Privacidad',
-    link_terminos:             'Términos',
+    link_privacidad:           'Política de Privacidad',
+    link_terminos:             'Términos y Condiciones',
   },
 }
 
