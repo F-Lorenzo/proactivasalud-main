@@ -12,13 +12,6 @@ declare global {
 }
 
 function applyLang(target: string) {
-  if (target === 'es') {
-    if (!document.cookie.includes('googtrans=')) return
-    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
-    document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + location.hostname
-    window.location.reload()
-    return
-  }
   const tryTranslate = (attempts = 0) => {
     const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null
     if (select) {
