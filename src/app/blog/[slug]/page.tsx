@@ -3,7 +3,6 @@ import { ArticleImage as Image } from '@/components/ArticleImage'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
-import { TranslateWidget } from '@/components/TranslateWidget'
 import { readArticles } from '@/lib/articles'
 import { textStyleToCss } from '@/lib/textStyles'
 import { renderRichText, stripRichText } from '@/lib/richText'
@@ -49,7 +48,7 @@ export default async function ArticlePage({ params }: Props) {
         )}
 
         <article className="max-w-5xl mx-auto px-6 py-12">
-          <div className="flex items-center justify-between mb-8">
+          <div className="mb-8">
             <Link
               href="/blog"
               className="inline-flex items-center gap-1 text-brand text-sm font-semibold hover:opacity-80 transition-opacity"
@@ -59,7 +58,6 @@ export default async function ArticlePage({ params }: Props) {
               </svg>
               Volver al blog
             </Link>
-            <TranslateWidget />
           </div>
 
           <p className="text-muted text-sm mb-3">
