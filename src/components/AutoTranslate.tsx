@@ -11,7 +11,37 @@ declare global {
   }
 }
 
+const REVERT_GUARD_KEY = 'gt-reverting'
+
+function clearGoogTransCookie() {
+  const host = location.hostname
+  const bareHost = host.replace(/^www\./, '')
+  const domainVariants = ['', host, `.${host}`, bareHost, `.${bareHost}`]
+  for (const domain of new Set(domainVariants)) {
+    document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domain ? `; domain=${domain}` : ''}`
+  }
+}
+
 function applyLang(target: string) {
+  if (target === 'es') {
+    // Once translated, the widget's own combo box has no reliable "back to
+    // original" option — the only mechanism Google's script actually
+    // honors is clearing its googtrans cookie and reloading, so it re-reads
+    // the (now absent) cookie on the fresh load. The reverting flag is a
+    // one-shot guard: if the cookie somehow survives the clear (a stale
+    // domain/path variant we didn't cover), we still only reload once
+    // instead of looping forever.
+    if (sessionStorage.getItem(REVERT_GUARD_KEY)) {
+      sessionStorage.removeItem(REVERT_GUARD_KEY)
+      return
+    }
+    if (!document.cookie.includes('googtrans=')) return
+    clearGoogTransCookie()
+    sessionStorage.setItem(REVERT_GUARD_KEY, '1')
+    window.location.reload()
+    return
+  }
+  sessionStorage.removeItem(REVERT_GUARD_KEY)
   const tryTranslate = (attempts = 0) => {
     const select = document.querySelector('.goog-te-combo') as HTMLSelectElement | null
     if (select) {
