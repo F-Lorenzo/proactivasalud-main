@@ -36,9 +36,10 @@ function applyLang(target: string) {
  * Silently drives Google Translate for CMS content (blog posts have no
  * per-language variant, unlike the rest of the site's manually translated
  * UI strings) using the same site-wide language selector as the header
- * flags — so switching language anywhere on the site also translates blog
- * pages, instead of requiring the separate, disconnected per-page control
- * this replaced.
+ * flags. Mounted once in the root layout so it stays alive across
+ * client-side navigation — Google's own MutationObserver then picks up
+ * newly-rendered content (e.g. navigating into an article) without needing
+ * to re-run the translate call on every route change.
  */
 export function AutoTranslate() {
   const { lang } = useLanguage()
