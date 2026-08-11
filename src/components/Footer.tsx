@@ -40,7 +40,7 @@ export function Footer() {
   ]
 
   return (
-    <footer className="bg-navy py-16">
+    <footer translate="no" className="notranslate bg-navy py-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
         {/* Top grid */}
@@ -92,7 +92,7 @@ export function Footer() {
                   href="mailto:info@proactivasalud.com"
                   className="inline-flex items-center gap-2 text-white text-[13px] hover:text-white/70 transition-colors"
                 >
-                  <Mail size={14} className="text-brand flex-shrink-0" aria-hidden />
+                  <Mail size={14} className="text-[#25D366] flex-shrink-0" aria-hidden />
                   info@proactivasalud.com
                 </a>
               </li>
@@ -103,8 +103,8 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-white text-[13px] hover:text-white/70 transition-colors"
                 >
-                  <MessageCircle size={14} className="text-brand flex-shrink-0" aria-hidden />
-                  +54 11 7678-1555
+                  <MessageCircle size={14} className="text-[#25D366] flex-shrink-0" aria-hidden />
+                  <span className="text-[16px]">+54 11 7678-1555</span>
                 </a>
               </li>
             </ul>
