@@ -112,7 +112,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:pr-20">
           <p className="text-white text-[12px]">
             © {year} Proactiva Salud. {t.footer.copyright}
           </p>
