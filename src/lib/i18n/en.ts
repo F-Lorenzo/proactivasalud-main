@@ -19,7 +19,7 @@ export const en: Translations = {
     subtitle:      'Proactiva supports people 50+ with prevention programs, comprehensive health and human care to live more and better.',
     cta1:          'I am a 50+ person',
     cta2:          'For businesses and organizations',
-    socialTitle:   'More than 5,000 people',
+    socialTitle:   'More than 1,000 people',
     socialSub:     'have already accessed the Proactiva Salud platform',
     floatingTitle: 'Human and close support',
     floatingSub:   'Professionals + technology',

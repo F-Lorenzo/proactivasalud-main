@@ -17,7 +17,7 @@ export const es = {
     subtitle:      'Proactiva acompaña a las personas 50+ con programas de prevención, salud integral y apoyo humano para vivir más y mejor.',
     cta1:          'Soy una persona 50+',
     cta2:          'Para empresas y organizaciones',
-    socialTitle:   'Más de 5.000 personas',
+    socialTitle:   'Más de 1.000 personas',
     socialSub:     'ya accedieron a la plataforma de Proactiva Salud',
     floatingTitle: 'Acompañamiento humano y cercano',
     floatingSub:   'Profesionales + tecnología',

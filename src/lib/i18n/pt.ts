@@ -19,7 +19,7 @@ export const pt: Translations = {
     subtitle:      'Proactiva acompanha pessoas 50+ com programas de prevenção, saúde integral e apoio humano para viver mais e melhor.',
     cta1:          'Sou uma pessoa 50+',
     cta2:          'Para empresas e organizações',
-    socialTitle:   'Mais de 5.000 pessoas',
+    socialTitle:   'Mais de 1.000 pessoas',
     socialSub:     'já acessaram a plataforma da Proactiva Salud',
     floatingTitle: 'Acompanhamento humano e próximo',
     floatingSub:   'Profissionais + tecnologia',
