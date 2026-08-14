@@ -47,7 +47,7 @@ export function CtaSection() {
               className="flex flex-col gap-3 flex-shrink-0"
             >
               <motion.a
-                href="https://proactivasalud-b2-c.vercel.app/"
+                href="https://personas.proactivasalud.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
@@ -58,7 +58,7 @@ export function CtaSection() {
                 <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </motion.a>
               <motion.a
-                href="https://proactivasalud-b2-b.vercel.app/"
+                href="https://empresas.proactivasalud.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}

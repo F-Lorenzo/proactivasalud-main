@@ -8,8 +8,8 @@ import { Menu, X } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { LanguageSwitcher } from './LanguageSwitcher'
 
-const B2C = 'https://proactivasalud-b2-c.vercel.app/'
-const B2B = 'https://proactivasalud-b2-b.vercel.app/'
+const B2C = 'https://personas.proactivasalud.com/'
+const B2B = 'https://empresas.proactivasalud.com/'
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -70,7 +70,7 @@ export function Header() {
           <div className="hidden lg:flex items-center gap-3">
             <LanguageSwitcher />
             <motion.a
-              href="https://proactivasalud-b2-b.vercel.app/"
+              href={B2B}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
@@ -118,7 +118,7 @@ export function Header() {
                 </Link>
               ))}
               <a
-                href="https://proactivasalud-b2-b.vercel.app/"
+                href={B2B}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMenuOpen(false)}
