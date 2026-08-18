@@ -3,6 +3,7 @@ import { Playfair_Display, Inter, Montserrat, Merriweather, Lora } from 'next/fo
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { AutoTranslate } from '@/components/AutoTranslate'
 import { WhatsAppFloat } from '@/components/WhatsAppFloat'
+import { SITE_URL } from '@/lib/site'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -42,16 +43,43 @@ const lora = Lora({
 })
 
 export const metadata: Metadata = {
-  title: 'Proactiva Salud — Bienestar para la Generación Silver',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Proactiva Salud — Bienestar para la Generación Silver',
+    template: '%s — Proactiva Salud',
+  },
   description:
     'Programas de prevención, salud integral y apoyo humano para personas 50+ y organizaciones. Human Care Platform.',
   keywords:
     'bienestar, salud, mayores de 50, generación silver, prevención, Argentina',
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: 'Proactiva Salud',
     description: 'Bienestar, autonomía y calidad de vida en cada etapa.',
+    url: '/',
+    siteName: 'Proactiva Salud',
     type: 'website',
     locale: 'es_AR',
+    images: [
+      {
+        url: '/imagen-portada-proactiva.png',
+        width: 1200,
+        height: 630,
+        alt: 'Proactiva Salud — Human Care Platform',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Proactiva Salud',
+    description: 'Bienestar, autonomía y calidad de vida en cada etapa.',
+    images: ['/imagen-portada-proactiva.png'],
   },
 }
 

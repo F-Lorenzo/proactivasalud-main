@@ -17,9 +17,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const article = (await readArticles()).find(a => a.slug === slug)
   if (!article) return {}
+  const title = stripRichText(article.title)
+  const description = stripRichText(article.excerpt)
   return {
-    title: `${stripRichText(article.title)} — Proactiva Salud`,
-    description: stripRichText(article.excerpt),
+    title,
+    description,
+    alternates: { canonical: `/blog/${article.slug}` },
+    openGraph: {
+      url: `/blog/${article.slug}`,
+      title: `${title} — Proactiva Salud`,
+      description,
+      type: 'article',
+      publishedTime: article.publishedAt,
+      images: article.coverImage ? [{ url: article.coverImage, width: 1200, height: 630, alt: title }] : undefined,
+    },
   }
 }
 

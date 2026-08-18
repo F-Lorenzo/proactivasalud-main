@@ -3,8 +3,10 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidad — Proactiva Salud',
+  title: 'Política de Privacidad',
   description: 'Política de Protección de Datos Personales de Gestar Salud S.R.L. (Proactiva Salud), conforme a la Ley 25.326 de Protección de Datos Personales.',
+  alternates: { canonical: '/privacidad' },
+  openGraph: { url: '/privacidad', title: 'Política de Privacidad — Proactiva Salud' },
 }
 
 const EFFECTIVE_DATE = '1 de septiembre de 2026'

@@ -6,9 +6,11 @@ import { Footer } from '@/components/Footer'
 import { Heart, Users, ShieldCheck, Sparkles } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Nosotros — Proactiva Salud',
+  title: 'Nosotros',
   description:
     'Conocé al equipo de Proactiva Salud: profesionales comprometidos con la prevención y el bienestar integral para mayores de 50.',
+  alternates: { canonical: '/quienes-somos' },
+  openGraph: { url: '/quienes-somos', title: 'Nosotros — Proactiva Salud' },
 }
 
 const VALUES = [

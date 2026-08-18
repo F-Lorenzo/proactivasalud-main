@@ -4,8 +4,10 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Términos y Condiciones — Proactiva Salud',
+  title: 'Términos y Condiciones',
   description: 'Términos y Condiciones de uso de la plataforma Proactiva Salud, operada por Gestar Salud S.R.L.',
+  alternates: { canonical: '/terminos' },
+  openGraph: { url: '/terminos', title: 'Términos y Condiciones — Proactiva Salud' },
 }
 
 const LAST_UPDATED = '1 de septiembre de 2026'
