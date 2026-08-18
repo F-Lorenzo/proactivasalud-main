@@ -229,8 +229,16 @@ export default function TerminosPage() {
                 por parte del usuario. El perfil o cuenta de usuario creado es la cuenta personal y única
                 que acredita el registro en la plataforma, cuya información personal proporcionada por el
                 usuario a Proactiva Salud puede llegar a incluir nombre y apellido/s, número de
-                documento, fecha de nacimiento, dirección, teléfono, correo electrónico y demás
-                información requerida para la correcta identificación del mismo.
+                documento, fecha de nacimiento, dirección, teléfono, correo electrónico, estado de salud
+                previo y demás información requerida para la correcta identificación y atención
+                profesional del mismo.
+              </p>
+              <p>
+                Asimismo, cuando el usuario esté dentro de su perfil, y deba completar los datos
+                requeridos por la plataforma para configurar su estado de salud, los mismos deberán ser
+                fidedignos, no pudiendo incorporar datos falsos, a los efectos de obtener objetivos
+                desacertados que afecten la eficaz evolución del usuario. Por cuanto es responsabilidad
+                absoluta del usuario, los datos incorporados a dicho perfil.
               </p>
             </Section>
 
