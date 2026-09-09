@@ -77,7 +77,7 @@ export const es = {
     title:       'Nuestros pilares para',
     titleAccent: 'una vida plena',
     p1Title: 'Salud física',
-    p1Desc:  'Chequeos, prevención y seguimiento médico para mantener tu cuerpo activo y fuerte.',
+    p1Desc:  'Prevención y seguimiento para mantener tu cuerpo activo y fuerte.',
     p2Title: 'Salud emocional',
     p2Desc:  'Bienestar mental, manejo del estrés y fortaleza cognitiva para cada etapa.',
     p3Title: 'Nutrición',
