@@ -174,6 +174,13 @@ export function HeroSection() {
           </motion.div>
 
         </div>
+
+        {/* Positioning disclaimer */}
+        <div className="relative flex justify-center pb-12 lg:pb-16">
+          <span className="bg-brand text-white text-sm lg:text-base font-semibold text-center rounded-full px-6 py-3 lg:px-8">
+            &ldquo;{t.hero.disclaimer}&rdquo;
+          </span>
+        </div>
       </div>
     </section>
   )

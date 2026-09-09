@@ -23,6 +23,7 @@ export const pt: Translations = {
     socialSub:     'já acessaram a plataforma da Proactiva Salud',
     floatingTitle: 'Acompanhamento humano e próximo',
     floatingSub:   'Profissionais + tecnologia',
+    disclaimer:    'Isto não é telemedicina, não substituímos o atendimento médico, acompanhamos o bem-estar diário',
   },
   features: {
     f1Title: 'Abordagem preventiva',

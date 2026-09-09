@@ -21,6 +21,7 @@ export const es = {
     socialSub:     'ya accedieron a la plataforma de Proactiva Salud',
     floatingTitle: 'Acompañamiento humano y cercano',
     floatingSub:   'Profesionales + tecnología',
+    disclaimer:    'No es telemedicina, no reemplazamos la atención médica, acompañamos el bienestar diario',
   },
   features: {
     f1Title: 'Enfoque preventivo',

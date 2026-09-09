@@ -23,6 +23,7 @@ export const en: Translations = {
     socialSub:     'have already accessed the Proactiva Salud platform',
     floatingTitle: 'Human and close support',
     floatingSub:   'Professionals + technology',
+    disclaimer:    "This is not telemedicine — we don't replace medical care, we support your everyday wellbeing",
   },
   features: {
     f1Title: 'Preventive approach',
