@@ -49,26 +49,11 @@ function writeArticlesFs(articles: Article[]): void {
 
 async function fetchArticlesBlob(): Promise<Article[]> {
   try {
-    const { list, issueSignedToken, presignUrl } = await import('@vercel/blob')
+    const { get } = await import('@vercel/blob')
 
-    const { blobs } = await list({ prefix: BLOB_ARTICLES_PATH })
-    if (blobs.length === 0) return []
-
-    const signed = await issueSignedToken({
-      operations: ['get'],
-      pathname: BLOB_ARTICLES_PATH,
-      validUntil: Date.now() + 60_000,
-    })
-
-    const { presignedUrl } = await presignUrl(signed, {
-      operation: 'get',
-      pathname: BLOB_ARTICLES_PATH,
-      access: 'private',
-    })
-
-    const res = await fetch(presignedUrl)
-    if (!res.ok) return []
-    return (await res.json()) as Article[]
+    const result = await get(BLOB_ARTICLES_PATH, { access: 'private', useCache: false })
+    if (!result || result.statusCode !== 200) return []
+    return (await new Response(result.stream).json()) as Article[]
   } catch (err) {
     console.error('[readArticlesBlob]', err)
     return []
