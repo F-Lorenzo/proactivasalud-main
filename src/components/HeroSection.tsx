@@ -144,8 +144,8 @@ export function HeroSection() {
             {/* Main photo */}
             <div className="relative w-full max-w-[500px] rounded-[32px] overflow-hidden aspect-[4/5] shadow-2xl self-start mr-auto">
               <Image
-                src="/pareja-playa.png"
-                alt="Pareja disfrutando de la playa al atardecer"
+                src="/main_photo.jpg"
+                alt="Pareja caminando de la mano y riendo por la orilla del mar al atardecer"
                 fill
                 className="object-cover"
                 priority
