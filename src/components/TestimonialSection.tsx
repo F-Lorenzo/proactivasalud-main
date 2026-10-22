@@ -33,7 +33,7 @@ export function TestimonialSection() {
 
   return (
     <section
-      className="py-24 bg-ivory-dark"
+      className="py-24 bg-ivory-dark overflow-x-clip"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
