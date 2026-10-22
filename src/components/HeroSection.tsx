@@ -142,14 +142,14 @@ export function HeroSection() {
             />
 
             {/* Main photo */}
-            <div className="relative w-full max-w-[500px] rounded-[32px] overflow-hidden aspect-[4/5] shadow-2xl self-start mr-auto">
+            <div className="relative w-full max-w-[500px] rounded-[32px] overflow-hidden aspect-[4/5] shadow-2xl self-start mr-auto xl:w-[600px] xl:max-w-none xl:-ml-[100px] xl:aspect-[24/25]">
               <Image
                 src="/main_photo.jpg"
                 alt="Pareja caminando de la mano y riendo por la orilla del mar al atardecer"
                 fill
                 className="object-cover"
                 priority
-                sizes="(max-width:1024px) 0px, 500px"
+                sizes="(max-width:1024px) 0px, (max-width:1279px) 500px, 600px"
               />
               {/* Subtle vignette */}
               <div className="absolute inset-0 bg-gradient-to-t from-navy/20 via-transparent to-transparent pointer-events-none" />
@@ -159,7 +159,7 @@ export function HeroSection() {
             <motion.div
               animate={{ y: [0, -9, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute bottom-24 -left-8 bg-white/90 backdrop-blur-md rounded-2xl px-4 py-3.5 shadow-xl flex items-center gap-3 max-w-[220px]"
+              className="absolute bottom-24 -left-8 xl:-left-[132px] bg-white/90 backdrop-blur-md rounded-2xl px-4 py-3.5 shadow-xl flex items-center gap-3 max-w-[220px]"
             >
               <div className="w-10 h-10 bg-sage-pale rounded-xl flex items-center justify-center flex-shrink-0">
                 <HeartHandshake size={20} className="text-brand" />
