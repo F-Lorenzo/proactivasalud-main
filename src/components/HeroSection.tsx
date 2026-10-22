@@ -77,7 +77,7 @@ export function HeroSection() {
             <motion.div
               variants={fadeUp}
               transition={{ duration: 0.6, ease: [0.22,1,0.36,1] }}
-              className="flex flex-col sm:flex-row gap-4"
+              className="flex flex-col sm:flex-row sm:flex-wrap gap-4"
             >
               <motion.a
                 href="https://personas.proactivasalud.com/"
@@ -85,7 +85,7 @@ export function HeroSection() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center gap-2 bg-brand text-white px-8 py-4 rounded-full font-semibold text-[15px] hover:bg-brand-dark transition-colors shadow-sm group"
+                className="inline-flex items-center justify-center gap-2 bg-brand text-white px-8 py-4 rounded-full font-semibold text-[15px] sm:whitespace-nowrap hover:bg-brand-dark transition-colors shadow-sm group"
               >
                 {t.hero.cta1}
                 <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
@@ -96,7 +96,7 @@ export function HeroSection() {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center justify-center gap-2 border-2 border-navy/18 text-navy px-8 py-4 rounded-full font-semibold text-[15px] hover:border-brand hover:text-brand transition-colors"
+                className="inline-flex items-center justify-center gap-2 border-2 border-navy/18 text-navy px-8 py-4 rounded-full font-semibold text-[15px] sm:whitespace-nowrap hover:border-brand hover:text-brand transition-colors"
               >
                 {t.hero.cta2}
               </motion.a>
