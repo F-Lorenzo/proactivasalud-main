@@ -34,8 +34,8 @@ export function TestimonialSection() {
           >
             <div className="relative rounded-[32px] overflow-hidden aspect-[4/3] shadow-xl">
               <Image
-                src="/viejos-felices.png"
-                alt="Grupo de personas conversando y riendo al aire libre"
+                src="/friends-using-tablet-near-fence.jpg"
+                alt="Tres amigos sonriendo mientras miran una tablet al aire libre"
                 fill
                 className="object-cover"
                 sizes="(max-width:1024px) 100vw, 50vw"
