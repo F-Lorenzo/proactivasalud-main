@@ -8,7 +8,7 @@ import { Heart, Users, ShieldCheck, Sparkles } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'Nosotros',
   description:
-    'Conocé al equipo de Proactiva Salud: profesionales comprometidos con la prevención y el bienestar integral para mayores de 50.',
+    'Conocé al equipo de Proactiva Salud: profesionales comprometidos con la prevención y el bienestar integral de las personas que quieren vivir mejor.',
   alternates: { canonical: '/quienes-somos' },
   openGraph: { url: '/quienes-somos', title: 'Nosotros — Proactiva Salud' },
 }
@@ -96,8 +96,8 @@ export default function QuienesSomos() {
               />
             </div>
             <div className="absolute -bottom-6 left-6 sm:left-10 bg-white rounded-2xl px-6 py-4 shadow-elevated">
-              <p className="font-display text-3xl font-bold text-brand leading-none">+50</p>
-              <p className="font-body text-sm text-ink-mid mt-1">años, mejor calidad de vida</p>
+              <p className="font-display text-3xl font-bold text-brand leading-none">+1.000</p>
+              <p className="font-body text-sm text-ink-mid mt-1">personas que ya cuidan su bienestar</p>
             </div>
           </div>
         </section>

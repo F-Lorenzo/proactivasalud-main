@@ -45,13 +45,13 @@ const lora = Lora({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Proactiva Salud — Bienestar para la Generación Silver',
+    default: 'Proactiva Salud — Bienestar integral para vivir mejor',
     template: '%s — Proactiva Salud',
   },
   description:
-    'Programas de prevención, salud integral y apoyo humano para personas 50+ y organizaciones. Human Care Platform.',
+    'Programas de prevención, salud integral y apoyo humano para personas y organizaciones que quieren vivir mejor. Human Care Platform.',
   keywords:
-    'bienestar, salud, mayores de 50, generación silver, prevención, Argentina',
+    'bienestar integral, vida saludable, nutrición, movimiento, salud emocional, prevención, Argentina',
   alternates: {
     canonical: '/',
   },

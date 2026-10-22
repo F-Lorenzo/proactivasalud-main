@@ -141,7 +141,7 @@ export default async function ArticlePage({ params }: Props) {
               ¿Querés saber más sobre Proactiva Salud?
             </p>
             <p className="text-muted mb-6">
-              Descubrí nuestros programas de bienestar para la generación 50+.
+              Descubrí nuestros programas de bienestar para vivir mejor.
             </p>
             <Link
               href="/"

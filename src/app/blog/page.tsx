@@ -10,7 +10,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Blog',
-  description: 'Artículos sobre bienestar, salud y calidad de vida para la generación silver.',
+  description: 'Artículos sobre bienestar, salud y calidad de vida para vivir mejor a cualquier edad.',
   alternates: { canonical: '/blog' },
   openGraph: { url: '/blog', title: 'Blog — Proactiva Salud' },
 }

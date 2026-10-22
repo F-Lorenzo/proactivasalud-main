@@ -22,7 +22,7 @@ export async function NewsletterSection() {
               Vivir mejor, cada semana
             </h2>
             <p className="text-muted mt-2 max-w-md">
-              Consejos prácticos de nutrición, movimiento y bienestar emocional para la generación 50+.
+              Consejos prácticos de nutrición, movimiento y bienestar emocional para vivir mejor.
             </p>
           </div>
           <Link

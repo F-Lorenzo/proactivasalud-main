@@ -27,7 +27,7 @@ export function DualSection() {
             <div className="relative h-60 overflow-hidden">
               <Image
                 src="/hombre-laptop-celu.png"
-                alt="Persona 50+ usando la plataforma Proactiva en su celular"
+                alt="Persona usando la plataforma Proactiva en su celular"
                 fill
                 className="object-cover"
                 sizes="(max-width:1024px) 100vw, 50vw"
@@ -80,7 +80,7 @@ export function DualSection() {
             <div className="relative h-60 overflow-hidden">
               <Image
                 src="/portrait-of-a-cheerful-senior-businesswoman-sitting-at-office-desk.png"
-                alt="Empresaria senior sonriendo en su oficina"
+                alt="Mujer sonriendo en su oficina"
                 fill
                 className="object-cover"
                 sizes="(max-width:1024px) 100vw, 50vw"

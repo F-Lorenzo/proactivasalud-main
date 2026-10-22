@@ -3,14 +3,14 @@ export const PILLARS = [
     number: '01',
     title: 'Nutrición Saludable',
     icon: 'Utensils',
-    description: 'Comer bien después de los 50 no es hacer dieta. Es darle a tu cuerpo lo que necesita para tener energía, vitalidad y disfrutar cada comida.',
+    description: 'Comer bien no es hacer dieta. Es darle a tu cuerpo lo que necesita para tener energía, vitalidad y disfrutar cada comida.',
     benefits: [
       'Más energía y vitalidad en el día a día',
       'Masa muscular y movilidad preservadas',
       'Sistema inmune más fuerte',
       'Mejor salud emocional y concentración',
     ],
-    format: '2 teleconsultas/mes con nutricionista especializado +50',
+    format: '2 teleconsultas/mes con nutricionista especializado',
   },
   {
     number: '02',
@@ -19,7 +19,7 @@ export const PILLARS = [
     description: 'Moverte bien es tu mayor seguro de independencia. No se trata del gimnasio — se trata de que tu cuerpo te lleve adonde querés ir, sin dolor.',
     benefits: [
       'Más movilidad y equilibrio cotidiano',
-      'Prevención de caídas y lesiones',
+      'Prevención de lesiones y dolores',
       'Mejor descanso nocturno',
       'Mayor energía para disfrutar el día',
     ],
@@ -121,7 +121,7 @@ export const EMOTIONAL_HOOKS = [
   {
     icon: 'Heart',
     title: 'Disfrutar lo que importa',
-    description: 'Los nietos, los viajes, el tiempo con quien amás. Querés estar presente y con energía para todo eso.',
+    description: 'Tu familia, los viajes, el tiempo con quien amás. Querés estar presente y con energía para todo eso.',
   },
   {
     icon: 'Sparkles',

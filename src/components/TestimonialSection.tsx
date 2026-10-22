@@ -23,7 +23,7 @@ export function TestimonialSection() {
             <div className="relative rounded-[32px] overflow-hidden aspect-[4/3] shadow-xl">
               <Image
                 src="/viejos-felices.png"
-                alt="Adultos mayores felices usando Proactiva Salud en tablet"
+                alt="Grupo de personas conversando y riendo al aire libre"
                 fill
                 className="object-cover"
                 sizes="(max-width:1024px) 100vw, 50vw"
