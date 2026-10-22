@@ -91,9 +91,16 @@ export const en: Translations = {
     p5Desc:  'Community, bonds and belonging for a fuller, supported life.',
   },
   testimonial: {
-    quote: 'At Proactiva I found the support I needed to improve my health and enjoy every day more.',
-    name:  'Martha',
-    role:  'Proactiva user',
+    prev:  'Previous testimonial',
+    next:  'Next testimonial',
+    goTo:  'Show testimonial',
+    items: [
+      {
+        quote: 'At Proactiva I found the support I needed to improve my health and enjoy every day more.',
+        name:  'Martha, 68 years old',
+        role:  'Proactiva user',
+      },
+    ],
   },
   cta: {
     title:       'Live more and better.',

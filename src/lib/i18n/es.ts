@@ -89,9 +89,16 @@ export const es = {
     p5Desc:  'Comunidad, vínculos y pertenencia para una vida más plena y acompañada.',
   },
   testimonial: {
-    quote: 'En Proactiva encontré el apoyo que necesitaba para mejorar mi salud y disfrutar más cada día.',
-    name:  'Marta',
-    role:  'Usuaria de Proactiva',
+    prev:  'Testimonio anterior',
+    next:  'Testimonio siguiente',
+    goTo:  'Ver testimonio',
+    items: [
+      {
+        quote: 'En Proactiva encontré el apoyo que necesitaba para mejorar mi salud y disfrutar más cada día.',
+        name:  'Marta, 68 años',
+        role:  'Usuaria de Proactiva',
+      },
+    ],
   },
   cta: {
     title:       'Viví más y mejor.',
