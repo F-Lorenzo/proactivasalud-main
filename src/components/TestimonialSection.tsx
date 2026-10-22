@@ -1,18 +1,30 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
 import { useLanguage } from '@/contexts/LanguageContext'
 
+const AUTOPLAY_MS = 3000
+
 export function TestimonialSection() {
   const { t } = useLanguage()
   const reduceMotion = useReducedMotion()
   const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
 
   const { items, prev, next, goTo } = t.testimonial
   const count = items.length
+
+  // Advances on its own. Hover or keyboard focus pauses it, and any manual
+  // change restarts the timer because `index` is a dependency.
+  useEffect(() => {
+    if (count < 2 || paused || reduceMotion) return
+    const id = setTimeout(() => setIndex(i => (i + 1) % count), AUTOPLAY_MS)
+    return () => clearTimeout(id)
+  }, [index, count, paused, reduceMotion])
+
   if (count === 0) return null
 
   // The list can differ in length per language, so the index is wrapped on read.
@@ -20,7 +32,15 @@ export function TestimonialSection() {
   const go = (to: number) => setIndex((to + count) % count)
 
   return (
-    <section className="py-24 bg-ivory-dark">
+    <section
+      className="py-24 bg-ivory-dark"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={e => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setPaused(false)
+      }}
+    >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
