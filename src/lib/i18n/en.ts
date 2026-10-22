@@ -97,7 +97,7 @@ export const en: Translations = {
     items: [
       {
         quote: 'At Proactiva I found the support I needed to improve my health and enjoy every day more.',
-        name:  'Martha, 68 years old',
+        name:  'Martha, 53 years old',
         role:  'Proactiva user',
       },
       {

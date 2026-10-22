@@ -95,7 +95,7 @@ export const es = {
     items: [
       {
         quote: 'En Proactiva encontré el apoyo que necesitaba para mejorar mi salud y disfrutar más cada día.',
-        name:  'Marta, 68 años',
+        name:  'Marta, 53 años',
         role:  'Usuaria de Proactiva',
       },
       {
