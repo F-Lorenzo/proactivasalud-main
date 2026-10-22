@@ -49,10 +49,10 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-1 space-y-5">
             <Image
-              src="/ProActiva-NUEVA.png"
+              src="/LOGO_sept.png"
               alt="Proactiva Salud"
-              width={296}
-              height={88}
+              width={500}
+              height={200}
               className="h-24 w-auto object-contain brightness-0 invert"
             />
             <p className="text-white text-[13px] leading-relaxed max-w-[22ch]">

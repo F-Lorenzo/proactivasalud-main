@@ -44,11 +44,11 @@ export function Header() {
           {/* ── Logo ── */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0">
             <Image
-              src="/ProActiva-NUEVA.png"
+              src="/LOGO_sept.png"
               alt="Proactiva Salud"
-              width={296}
-              height={88}
-              className="h-[6.5rem] w-auto object-contain"
+              width={500}
+              height={200}
+              className="h-[5.25rem] w-auto object-contain"
               priority
             />
           </Link>
