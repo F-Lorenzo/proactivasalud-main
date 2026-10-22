@@ -100,6 +100,16 @@ export const en: Translations = {
         name:  'Martha, 68 years old',
         role:  'Proactiva user',
       },
+      {
+        quote: 'With Proactiva I started to give more importance to my wellbeing. Between work and responsibilities, I always put my health off for later. What I value most is having professionals who guide me and support me in building healthy habits into my routine, without complications.',
+        name:  'Fabián, 47 years old',
+        role:  'Proactiva user',
+      },
+      {
+        quote: "What I like most about Proactiva is feeling that I'm not alone when I want to improve my habits. I can organize myself better, get professional guidance and set aside time for myself. It's a simple and practical way to take care of my wellbeing day to day.",
+        name:  'Carolina, 33 years old',
+        role:  'Proactiva user',
+      },
     ],
   },
   cta: {

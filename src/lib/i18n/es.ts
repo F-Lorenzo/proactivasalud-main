@@ -98,6 +98,16 @@ export const es = {
         name:  'Marta, 68 años',
         role:  'Usuaria de Proactiva',
       },
+      {
+        quote: 'Con Proactiva empecé a darle más importancia a mi bienestar. Entre el trabajo y las responsabilidades, siempre dejaba mi salud para después. Lo que más valoro es tener profesionales que me orientan y me acompañan para incorporar hábitos saludables a mi rutina, sin complicaciones.',
+        name:  'Fabián, 47 años',
+        role:  'Usuario de Proactiva',
+      },
+      {
+        quote: 'Lo que más me gusta de Proactiva es sentir que no estoy sola cuando quiero mejorar mis hábitos. Puedo organizarme mejor, recibir orientación profesional y dedicarme un tiempo a mí misma. Es una forma simple y práctica de cuidar mi bienestar en el día a día.',
+        name:  'Carolina, 33 años',
+        role:  'Usuaria de Proactiva',
+      },
     ],
   },
   cta: {
